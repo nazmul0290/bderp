@@ -12,7 +12,7 @@ const index = () => {
   return (
     <footer className="bg-[#eef9ff] py-16">
       <section className="container px-2 m-auto">
-        <div className="flex flex-col justify-between space-x-0 space-y-4 md:space-y-0 md:space-x-5">
+        <div className="flex flex-col justify-between space-x-0 space-y-4 md:flex-row md:space-y-0 md:space-x-5">
           <div className="md:w-1.5/4">
             <div>
               <Image
