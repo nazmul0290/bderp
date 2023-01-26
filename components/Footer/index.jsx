@@ -11,12 +11,12 @@ import LanguageIcon from "@mui/icons-material/Language";
 const index = () => {
   return (
     <footer className="bg-[#eef9ff] py-16">
-      <section className="container m-auto">
-        <div className="flex justify-between space-x-5">
+      <section className="container px-2 m-auto">
+        <div className="flex flex-col justify-between space-x-0 space-y-4 md:space-y-0 md:space-x-5">
           <div className="md:w-1.5/4">
             <div>
               <Image
-                className="w-[150px]"
+                className="md:w-[150px] w-28"
                 src="/img/header/ERP-Logo.png"
                 alt="Logo"
                 width={300}
@@ -114,26 +114,26 @@ const index = () => {
                 </address>
               </div>
             </div>
-            <ul className="flex mt-5 space-x-2 md:space-x-5 lg:space-x-10">
+            <ul className="flex mt-5 space-x-2 md:space-x-5 lg:space-x-10 ">
               <li className="text-[#417ee7] p-3 bg-white flex items-center justify-center rounded-full">
                 <Link href="/">
-                  <FacebookOutlinedIcon fontSize="large" />
+                  <FacebookOutlinedIcon fontSize="medium" />
                 </Link>
               </li>
               <li className="flex items-center justify-center p-3 bg-white rounded-full ">
                 <Link href="/">
-                  <TwitterIcon fontSize="large" />
+                  <TwitterIcon fontSize="medium" />
                 </Link>
               </li>
               <li className="flex items-center justify-center p-3 bg-white rounded-full ">
                 <Link href="/">
-                  <LanguageIcon fontSize="large" />
+                  <LanguageIcon fontSize="medium" />
                 </Link>
               </li>
             </ul>
           </div>
         </div>
-        <div className="mt-10 text-[#8f9aa8] flex justify-between items-center">
+        <div className="mt-10 text-[#8f9aa8] flex md:flex-row-reverse space-y-5 md:space-y-0 justify-between items-center flex-col">
           <div>
             <p>2020 copyright all right reserved</p>
           </div>
