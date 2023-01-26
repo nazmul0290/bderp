@@ -1,5 +1,8 @@
+import BusinessGrowth from "@/components/home/BusinessGrowth";
+import HeroInput from "@/components/home/HeroInput";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -12,7 +15,45 @@ export default function Home() {
       </Head>
 
       <Layout>
-        <section className="">Hello</section>
+        <section
+          className="bg-cover"
+          style={{
+            backgroundImage: "url('/img/home/SB-phone-system-hero-bg.png')",
+          }}
+        >
+          <div className="container px-4 py-20 mx-auto">
+            <div className="flex justify-between">
+              <div className="w-full md:w-1/2">
+                <div>
+                  <p className="text-gray-900 md:text-4xl sm:text-xl">
+                    {" "}
+                    Let Us Help You To .{" "}
+                  </p>
+                  <p className="md:text-4xl text-2xl font-bold text-[#417ee7]  leading-10 mt-2">
+                    Grow Your Business!
+                  </p>
+                  <p className="mt-2 font-medium text-gray-600">
+                    Simply Save Time & Money With BD ERP
+                  </p>
+                </div>
+                <div className="mt-3">
+                  <HeroInput />
+                </div>
+              </div>
+              <div className="self-center hidden w-1/2 lg:block">
+                <Image
+                  src="/img/home/Hero-Image.png"
+                  alt="Hero-Image"
+                  className="w-full"
+                  width={700}
+                  height={700}
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <BusinessGrowth />
       </Layout>
     </>
   );

@@ -11,7 +11,7 @@ const index = () => {
 
   return (
     <>
-      <header className={` shadow-md py-1 md:py-3 `}>
+      <header className={` shadow-md z-30 py-1 md:py-3 `}>
         <nav className="container flex flex-wrap items-center justify-between w-full px-4 py-4 m-auto text-lg text-gray-700 bg-white md:py-0">
           <div>
             <Link href="/">
@@ -37,7 +37,7 @@ const index = () => {
               <MenuIcon fontSize="medium" />
             )}
           </button>
-          <div className="hidden w-full md:flex md:items-center md:w-auto">
+          <div className="hidden w-full md:flex md:items-center md:w-auto ">
             <ul className="pt-4 font-semibold text-primary md:flex md:justify-between md:items-center md:pt-0">
               <li className="block py-2 md:p-2 lg:p-4">
                 <Link
@@ -99,7 +99,7 @@ const index = () => {
         leaveTo="-translate-x-full"
       >
         <div
-          className={` h-screen absolute top-0 bg-white w-full border-t-2 border-primary md:hidden`}
+          className={` z-50 h-screen absolute top-0 bg-white w-full border-t-2 border-primary md:hidden`}
         >
           <ul className="px-4 pt-4 font-semibold text-primary md:flex md:justify-between md:items-center md:pt-0">
             <li className="block py-2 md:p-2 lg:p-4">
