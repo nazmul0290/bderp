@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { Button, Grid } from "@mui/material";
+import { Button } from "@mui/material";
 
 const HeroSection = () => {
   return (
@@ -62,7 +62,7 @@ const HeroSection = () => {
               <p className="mt-3 leading-2 text-primary ">
                 Simply Save Time & Money With BD ERP
               </p>
-              <Button className="w-full mt-4 py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec] ">
+              <Button className=" px-10 mt-4 py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec] ">
                 Get Started
               </Button>
             </div>

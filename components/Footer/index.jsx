@@ -25,7 +25,7 @@ const index = () => {
                 />
               </div>
               <div className="mt-5 ">
-                <div className="flex flex-col md:space-x-2 md:flex-row">
+                <div className="flex items-center space-x-2">
                   <span>
                     <MarkunreadIcon className="text-lg md:text-2xl text-primary" />
                   </span>
@@ -33,7 +33,7 @@ const index = () => {
                     emil.company@gmail.com
                   </p>
                 </div>
-                <div className="flex flex-col md:space-x-2 md:flex-row">
+                <div className="flex items-center space-x-2">
                   <span>
                     <LocalPhoneIcon className="text-lg md:text-2xl text-primary " />
                   </span>

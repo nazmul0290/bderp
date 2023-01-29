@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { Backdrop, Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import { Transition } from "@headlessui/react";
+
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 const index = ({ transparent }) => {
@@ -25,10 +26,10 @@ const index = ({ transparent }) => {
 
   return (
     <>
-      <nav
+      <header
         id="navbar"
         className={` ${transparent ? "bg-transparent" : "bg-[#eef9ff]"}  ${
-          sticky ? "navbar_scrolled navbar" : "navbar "
+          sticky ? "navbar_scrolled navbar " : "navbar "
         }`}
       >
         <div className="container">
@@ -179,7 +180,7 @@ const index = ({ transparent }) => {
             </Button>
           </li>
         </div>
-      </nav>
+      </header>
     </>
   );
 };

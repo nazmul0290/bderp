@@ -121,7 +121,7 @@ body {
 .animated_circle {
   
   background-color: #eef9ff;
-  clip-path: circle(700px at 91% 9%);
+  clip-path: circle(700px at 140% 10%);
   animation-name: circleEffect;
   animation-duration: 1s;
 }
@@ -137,10 +137,10 @@ body {
 
 @keyframes circleEffect {
   from {
-    clip-path: circle(100px at 91% 9%);
+    clip-path: circle(200px at 140% 10%);
   }
   to {
-    clip-path: circle(700px at 91% 9%);
+    clip-path: circle(700px at 140% 10%);
   }
 }
 
