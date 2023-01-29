@@ -55,7 +55,7 @@ body {
   
   &_scrolled {
     position: sticky;
-    background-color: #eef9ff;
+    background-color: #c2c4ff;
     animation-name: fadeInUp;
     animation-duration: 1s;
   }
@@ -121,58 +121,14 @@ body {
 .animated_circle {
   
   background-color: #eef9ff;
+  clip-path: circle(700px at 91% 9%);
   animation-name: circleEffect;
   animation-duration: 1s;
 }
 
-.rectanglePolygon {
-  background-color: rgb(38, 38, 241);
-  clip-path: polygon(0 0, 100% 0, 100% 46%, 0 71%);
-
-}
 
 
 
-.hero-block {
-  z-index: -10;
-  width: 100%;
-  height: 600px;
-  background: linear-gradient(150deg, #53f 15%, #05d5ff 70%, #a6ffcb 94%);
-  transform: skewY(-12deg);
-  transform-origin: 0;
-  position: absolute;
-  top: 0;
-
-  span {
-    height: 190px;
-    position: absolute;
-  }
-  span:nth-child(1) {
-    width: 33.3%;
-    width: calc(100%/3);
-    left: -16.66666%;
-    left: calc(calc(calc(100% / 3)/2) * -1);
-    background: #53f;
-  }
-  span:nth-child(2) {
-    width: 33.33%;
-    width: calc(100% /3);
-    top: 0;
-    left: 16.66666%;
-    left: calc(calc(100% / 3) / 2);
-    right: auto;
-    background: #4553ff;
-  }
-  span:nth-child(3 ) {
-    width: 33.33%;
-    width: calc(100% /3);
-
-    left: 49.999999%;
-    left: calc(calc(calc(100% / 3) / 2) + calc(100% / 3));
-    bottom: auto; 
-    background: #4f40ff;
-  }
-}
 
 
 
@@ -184,7 +140,7 @@ body {
     clip-path: circle(100px at 91% 9%);
   }
   to {
-    clip-path: circle(1900px at 91% 9%);
+    clip-path: circle(700px at 91% 9%);
   }
 }
 

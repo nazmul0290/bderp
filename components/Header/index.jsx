@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Backdrop, Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -18,6 +18,10 @@ const index = ({ transparent }) => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   });
+
+  const handleClose = () => {
+    setNavOpen((prev) => !prev);
+  };
 
   return (
     <>
@@ -99,10 +103,18 @@ const index = ({ transparent }) => {
             </li>
           </ul>
         </div>
+
         <div
           className={`${
             navOpen ? "block" : "hidden"
-          } z-50 h-screen fixed top-0 left-0  animated_circle w-full  border-primary md:hidden`}
+          }  h-screen fixed top-0 z-20  left-0   w-full   md:hidden backdrop-blur-sm `}
+          onClick={handleClose}
+        ></div>
+
+        <div
+          className={`${
+            navOpen ? "block" : "hidden"
+          }  h-screen fixed top-0 z-50  left-0  animated_circle w-full  md:hidden`}
         >
           <div className="container flex justify-between py-10 h-[70px] ">
             <Link href="/">
@@ -115,16 +127,11 @@ const index = ({ transparent }) => {
               />
             </Link>
 
-            <button
-              className="text-gray-800 md:hidden"
-              onClick={() => {
-                setNavOpen(!navOpen);
-              }}
-            >
+            <button className="text-gray-800 md:hidden" onClick={handleClose}>
               <CloseIcon fontSize="large" />
             </button>
           </div>
-          <ul className="px-4 pt-4 font-semibold text-primary md:flex md:justify-between md:items-center md:pt-0">
+          <ul className="px-4 pt-4 font-semibold bg-transparent text-primary md:flex md:justify-between md:items-center md:pt-0">
             <li className="block py-2 md:p-2 lg:p-4">
               <Link
                 className="block px-3 py-2 rounded-md text-primary hover:text-white border-primary hover:bg-primary"
@@ -167,7 +174,7 @@ const index = ({ transparent }) => {
             </li>
           </ul>
           <li className="block p-4 ">
-            <Button className="w-full py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec] ">
+            <Button className="w-full py-2 text-white rounded-md bg-[#1976d2] ">
               Login <ArrowForwardIcon className="ml-2" fontSize="small" />
             </Button>
           </li>
