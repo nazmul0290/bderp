@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { Button } from "@mui/material";
+import Link from "next/link";
 
 const HeroSection = () => {
   return (
@@ -15,7 +16,7 @@ const HeroSection = () => {
           <div
             className="w-1/2 h-full bg-[length:auto_100%] bg-no-repeat"
             style={{
-              backgroundImage: "url('/img/home/banner-right-bg.png')",
+              backgroundImage: "url('/img/home/hero-image-demo.png')",
             }}
           ></div>
         </div>
@@ -30,7 +31,7 @@ const HeroSection = () => {
           <div
             className="w-full bg-top  h-[300px] flex justify-center items-center bg-contain  bg-no-repeat"
             style={{
-              backgroundImage: "url('/img/home/banner-right-bg.png')",
+              backgroundImage: "url('/img/home/hero-image-demo.jpg')",
             }}
           ></div>
         </div>
@@ -45,9 +46,14 @@ const HeroSection = () => {
               <p className="mt-4 leading-5 xl:mt-5 text-primary ">
                 Simply Save Time & Money With BD ERP
               </p>
-              <Button className="px-8 mt-4 xl:mt-5 py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec] ">
-                Get Started
-              </Button>
+              <Link href="/signup">
+                <Button
+                  variant="text"
+                  className="px-8 mt-4 xl:mt-5 py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec] "
+                >
+                  Get Started
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

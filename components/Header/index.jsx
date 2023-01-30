@@ -8,13 +8,13 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-const index = ({ transparent }) => {
+const index = ({ transparent, stickyNav }) => {
   const [sticky, setSticky] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setSticky(window.scrollY > 200);
+      setSticky(window.scrollY > 90);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -28,8 +28,14 @@ const index = ({ transparent }) => {
     <>
       <header
         id="navbar"
-        className={` ${transparent ? "bg-transparent" : "bg-[#eef9ff]"}  ${
-          sticky ? "navbar_scrolled navbar " : "navbar "
+        className={` ${
+          transparent ? "bg-transparent fixed" : "bg-[#c2c4ff]"
+        }  ${
+          sticky && stickyNav
+            ? "navbar_scrolled navbar fixed"
+            : transparent
+            ? "navbar"
+            : "navbar sticky"
         }`}
       >
         <div className="container">
@@ -59,7 +65,9 @@ const index = ({ transparent }) => {
           >
             <li className="block py-2 md:p-2 lg:p-4">
               <Link
-                className="py-2 duration-75 hover:border-b border-primary"
+                className={`${
+                  transparent && !sticky ? "border-white" : "border-primary"
+                } py-2 duration-75 hover:border-b `}
                 href="/"
               >
                 Home
@@ -67,7 +75,9 @@ const index = ({ transparent }) => {
             </li>
             <li className="block py-2 md:p-2 lg:p-4">
               <Link
-                className="py-2 duration-75 hover:border-b border-primary"
+                className={`${
+                  transparent && !sticky ? "border-white" : "border-primary"
+                } py-2 duration-75 hover:border-b `}
                 href="#"
               >
                 Service
@@ -75,7 +85,9 @@ const index = ({ transparent }) => {
             </li>
             <li className="block py-2 md:p-2 lg:p-4">
               <Link
-                className="py-2 duration-75 hover:border-b border-primary"
+                className={`${
+                  transparent && !sticky ? "border-white" : "border-primary"
+                } py-2 duration-75 hover:border-b `}
                 href="#"
               >
                 About Us
@@ -83,7 +95,9 @@ const index = ({ transparent }) => {
             </li>
             <li className="block py-2 md:p-2 lg:p-4">
               <Link
-                className="py-2 duration-75 hover:border-b border-primary"
+                className={`${
+                  transparent && !sticky ? "border-white" : "border-primary"
+                } py-2 duration-75 hover:border-b `}
                 href="#"
               >
                 Price
@@ -91,7 +105,9 @@ const index = ({ transparent }) => {
             </li>
             <li className="block py-2 md:p-2 lg:p-4">
               <Link
-                className="py-2 duration-75 hover:border-b border-primary"
+                className={`${
+                  transparent && !sticky ? "border-white" : "border-primary"
+                } py-2 duration-75 hover:border-b `}
                 href="#"
               >
                 Contact Us
@@ -105,6 +121,8 @@ const index = ({ transparent }) => {
           </ul>
         </div>
 
+        {/* Backdrop Blur */}
+
         <div
           className={`${
             navOpen ? "block" : "hidden"
@@ -112,27 +130,19 @@ const index = ({ transparent }) => {
           onClick={handleClose}
         ></div>
 
+        {/*  Mobile Navigation bar .  */}
         <div
           className={`${
             navOpen ? "block" : "hidden"
-          }  h-screen fixed top-0 z-50  left-0  animated_circle w-full  md:hidden`}
+          }  h-[70vh] fixed px-5 top-0 z-50  right-0  animated_circle w-2/3  md:hidden`}
         >
           <div className="container flex justify-between py-10 h-[70px] ">
-            <Link href="/">
-              <Image
-                className="w-20 md:w-24 lg:w-32"
-                src="/img/header/ERP-Logo.png"
-                alt="Logo"
-                width={300}
-                height={150}
-              />
-            </Link>
-
+            <div></div>
             <button className="text-gray-800 md:hidden" onClick={handleClose}>
               <CloseIcon fontSize="large" />
             </button>
           </div>
-          <ul className="px-4 pt-4 font-semibold bg-transparent text-primary md:flex md:justify-between md:items-center md:pt-0">
+          <ul className="px-4 pt-4 font-semibold text-center bg-transparent text-primary md:flex md:justify-between md:items-center md:pt-0">
             <li className="block py-2 md:p-2 lg:p-4">
               <Link
                 className="block px-3 py-2 rounded-md text-primary hover:text-white border-primary hover:bg-primary"
@@ -175,7 +185,10 @@ const index = ({ transparent }) => {
             </li>
           </ul>
           <li className="block p-4 ">
-            <Button className="w-full py-2 text-white rounded-md bg-[#1976d2] ">
+            <Button
+              variant="contained"
+              className="w-full py-2 text-white rounded-md bg-[#1976d2] "
+            >
               Login <ArrowForwardIcon className="ml-2" fontSize="small" />
             </Button>
           </li>

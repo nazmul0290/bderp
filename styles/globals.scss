@@ -44,20 +44,19 @@ body {
 }
 
 .navbar {
-  position: absolute;
   z-index: 500;
   left: 0;
   top: 0;
   width: 100%;
-  height: 70px;
+  height: 90px;
   display: flex;
   align-items: center;
+  transition-duration: 500ms;
   
   &_scrolled {
-    position: sticky;
-    background-color: #c2c4ff;
-    animation-name: fadeInUp;
-    animation-duration: 1s;
+
+    background-color: #c2c4fff6;
+
   }
   
   .container {
@@ -120,10 +119,11 @@ body {
 
 .animated_circle {
   
-  background-color: #eef9ff;
-  clip-path: circle(700px at 140% 10%);
+  background-color: #eef9ffea;
+  clip-path: circle(1200px at 90% 10%);
   animation-name: circleEffect;
-  animation-duration: 1s;
+  animation-duration: 500ms;
+  border-bottom-left-radius: 50% ;
 }
 
 
@@ -137,21 +137,11 @@ body {
 
 @keyframes circleEffect {
   from {
-    clip-path: circle(200px at 140% 10%);
+    clip-path: circle(100px at 90% 10%);
   }
   to {
-    clip-path: circle(700px at 140% 10%);
+    clip-path: circle(1200px at 90% 10%);
   }
 }
 
-@keyframes fadeInUp {
-  from {
 
-    top: -50px;
-  }
-  
-  to {
-
-    top: 0;
-  }
-}

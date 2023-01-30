@@ -2,7 +2,6 @@ import React from "react";
 import {
   ReactCompareSlider,
   ReactCompareSliderImage,
-  styleFitContainer,
   ReactCompareSliderHandle,
 } from "react-compare-slider";
 
@@ -15,9 +14,9 @@ const Comparison = () => {
             Overcome Business Challenges
           </h1>
         </div>
-        <div className="p-3 mt-10 border border-gray-400 rounded-md">
+        <div className="p-3 mt-10 rounded-md">
           <ReactCompareSlider
-            boundsPadding={40}
+            boundsPadding={30}
             handle={
               <ReactCompareSliderHandle
                 buttonStyle={{
@@ -26,7 +25,7 @@ const Comparison = () => {
                 }}
                 linesStyle={{
                   backgroundColor: "#000000",
-                  border: "2px solid #000000",
+                  border: "1px solid #999999",
                   boxShadow: "-1px 1px 15px 0px rgba(0,0,0,0.35)",
                 }}
               />

@@ -11,7 +11,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 const index = () => {
   return (
     <footer className="">
-      <section className=" bg-[#eef9ff] py-16">
+      <section className=" bg-[#c2c4ff] py-16">
         <div className="container px-2 m-auto">
           <div className="grid justify-between grid-cols-2 gap-5 lg:grid-cols-4 ">
             <div className="">
@@ -144,8 +144,8 @@ const index = () => {
           </div>
         </div>
       </section>
-      <section className="bg-[#c2c4ff]">
-        <div className="container flex flex-col items-center justify-center h-20 mx-auto space-y-5 text-sm lg:text-lg md:text-md text-primary md:justify-between md:flex-row md:space-y-0">
+      <section className="bg-[#1976d2]">
+        <div className="container flex flex-col items-center justify-center h-20 mx-auto space-y-5 text-sm text-white lg:text-lg md:text-md md:justify-between md:flex-row md:space-y-0">
           <div>
             <p>2020 copyright all right reserved</p>
           </div>
