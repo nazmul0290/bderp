@@ -29,13 +29,13 @@ const index = ({ transparent, stickyNav }) => {
       <header
         id="navbar"
         className={` ${
-          transparent ? "bg-transparent fixed" : "bg-[#c2c4ff]"
+          transparent ? "bg-transparent fixed" : "bg-[#c2c4ff] "
         }  ${
           sticky && stickyNav
             ? "navbar_scrolled navbar fixed"
             : transparent
             ? "navbar"
-            : "navbar sticky"
+            : "navbar sticky text-white"
         }`}
       >
         <div className="container">

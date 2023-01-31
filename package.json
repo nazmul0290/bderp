@@ -15,18 +15,24 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.6",
     "@next/font": "13.1.5",
+    "@reduxjs/toolkit": "^1.9.2",
     "autoprefixer": "^10.4.13",
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.5",
+    "formik": "^2.2.9",
+    "mui-tel-input": "^3.0.2",
     "next": "13.1.5",
     "postcss": "^8.4.21",
     "react": "18.2.0",
     "react-compare-slider": "^2.2.0",
     "react-dom": "18.2.0",
     "react-phone-number-input": "^3.2.16",
+    "react-redux": "^8.0.5",
+    "react-responsive-carousel": "^3.2.23",
     "react-scroll": "^1.8.9",
     "swiper": "^8.4.6",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "sass": "^1.57.1"

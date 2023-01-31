@@ -1,3 +1,5 @@
+import BusinessTypeWizard from "@/components/signup/BusinessTypeWizard";
+import PhoneNumberWizard from "@/components/signup/PhoneNumberWizard";
 import SignUpSection from "@/components/signup/SignUpSection";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
@@ -14,6 +16,8 @@ const signup = () => {
       </Head>
       <Layout>
         <SignUpSection />
+        {/* <BusinessTypeWizard /> */}
+        {/* <PhoneNumberWizard /> */}
       </Layout>
     </>
   );
