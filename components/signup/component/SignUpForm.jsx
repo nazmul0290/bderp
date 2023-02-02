@@ -2,7 +2,6 @@
 import React, { useState } from "react";
 import {
   Autocomplete,
-  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
@@ -18,42 +17,22 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Box } from "@mui/system";
 import { countries } from "@/lib/data";
-import { Formik, Form, useFormik } from "formik";
+import { useFormik } from "formik";
 import CheckIcon from "@mui/icons-material/Check";
-import * as yup from "yup";
+
 import {
   containsNumber,
   containsSpecialChars,
   containsUpperAndLowercase,
 } from "@/lib/passwordTester";
-
-const validationSchema = yup.object({
-  firstName: yup
-    .string("Enter your First Name")
-    .required("First Name is required"),
-  password: yup
-    .string("Enter your password")
-    .min(8, "Password should be of minimum 8 characters length")
-    .matches(
-      /^.*(?=.{8,})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-      "Password must contain at least 8 characters, one uppercase, one number and one special case character"
-    )
-    .required("Password is required"),
-  lastName: yup
-    .string("Enter Your last name")
-    .required("Last Name is required!"),
-  /*   countryName: yup
-    .object("Choose a country")
-    .required("Country should select. "), */
-  email: yup
-    .string()
-    .email("Must be a valid email")
-    .max(255)
-    .required("Email is required"),
-});
+import CustomTextField from "@/components/input/CustomTextField";
+import { signUpValidationSchema } from "@/utils/yupValidation";
+import CustomButton from "@/components/ui/CustomButton";
+import { useRouter } from "next/router";
 
 const SignUpForm = () => {
   const [showPassword, setShowPassword] = useState("false");
+  const router = useRouter();
 
   const formik = useFormik({
     initialValues: {
@@ -61,12 +40,28 @@ const SignUpForm = () => {
       lastName: "",
       password: "",
       email: "",
-      countryName: "",
+      countryName: { code: "BD", label: "Bangladesh", phone: "880" },
       companyName: "",
+      privacy_aggrement: false,
     },
-    validationSchema: validationSchema,
-    onSubmit: (values) => {
-      console.log(values);
+    validationSchema: signUpValidationSchema,
+    onSubmit: async (values) => {
+      const variables = {
+        first_name: values.firstName,
+        last_name: values.lastName,
+        email: values.email,
+        password: values.password,
+        password_confirmation: values.password,
+        privacy_aggrement: values.privacy_aggrement ? 1 : 0,
+      };
+
+      if (values.companyName) {
+        variables.company_name = values.companyName;
+      }
+
+      localStorage.setItem("register", JSON.stringify(variables));
+      router.push("/confirm-email");
+      formik.resetForm();
     },
   });
 
@@ -74,18 +69,13 @@ const SignUpForm = () => {
     setShowPassword((prev) => !prev);
   };
 
-  console.log(formik.values.password);
-
   return (
     <form className="mt-5" onSubmit={formik.handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
-          <TextField
+          <CustomTextField
             name="firstName"
-            fullWidth
-            id="firstName"
             label="First Name"
-            value={formik.values.firstName}
             onChange={formik.handleChange}
             error={formik.touched.firstName && Boolean(formik.errors.firstName)}
             helperText={formik.touched.firstName && formik.errors.firstName}
@@ -93,11 +83,8 @@ const SignUpForm = () => {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
-            variant="outlined"
+          <CustomTextField
             name="lastName"
-            fullWidth
-            id="lastName"
             label="Last Name"
             value={formik.values.lastName}
             onChange={formik.handleChange}
@@ -106,16 +93,13 @@ const SignUpForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            variant="outlined"
-            name="email"
-            fullWidth
+          <CustomTextField
             value={formik.values.email}
             onChange={formik.handleChange}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            id="email"
             type="email"
+            name="email"
             label="Email"
           />
         </Grid>
@@ -125,7 +109,14 @@ const SignUpForm = () => {
             options={countries}
             autoHighlight
             required
+            value={formik.values.countryName}
             name="countryName"
+            onChange={(event, newValue) => {
+              formik.setFieldValue("countryName", newValue);
+            }}
+            isOptionEqualToValue={(option, value) => {
+              option.code === formik.values.countryName?.code;
+            }}
             getOptionLabel={(option) => option.label}
             renderOption={(props, option) => (
               <Box
@@ -147,15 +138,15 @@ const SignUpForm = () => {
               <TextField
                 {...params}
                 label="Choose a country"
-                onChange={formik.handleChange}
                 name="countryName"
-                value={formik.values.countryName}
                 error={
                   formik.touched.countryName &&
                   Boolean(formik.errors.countryName)
                 }
                 helperText={
-                  formik.touched.countryName && formik.errors.countryName
+                  formik.touched.countryName &&
+                  formik.errors.countryName &&
+                  "Must Have to select a country."
                 }
                 inputProps={{
                   ...params.inputProps,
@@ -240,31 +231,34 @@ const SignUpForm = () => {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            variant="outlined"
+          <CustomTextField
             name="companyName"
-            fullWidth
-            id="companyName"
-            type="text"
+            value={formik.values.companyName}
+            onChange={formik.handleChange}
+            error={
+              formik.touched.companyName && Boolean(formik.errors.companyName)
+            }
+            helperText={formik.touched.companyName && formik.errors.companyName}
             label="Company Name  (Optional)"
           />
         </Grid>
         <Grid item xs={12}>
           <FormGroup>
             <FormControlLabel
-              control={<Checkbox defaultChecked />}
+              control={
+                <Checkbox
+                  name="privacy_aggrement"
+                  checked={formik.values.privacy_aggrement}
+                  onChange={formik.handleChange}
+                  defaultChecked
+                />
+              }
               label="I agree to tranzact Privacy Policy & Terms of Service"
             />
           </FormGroup>
         </Grid>
         <Grid item xs={12}>
-          <Button
-            type="submit"
-            variant="contained"
-            className="w-full py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec]"
-          >
-            Sign Up
-          </Button>
+          <CustomButton type="submit">Sign Up</CustomButton>
         </Grid>
       </Grid>
     </form>

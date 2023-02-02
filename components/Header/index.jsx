@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { Backdrop, Button } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -7,6 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import CustomButton from "../ui/CustomButton";
 
 const index = ({ transparent, stickyNav }) => {
   const [sticky, setSticky] = useState(false);
@@ -114,9 +114,9 @@ const index = ({ transparent, stickyNav }) => {
               </Link>
             </li>
             <li className="block py-2 md:p-2 lg:p-4">
-              <Button className="px-6 py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec] ">
+              <CustomButton>
                 Login <ArrowForwardIcon className="ml-2" fontSize="small" />
-              </Button>
+              </CustomButton>
             </li>
           </ul>
         </div>
@@ -185,12 +185,9 @@ const index = ({ transparent, stickyNav }) => {
             </li>
           </ul>
           <li className="block p-4 ">
-            <Button
-              variant="contained"
-              className="w-full py-2 text-white rounded-md bg-[#1976d2] "
-            >
+            <CustomButton>
               Login <ArrowForwardIcon className="ml-2" fontSize="small" />
-            </Button>
+            </CustomButton>
           </li>
         </div>
       </header>

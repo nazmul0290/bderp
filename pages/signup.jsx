@@ -16,8 +16,8 @@ const signup = () => {
       </Head>
       <Layout>
         <SignUpSection />
-        {/* <BusinessTypeWizard /> */}
-        {/* <PhoneNumberWizard /> */}
+
+        <PhoneNumberWizard />
       </Layout>
     </>
   );

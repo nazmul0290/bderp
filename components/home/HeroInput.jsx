@@ -8,7 +8,8 @@ import TapAndPlayIcon from "@mui/icons-material/TapAndPlay";
 import StoreIcon from "@mui/icons-material/Store";
 import QuickreplyIcon from "@mui/icons-material/Quickreply";
 import Image from "next/image";
-import Button from "../ui/Button";
+import Button from "../ui/CustomButton";
+import CustomButton from "../ui/CustomButton";
 
 const HeroInput = () => {
   return (
@@ -63,9 +64,7 @@ const HeroInput = () => {
               <option value="">What Type Of Business</option>
             </select>
           </Label>
-          <Button className="bg-[#f68f00] w-full mt-3 py-3 flex items-center justify-center hover:bg-[#f19c23]">
-            Submit
-          </Button>
+          <CustomButton>Submit</CustomButton>
         </form>
       </div>
       <div className="ml-2 -mt-6 md:ml-12 ">
