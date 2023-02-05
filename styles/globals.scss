@@ -132,6 +132,15 @@ body {
 }
 
 
+.PhoneInputInput {
+  padding: 10px 10px; 
+  border: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+
 
 .control-arrow.control-next {
   background-color: transparent;

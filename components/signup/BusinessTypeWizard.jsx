@@ -17,6 +17,7 @@ const BusinessTypeWizard = () => {
   const checkedCategory = useSelector((state) => state.checkbox.checkboxArr);
   const [companyName, setCompanyName] = useState("");
   const [name, setName] = useState("");
+  const [businessTypeError, setBusinessTypeError] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -44,13 +45,18 @@ const BusinessTypeWizard = () => {
   });
 
   const createAccount = async () => {
-    if (isEmpty(values.company_name)) {
-      setFieldTouched("company_name", true);
-      return setFieldError("company_name", "Company name is required!");
+    if (isEmpty(values.company_name) || isEmpty(checkedCategory)) {
+      if (isEmpty(values.company_name)) {
+        setFieldTouched("company_name", true);
+        setFieldError("company_name", "Company name is required!");
+      }
+      if (isEmpty(checkedCategory)) {
+        setBusinessTypeError(true);
+      }
+
+      return;
     }
-    if (isEmpty(checkedCategory)) {
-      return console.log("CategoryType is empty . Please select a category");
-    }
+
     const variables = {
       company_name: values.company_name,
       business_type_id: [...checkedCategory],
@@ -117,7 +123,14 @@ const BusinessTypeWizard = () => {
         </div>
         <div className="flex items-center justify-center mx-auto gap-5 mt-10 max-w-[700px] flex-wrap">
           {businessType.map((business) => {
-            return <CustomSelectOption business={business} key={business.id} />;
+            return (
+              <CustomSelectOption
+                businessTypeError={businessTypeError}
+                business={business}
+                key={business.id}
+                setBusinessTypeError={setBusinessTypeError}
+              />
+            );
           })}
         </div>
         <div className="flex justify-center mt-10 space-x-3">

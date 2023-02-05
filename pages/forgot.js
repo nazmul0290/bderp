@@ -1,11 +1,9 @@
-import BusinessTypeWizard from "@/components/signup/BusinessTypeWizard";
-import PhoneNumberWizard from "@/components/signup/PhoneNumberWizard";
-import SignUpSection from "@/components/signup/SignUpSection";
+import ForgotSection from "@/components/forgot/ForgotSection";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 import React from "react";
 
-const signup = () => {
+const forgot = () => {
   return (
     <>
       <Head>
@@ -15,10 +13,10 @@ const signup = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <SignUpSection />
+        <ForgotSection />
       </Layout>
     </>
   );
 };
 
-export default signup;
+export default forgot;

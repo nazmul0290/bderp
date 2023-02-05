@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import Headline from "../ui/Headline";
 import Paragraph from "../ui/Paragraph";
 import SingupStageWizard from "../ui/SingupStageWizard";
@@ -11,13 +11,19 @@ import {
   FormGroup,
   Grid,
 } from "@mui/material";
+import PhoneInput from "react-phone-number-input";
+import CustomButton from "../ui/CustomButton";
+import { useFormik } from "formik";
 
 const PhoneNumberWizard = () => {
-  const [phone, setPhone] = React.useState("");
+  const [value, setValue] = useState();
 
   const handleChange = (newPhone) => {
     setPhone(newPhone);
   };
+
+  console.log(value);
+
   return (
     <section className="py-10">
       <div className="container ">
@@ -87,23 +93,25 @@ const PhoneNumberWizard = () => {
           <div className="mt-5 ">
             <div className="max-w-[500px] mx-auto flex flex-col gap-6">
               <Grid item xs={12}>
-                <MuiTelInput fullWidth value={phone} onChange={handleChange} />
+                {/* <MuiTelInput fullWidth value={phone} onChange={handleChange} /> */}
+                <PhoneInput
+                  className="pl-3 overflow-hidden text-red-600 border border-red-600 rounded-md"
+                  international
+                  placeholder="Enter phone number"
+                  countryCallingCodeEditable={false}
+                  defaultCountry="BD"
+                  value={value}
+                  onChange={setValue}
+                />
               </Grid>
+
               <Grid item xs={12}>
-                <FormGroup>
-                  <FormControlLabel
-                    control={<Checkbox defaultChecked />}
-                    label="I agree to to recive Tranzaon Account related information on Whatsapp"
-                  />
-                </FormGroup>
-              </Grid>
-              <Grid item xs={12}>
-                <Button
+                <CustomButton
                   variant="contained"
                   className="w-full py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec]"
                 >
                   Send Code
-                </Button>
+                </CustomButton>
               </Grid>
             </div>
           </div>

@@ -1,11 +1,8 @@
-import BusinessTypeWizard from "@/components/signup/BusinessTypeWizard";
-import PhoneNumberWizard from "@/components/signup/PhoneNumberWizard";
-import SignUpSection from "@/components/signup/SignUpSection";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 import React from "react";
 
-const signup = () => {
+const about = () => {
   return (
     <>
       <Head>
@@ -14,11 +11,9 @@ const signup = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout>
-        <SignUpSection />
-      </Layout>
+      <Layout>Hello</Layout>
     </>
   );
 };
 
-export default signup;
+export default about;

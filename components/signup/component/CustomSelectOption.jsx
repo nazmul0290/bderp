@@ -4,17 +4,25 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import { useDispatch, useSelector } from "react-redux";
 import { addOrRemoveCheck } from "@/redux/resolvers/checkSlice";
 
-const CustomSelectOption = ({ business }) => {
+const CustomSelectOption = ({
+  business,
+  businessTypeError,
+  setBusinessTypeError,
+}) => {
   const checkedCategory = useSelector((state) => state.checkbox.checkboxArr);
   const dispatch = useDispatch();
 
   const saveCheckedCategory = () => {
     dispatch(addOrRemoveCheck(business.id));
+    setBusinessTypeError(false);
   };
+  console.log(businessTypeError);
 
   return (
     <div
-      className={`relative flex ease-in flex-col items-center justify-center h-48  hover:bg-[#c2c4ff] cursor-pointer   hover:text-white  border rounded-md shadow-md transition-all duration-100 w-48 ${
+      className={`${
+        businessTypeError ? "border-red-600" : ""
+      } relative flex ease-in flex-col items-center justify-center h-48  hover:bg-[#c2c4ff] cursor-pointer   hover:text-white  border rounded-md shadow-md transition-all duration-100 w-48 ${
         checkedCategory.includes(business.id) ? "border-[#c2c4ff] " : ""
       }`}
       onClick={saveCheckedCategory}

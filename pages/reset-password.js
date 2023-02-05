@@ -1,11 +1,9 @@
-import BusinessTypeWizard from "@/components/signup/BusinessTypeWizard";
-import PhoneNumberWizard from "@/components/signup/PhoneNumberWizard";
-import SignUpSection from "@/components/signup/SignUpSection";
+import ResetPasswordSection from "@/components/reset-password/ResetPasswordSection";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 import React from "react";
 
-const signup = () => {
+const ResetPasswordPage = () => {
   return (
     <>
       <Head>
@@ -15,10 +13,10 @@ const signup = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <SignUpSection />
+        <ResetPasswordSection />
       </Layout>
     </>
   );
 };
 
-export default signup;
+export default ResetPasswordPage;

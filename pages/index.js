@@ -8,7 +8,6 @@ import KeyFeature from "@/components/home/KeyFeature";
 import SolutionProcess from "@/components/home/SolutionProcess";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
-import Image from "next/image";
 
 export default function Home() {
   return (

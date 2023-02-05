@@ -1,11 +1,9 @@
-import BusinessTypeWizard from "@/components/signup/BusinessTypeWizard";
-import PhoneNumberWizard from "@/components/signup/PhoneNumberWizard";
-import SignUpSection from "@/components/signup/SignUpSection";
+import LoginSection from "@/components/login/LoginSection";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 import React from "react";
 
-const signup = () => {
+const login = () => {
   return (
     <>
       <Head>
@@ -15,10 +13,10 @@ const signup = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <SignUpSection />
+        <LoginSection />
       </Layout>
     </>
   );
 };
 
-export default signup;
+export default login;
