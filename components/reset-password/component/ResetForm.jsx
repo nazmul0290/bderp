@@ -1,4 +1,4 @@
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/components/ui/Button";
 import Headline from "@/components/ui/Headline";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {

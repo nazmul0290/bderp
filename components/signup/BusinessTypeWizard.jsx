@@ -8,7 +8,7 @@ import CustomSelectOption from "./component/CustomSelectOption";
 import { useSelector } from "react-redux";
 import { businessTypeValidationSchema } from "@/utils/yupValidation";
 import CustomTextField from "../input/CustomTextField";
-import CustomButton from "../ui/CustomButton";
+import CustomButton from "../ui/Button";
 import { businessType } from "@/lib/data";
 import isEmpty from "@/utils/is-empty";
 import { useRouter } from "next/router";

@@ -1,12 +1,9 @@
-import AuditSection from "@/components/about/AuditSection";
-import Hero from "@/components/about/Hero";
-import HeroInput from "@/components/about/HeroInput";
-import WhoWeAre from "@/components/about/WhoWeAre";
+import ContactCard from "@/components/contact-us/ContactCard";
+import Hero from "@/components/contact-us/Hero";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
-import React from "react";
 
-const about = () => {
+const ContactUsPage = () => {
   return (
     <>
       <Head>
@@ -17,12 +14,10 @@ const about = () => {
       </Head>
       <Layout>
         <Hero />
-        <WhoWeAre />
-        <AuditSection />
-        <HeroInput />
+        <ContactCard />
       </Layout>
     </>
   );
 };
 
-export default about;
+export default ContactUsPage;

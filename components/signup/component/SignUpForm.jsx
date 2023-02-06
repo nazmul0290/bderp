@@ -27,7 +27,7 @@ import {
 } from "@/lib/passwordTester";
 import CustomTextField from "@/components/input/CustomTextField";
 import { signUpValidationSchema } from "@/utils/yupValidation";
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/components/ui/Button";
 import { useRouter } from "next/router";
 
 const SignUpForm = () => {

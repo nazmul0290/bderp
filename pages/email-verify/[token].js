@@ -1,4 +1,4 @@
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/components/ui/Button";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";

@@ -1,10 +1,10 @@
 import React from "react";
 
-const Paragraph = (prorps) => {
+const Paragraph = ({ className, ...props }) => {
   return (
     <p
-      className="mt-2 text-sm font-medium text-primary lg:text-lg md:text-md"
-      {...prorps}
+      className={`${className} mt-2 text-sm font-medium text-primary lg:text-lg md:text-md`}
+      {...props}
     />
   );
 };

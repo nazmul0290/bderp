@@ -6,7 +6,8 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CustomButton from "../ui/CustomButton";
+import CustomButton from "../ui/Button";
+import Button from "../ui/Button";
 
 const index = ({ transparent, stickyNav }) => {
   const [sticky, setSticky] = useState(false);
@@ -114,9 +115,9 @@ const index = ({ transparent, stickyNav }) => {
               </Link>
             </li>
             <li className="block py-2 md:p-2 lg:p-4">
-              <CustomButton>
+              <Button href="/login">
                 Login <ArrowForwardIcon className="ml-2" fontSize="small" />
-              </CustomButton>
+              </Button>
             </li>
           </ul>
         </div>

@@ -1,5 +1,5 @@
 import CustomTextField from "@/components/input/CustomTextField";
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/components/ui/Button";
 import { loginYupValidation } from "@/utils/yupValidation";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {

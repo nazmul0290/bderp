@@ -2,7 +2,7 @@ import BusinessGrowth from "@/components/home/BusinessGrowth";
 import Comparison from "@/components/home/Comparison";
 import ExcelAlert from "@/components/home/ExcelAlert";
 import Features from "@/components/home/Features";
-import HeroInput from "@/components/home/HeroInput";
+import HeroInput from "@/components/about/HeroInput";
 import HeroSection from "@/components/home/HeroSection";
 import KeyFeature from "@/components/home/KeyFeature";
 import SolutionProcess from "@/components/home/SolutionProcess";

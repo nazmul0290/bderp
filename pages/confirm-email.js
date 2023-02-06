@@ -1,4 +1,4 @@
-import CustomButton from "@/components/ui/CustomButton";
+import CustomButton from "@/components/ui/Button";
 import Layout from "@/components/ui/Layout";
 import { secureEmail } from "@/utils/email";
 import Head from "next/head";

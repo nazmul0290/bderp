@@ -12,7 +12,7 @@ import {
   Grid,
 } from "@mui/material";
 import PhoneInput from "react-phone-number-input";
-import CustomButton from "../ui/CustomButton";
+import CustomButton from "../ui/Button";
 import { useFormik } from "formik";
 
 const PhoneNumberWizard = () => {

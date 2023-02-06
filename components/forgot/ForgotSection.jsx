@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import CustomTextField from "../input/CustomTextField";
-import CustomButton from "../ui/CustomButton";
+import CustomButton from "../ui/Button";
 import Headline from "../ui/Headline";
 import Paragraph from "../ui/Paragraph";
 
