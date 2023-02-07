@@ -1,11 +1,10 @@
-import AuditSection from "@/components/page-components/about/AuditSection";
-import Hero from "@/components/page-components/about/Hero";
-import WhoWeAre from "@/components/page-components/about/WhoWeAre";
+import SignUpSection from "@/components/page-components/signup/SignUpSection";
+
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 import React from "react";
 
-const about = () => {
+const signup = () => {
   return (
     <>
       <Head>
@@ -15,12 +14,10 @@ const about = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <Hero />
-        <WhoWeAre />
-        <AuditSection />
+        <SignUpSection />
       </Layout>
     </>
   );
 };
 
-export default about;
+export default signup;

@@ -1,11 +1,10 @@
-import AuditSection from "@/components/page-components/about/AuditSection";
-import Hero from "@/components/page-components/about/Hero";
-import WhoWeAre from "@/components/page-components/about/WhoWeAre";
+import FeatureSection from "@/components/page-components/feature/FeatureSection";
+import Hero from "@/components/page-components/feature/Hero";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 import React from "react";
 
-const about = () => {
+const feature = () => {
   return (
     <>
       <Head>
@@ -16,11 +15,10 @@ const about = () => {
       </Head>
       <Layout>
         <Hero />
-        <WhoWeAre />
-        <AuditSection />
+        <FeatureSection />
       </Layout>
     </>
   );
 };
 
-export default about;
+export default feature;

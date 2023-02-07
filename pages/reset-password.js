@@ -1,4 +1,4 @@
-import ResetPasswordSection from "@/components/reset-password/ResetPasswordSection";
+import ResetPasswordSection from "@/components/page-components/reset-password/ResetPasswordSection";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 import React from "react";

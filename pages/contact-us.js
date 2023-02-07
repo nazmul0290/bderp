@@ -1,5 +1,5 @@
-import ContactCard from "@/components/contact-us/ContactCard";
-import Hero from "@/components/contact-us/Hero";
+import ContactCard from "@/components/page-components/contact-us/ContactCard";
+import Hero from "@/components/page-components/contact-us/Hero";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 

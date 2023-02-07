@@ -1,4 +1,4 @@
-import PhoneNumberWizard from "@/components/signup/PhoneNumberWizard";
+import PhoneNumberWizard from "@/components/page-components/signup/PhoneNumberWizard";
 import Layout from "@/components/ui/Layout";
 import React from "react";
 
