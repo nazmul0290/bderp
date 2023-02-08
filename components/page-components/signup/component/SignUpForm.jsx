@@ -3,74 +3,61 @@ import React, { useEffect, useState } from "react";
 import {
   Autocomplete,
   Checkbox,
-  FormControl,
   FormControlLabel,
   FormGroup,
   Grid,
-  IconButton,
-  InputAdornment,
-  InputLabel,
-  OutlinedInput,
   TextField,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+
 import { Box } from "@mui/system";
 import { countries } from "@/lib/data";
 import { useFormik } from "formik";
-import CheckIcon from "@mui/icons-material/Check";
-
-import {
-  containsNumber,
-  containsSpecialChars,
-  containsUpperAndLowercase,
-} from "@/lib/passwordTester";
 
 import { signUpValidationSchema } from "@/utils/yupValidation";
 import { useRouter } from "next/router";
 import CustomTextField from "../../input/CustomTextField";
 import Button from "@/components/ui/Button";
-import { useCountries } from "@/lib/hooks/useHooks";
-import login from "@/pages/login";
+import { useLocalStorage } from "@/lib/hooks/useHooks";
+
 import PasswordInput from "@/components/global-components/inputs/PasswordInput";
+import DisplayError from "./DisplayError";
 
 const SignUpForm = () => {
-  const [showPassword, setShowPassword] = useState("false");
-  const [countryData, setCountryData] = useState([]);
-  const [allCountry] = useCountries("countries", countries);
+  const [allCountry] = useLocalStorage("countries", countries);
 
   const router = useRouter();
 
-  const { values, errors, handleChange, handleSubmit, touched } = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      password: "",
-      email: "",
-      countryName: { code: "BD", label: "Bangladesh", phone: "880" },
-      companyName: "",
-      privacy_aggrement: false,
-    },
-    validationSchema: signUpValidationSchema,
-    onSubmit: async (values) => {
-      const variables = {
-        first_name: values.firstName,
-        last_name: values.lastName,
-        email: values.email,
-        password: values.password,
-        password_confirmation: values.password,
-        privacy_aggrement: values.privacy_aggrement ? 1 : 0,
-      };
+  const { values, errors, handleChange, setFieldValue, handleSubmit, touched } =
+    useFormik({
+      initialValues: {
+        firstName: "",
+        lastName: "",
+        password: "",
+        email: "",
+        countryName: { code: "BD", label: "Bangladesh", phone: "880" },
+        companyName: "",
+        privacy_aggrement: false,
+      },
+      validationSchema: signUpValidationSchema,
+      onSubmit: async (values) => {
+        const variables = {
+          first_name: values.firstName,
+          last_name: values.lastName,
+          email: values.email,
+          password: values.password,
+          password_confirmation: values.password,
+          privacy_aggrement: values.privacy_aggrement ? 1 : 0,
+        };
 
-      if (values.companyName) {
-        variables.company_name = values.companyName;
-      }
+        if (values.companyName) {
+          variables.company_name = values.companyName;
+        }
 
-      localStorage.setItem("register", JSON.stringify(variables));
-      router.push("/confirm-email");
-      formik.resetForm();
-    },
-  });
+        localStorage.setItem("register", JSON.stringify(variables));
+        router.push("/confirm-email");
+        formik.resetForm();
+      },
+    });
 
   return (
     <form className="mt-5" onSubmit={handleSubmit}>
@@ -165,51 +152,7 @@ const SignUpForm = () => {
             label="Password"
             name="password"
           />
-          <div className="flex flex-col mt-5 space-y-1">
-            {values.password.length < 8 ? (
-              <div className="flex space-x-2 text-sm text-red-500">
-                <CloseIcon fontSize="small" /> <p>Use 8 or More Characters</p>
-              </div>
-            ) : (
-              <div className="flex space-x-2 text-sm text-green-500">
-                <CheckIcon fontSize="small" /> <p>Use 8 or More Characters</p>
-              </div>
-            )}
-
-            {containsUpperAndLowercase(values.password) ? (
-              <div className="flex space-x-2 text-sm text-green-500">
-                <CheckIcon fontSize="small" />{" "}
-                <p> Use Upper and Lower-Case Letters (e.g. Aa)</p>
-              </div>
-            ) : (
-              <div className="flex space-x-2 text-sm text-red-500">
-                <CloseIcon fontSize="small" />{" "}
-                <p> Use Upper and Lower-Case Letters (e.g. Aa)</p>
-              </div>
-            )}
-
-            {containsNumber(values.password) ? (
-              <div className="flex space-x-2 text-sm text-green-500">
-                <CheckIcon fontSize="small" /> <p>Use a Number (e.g. 1234)</p>
-              </div>
-            ) : (
-              <div className="flex space-x-2 text-sm text-red-500">
-                <CloseIcon fontSize="small" /> <p>Use a Number (e.g. 1234)</p>
-              </div>
-            )}
-
-            {containsSpecialChars(values.password) ? (
-              <div className="flex space-x-2 text-sm text-green-500">
-                <CheckIcon fontSize="small" />{" "}
-                <p>Use a Symbol (e.g. ! @ # $)</p>
-              </div>
-            ) : (
-              <div className="flex space-x-2 text-sm text-red-500">
-                <CloseIcon fontSize="small" />{" "}
-                <p>Use a Symbol (e.g. ! @ # $)</p>
-              </div>
-            )}
-          </div>
+          <DisplayError password={values.password} />
         </Grid>
         <Grid item xs={12}>
           <CustomTextField

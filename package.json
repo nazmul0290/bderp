@@ -26,10 +26,13 @@
     "react": "18.2.0",
     "react-compare-slider": "^2.2.0",
     "react-dom": "18.2.0",
+    "react-owl-carousel2": "^0.3.0",
     "react-phone-number-input": "^3.2.16",
     "react-redux": "^8.0.5",
     "react-responsive-carousel": "^3.2.23",
     "react-scroll": "^1.8.9",
+    "react-slick": "^0.29.0",
+    "slick-carousel": "^1.8.1",
     "swiper": "^8.4.6",
     "tailwindcss": "^3.2.4",
     "yup": "^0.32.11"

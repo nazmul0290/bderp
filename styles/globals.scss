@@ -153,3 +153,29 @@ body {
     background-color: none;
   }
 }
+
+
+
+// Slider Button Design modification 
+
+.control-arrow {
+  &.control-next, &.control-prev {
+    background: black !important;
+    height: 48px;
+    top: 50% !important;
+    &::before {
+      margin: 2px !important;
+      
+    }
+  }
+}
+
+
+// Pricing Table 
+
+.pricing_header_top {
+  @apply inline-block px-3 py-1 bg-white border border-blue-600 rounded-md   text-sm text-[#417ee7] font-light
+}
+.pricing_header_top_div {
+  @apply absolute left-0 w-full text-center -top-5
+}

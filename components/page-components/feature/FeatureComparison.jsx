@@ -1,12 +1,13 @@
 import ImageCompare from "@/components/global-components/ImageCompare";
 import React from "react";
 
-const Comparison = () => {
+const FeatureComparison = () => {
   return (
     <section className="py-10 bg-gray-200 md:py-20">
       <div className="container">
         <ImageCompare
-          title="Overcome Business Challenges"
+          title="Help Yourself By Using BD ERP Do You Know? "
+          subtitle="Mr. Sharif is a successful businessman. But..."
           imgUrlBefore="/img/home/before-bderp.jpg"
           imgUrlAfter="/img/home/after-bderp.jpg"
         />
@@ -15,4 +16,4 @@ const Comparison = () => {
   );
 };
 
-export default Comparison;
+export default FeatureComparison;

@@ -6,8 +6,35 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import CustomButton from "../ui/Button";
 import Button from "../ui/Button";
+
+const menus = [
+  {
+    id: "01",
+    menu: "Home",
+    url: "/",
+  },
+  {
+    id: "02",
+    menu: "Features",
+    url: "/feature",
+  },
+  {
+    id: "03",
+    menu: "About Us",
+    url: "/about",
+  },
+  {
+    id: "04",
+    menu: "Price",
+    url: "/price",
+  },
+  {
+    id: "05",
+    menu: "Contact Us",
+    url: "/contact-us",
+  },
+];
 
 const index = ({ transparent, stickyNav }) => {
   const [sticky, setSticky] = useState(false);
@@ -64,56 +91,21 @@ const index = ({ transparent, stickyNav }) => {
               transparent && !sticky ? "text-white" : " text-primary"
             } hidden pt-4 font-semibold  md:flex md:justify-between md:items-center md:pt-0`}
           >
-            <li className="block py-2 md:p-2 lg:p-4">
-              <Link
-                className={`${
-                  transparent && !sticky ? "border-white" : "border-primary"
-                } py-2 duration-75 hover:border-b `}
-                href="/"
-              >
-                Home
-              </Link>
-            </li>
-            <li className="block py-2 md:p-2 lg:p-4">
-              <Link
-                className={`${
-                  transparent && !sticky ? "border-white" : "border-primary"
-                } py-2 duration-75 hover:border-b `}
-                href="#"
-              >
-                Service
-              </Link>
-            </li>
-            <li className="block py-2 md:p-2 lg:p-4">
-              <Link
-                className={`${
-                  transparent && !sticky ? "border-white" : "border-primary"
-                } py-2 duration-75 hover:border-b `}
-                href="#"
-              >
-                About Us
-              </Link>
-            </li>
-            <li className="block py-2 md:p-2 lg:p-4">
-              <Link
-                className={`${
-                  transparent && !sticky ? "border-white" : "border-primary"
-                } py-2 duration-75 hover:border-b `}
-                href="#"
-              >
-                Price
-              </Link>
-            </li>
-            <li className="block py-2 md:p-2 lg:p-4">
-              <Link
-                className={`${
-                  transparent && !sticky ? "border-white" : "border-primary"
-                } py-2 duration-75 hover:border-b `}
-                href="#"
-              >
-                Contact Us
-              </Link>
-            </li>
+            {menus.map((menu) => {
+              return (
+                <li className="block py-2 md:p-2 lg:p-4" key={menu.id}>
+                  <Link
+                    className={`${
+                      transparent && !sticky ? "border-white" : "border-primary"
+                    } py-2 duration-75 hover:border-b `}
+                    href={menu.url}
+                  >
+                    {menu.menu}
+                  </Link>
+                </li>
+              );
+            })}
+
             <li className="block py-2 md:p-2 lg:p-4">
               <Button href="/login">
                 Login <ArrowForwardIcon className="ml-2" fontSize="small" />
@@ -135,61 +127,33 @@ const index = ({ transparent, stickyNav }) => {
         <div
           className={`${
             navOpen ? "block" : "hidden"
-          }  h-[70vh] fixed px-5 top-0 z-50  right-0  animated_circle w-2/3  md:hidden`}
+          }  h-[70vh] fixed  top-0 z-50  right-0  animated_circle w-2/3  md:hidden`}
         >
-          <div className="container flex justify-between py-10 h-[70px] ">
+          <div className="container flex justify-between py-10 h-[95px] ">
             <div></div>
             <button className="text-gray-800 md:hidden" onClick={handleClose}>
               <CloseIcon fontSize="large" />
             </button>
           </div>
-          <ul className="px-4 pt-4 font-semibold text-center bg-transparent text-primary md:flex md:justify-between md:items-center md:pt-0">
-            <li className="block py-2 md:p-2 lg:p-4">
-              <Link
-                className="block px-3 py-2 rounded-md text-primary hover:text-white border-primary hover:bg-primary"
-                href="/"
-              >
-                Home
-              </Link>
-            </li>
-            <li className="block py-2 md:p-2 lg:p-4">
-              <Link
-                className="block px-3 py-2 rounded-md text-primary hover:text-white border-primary hover:bg-primary"
-                href="#"
-              >
-                Service
-              </Link>
-            </li>
-            <li className="block py-2 md:p-2 lg:p-4">
-              <Link
-                className="block px-3 py-2 rounded-md text-primary hover:text-white border-primary hover:bg-primary"
-                href="#"
-              >
-                About Us
-              </Link>
-            </li>
-            <li className="block py-2 md:p-2 lg:p-4">
-              <Link
-                className="block px-3 py-2 rounded-md text-primary hover:text-white border-primary hover:bg-primary"
-                href="#"
-              >
-                Price
-              </Link>
-            </li>
-            <li className="block py-2 md:p-2 lg:p-4">
-              <Link
-                className="block px-3 py-2 rounded-md text-primary hover:text-white border-primary hover:bg-primary"
-                href="#"
-              >
-                Contact Us
-              </Link>
+          <ul className="px-10 font-semibold text-center bg-transparent text-primary md:flex md:justify-between md:items-center md:pt-0">
+            {menus.map((item) => {
+              return (
+                <li className="block py-2 md:p-2 lg:p-4" key={item.id}>
+                  <Link
+                    className="block px-3 py-2 rounded-md text-primary hover:text-white border-primary hover:bg-primary"
+                    href={item.url}
+                  >
+                    {item.menu}
+                  </Link>
+                </li>
+              );
+            })}
+            <li className="block ">
+              <Button fullWidth>
+                Login <ArrowForwardIcon className="ml-2" fontSize="small" />
+              </Button>
             </li>
           </ul>
-          <li className="block p-4 ">
-            <CustomButton>
-              Login <ArrowForwardIcon className="ml-2" fontSize="small" />
-            </CustomButton>
-          </li>
         </div>
       </header>
     </>

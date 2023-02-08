@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 const ConfirmEmailPage = () => {
   const [email, setEmail] = useState("");
   const router = useRouter();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const registerData = JSON.parse(localStorage.getItem("register"));
     if (registerData) {

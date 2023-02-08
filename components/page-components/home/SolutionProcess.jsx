@@ -1,3 +1,4 @@
+import { BDERP_solutionHelp } from "@/lib/data";
 import React from "react";
 import SolutionCard from "./component/SolutionCard";
 
@@ -14,18 +15,13 @@ const SolutionProcess = () => {
           </p>
         </div>
         <div className="grid grid-cols-1 gap-5 mt-5 md:mt-16 sm:grid-cols-3">
-          <SolutionCard
-            src="/img/home/solution-1.png"
-            content="FREE Sign up with our ERP solution software. Oue support team will give you short training on how to operate."
-          />
-          <SolutionCard
-            src="/img/home/solution-2.png"
-            content="Start Managing your sales, purchase inventory, accounting etc 100% accurate! alone or with minimal staff. "
-          />
-          <SolutionCard
-            src="/img/home/solution-3.png"
-            content="Reduce extra cost, minimize losses and focus on business! just Boom"
-          />
+          {BDERP_solutionHelp.map((solution) => (
+            <SolutionCard
+              key={solution.id}
+              src={solution.imgUrl}
+              content={solution.content}
+            />
+          ))}
         </div>
       </div>
     </section>

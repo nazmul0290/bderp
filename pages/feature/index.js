@@ -1,5 +1,8 @@
+import ExclusiveFeature from "@/components/page-components/feature/ExclusiveFeature";
+import FeatureComparison from "@/components/page-components/feature/FeatureComparison";
 import FeatureSection from "@/components/page-components/feature/FeatureSection";
 import Hero from "@/components/page-components/feature/Hero";
+import TableSection from "@/components/page-components/feature/TableSection";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 import React from "react";
@@ -16,6 +19,9 @@ const feature = () => {
       <Layout>
         <Hero />
         <FeatureSection />
+        <FeatureComparison />
+        <ExclusiveFeature />
+        <TableSection />
       </Layout>
     </>
   );

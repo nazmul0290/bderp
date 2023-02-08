@@ -1,5 +1,6 @@
+import { keyFeature } from "@/lib/data";
 import React from "react";
-import KeyFetureCard from "./component/KeyFetureCard";
+import DoneIcon from "@mui/icons-material/Done";
 
 const KeyFeature = () => {
   return (
@@ -11,27 +12,21 @@ const KeyFeature = () => {
           </h1>
         </div>
         <div className="grid gap-10 mt-5 sm:grid-cols-2 md:mt-14">
-          <KeyFetureCard
-            title="Lifetime FREE!"
-            subtitle="Understand every ERP software's features in details to zero in on the most suitable option."
-          />
-          <KeyFetureCard
-            title="Customized Modules "
-            subtitle="Choose any ERP module you want, we will ensure easy integration with your existing system or business."
-          />
-          <KeyFetureCard
-            title="Easy Implementation"
-            subtitle="Implementation time is reduces to help you get started right away. Very easy to learn and operate."
-          />
-          <KeyFetureCard
-            title="Expert Consultation"
-            subtitle="Software experts will guide you through the buying stages and help make the right purchase decision"
-          />
-
-          <KeyFetureCard
-            title="Premium Customer Support "
-            subtitle="Our Premium expert team will always wait to hear from you!. If you need help, our team will assist you quickly."
-          />
+          {keyFeature.map((feature) => (
+            <div className="flex items-baseline space-x-3" key={feature.id}>
+              <div className="text-[#115dde]">
+                <DoneIcon className="text-2xl lg:text-4xl md:text-3xl" />
+              </div>
+              <div>
+                <h1 className="text-[#115dde] font-semibold md:font-bold">
+                  {feature.title}
+                </h1>
+                <p className="text-sm font-semibold lg:text-md text-primary">
+                  {feature.content}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

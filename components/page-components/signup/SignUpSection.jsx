@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React, { useState } from "react";
 
 import Link from "next/link";
@@ -19,6 +18,7 @@ const SignUpSection = () => {
               showThumbs={false}
               showStatus={false}
               infiniteLoop={true}
+              showIndicators={false}
             >
               <TestimonialCard
                 avatar="/img/signup/temtimunial-1.png"

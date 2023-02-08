@@ -1,9 +1,9 @@
 import React from "react";
 
-const Headline = (props) => {
+const Headline = ({ className, ...props }) => {
   return (
     <h1
-      className="font-bold xl:text-2xl lg:text-xl md:text-lg text-primary"
+      className={`${className} font-bold xl:text-2xl lg:text-xl md:text-lg text-primary`}
       {...props}
     />
   );
