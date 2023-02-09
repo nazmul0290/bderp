@@ -56,3 +56,12 @@ export const addBusinessTypeInAccount = ({
     }
   );
 };
+
+export const updateUser = ({ userData, userUuid, token }) => {
+  return axios.put(`${backendUrl}/v1/users/${userUuid}`, userData, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
