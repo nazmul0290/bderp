@@ -16,7 +16,6 @@ const CustomSelectOption = ({
     dispatch(addOrRemoveCheck(business.id));
     setBusinessTypeError(false);
   };
-  console.log(businessTypeError);
 
   return (
     <div
@@ -32,14 +31,14 @@ const CustomSelectOption = ({
       >
         <div>
           <Image
-            src={business.img}
-            alt={business.category}
+            src="/img/signup/manufacturing.png"
+            alt={business.type_name}
             width={100}
             height={100}
           />
         </div>
         <div>
-          <h1> {business.category} </h1>
+          <h1> {business.type_name} </h1>
         </div>
       </div>
       {checkedCategory.includes(business.id) && (

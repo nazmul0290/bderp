@@ -27,3 +27,11 @@ export const emailVerify = ({
     }
   );
 };
+
+export const businessTypes = () => {
+  return axios.get(`${backendUrl}/v1/businesstypes`, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+};

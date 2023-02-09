@@ -19,9 +19,7 @@ export default function App({
   return (
     <QueryClientProvider client={queryClient}>
       <Provider store={store}>
-        <SessionProvider session={session}>
-          <Component {...pageProps} />
-        </SessionProvider>
+        <Component {...pageProps} />
       </Provider>
       <ToastContainer />
       <ReactQueryDevtools initialIsOpen={false} position="bottom-right" />

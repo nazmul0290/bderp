@@ -10,6 +10,7 @@ const PhoneNumberForm = () => {
         <PhoneInput
           country={"bd"}
           enableSearch
+          countryCodeEditable={false}
           dropdownStyle={{ textAlign: "left" }}
           inputStyle={{ width: "100%" }}
           value={phone}

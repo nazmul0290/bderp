@@ -86,7 +86,6 @@ const SignUpForm = () => {
         variables.company_name = values.company_name;
       }
 
-      console.log(variables);
       mutate(variables, {
         onSuccess: (data) => {
           if (data.data.data.user) {
@@ -155,7 +154,6 @@ const SignUpForm = () => {
             value={values.country}
             name="country"
             onChange={(event, newValue) => {
-              console.log(newValue);
               setFieldValue("country", newValue);
             }}
             isOptionEqualToValue={(option, value) => option.code === value.code}
