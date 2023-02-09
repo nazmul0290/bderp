@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import Button from "@/components/ui/Button";
 import Headline from "@/components/ui/Headline";
 import Paragraph from "@/components/ui/Paragraph";

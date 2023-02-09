@@ -26,7 +26,6 @@ const PhoneNumberForm = () => {
   const sendCodeHandler = (e) => {
     e.preventDefault();
 
-    console.log(phone);
     const variables = {
       ...phone,
       mobile_country_code: `+${phone.mobile_country_code}`,
