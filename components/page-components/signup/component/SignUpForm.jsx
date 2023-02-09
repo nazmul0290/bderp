@@ -3,11 +3,13 @@ import React, { useEffect, useState } from "react";
 import {
   Autocomplete,
   Checkbox,
+  FormControl,
   FormControlLabel,
   FormGroup,
   Grid,
   TextField,
 } from "@mui/material";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
 import { Box } from "@mui/system";
 import { countries } from "@/lib/data";
@@ -15,71 +17,121 @@ import { useFormik } from "formik";
 
 import { signUpValidationSchema } from "@/utils/yupValidation";
 import { useRouter } from "next/router";
-import CustomTextField from "../../input/CustomTextField";
+import CustomTextField from "../../../global-components/inputs/CustomTextField";
 import Button from "@/components/ui/Button";
 import { useLocalStorage } from "@/lib/hooks/useHooks";
 
 import PasswordInput from "@/components/global-components/inputs/PasswordInput";
 import DisplayError from "./DisplayError";
+import { useMutation, useQueryClient } from "react-query";
+import { toast } from "react-toastify";
+import { registration } from "@/utils/resolvers/mutation";
+import { getCountries } from "@/utils/resolvers/query";
+import Layout from "@/components/ui/Layout";
+import Head from "next/head";
+
+const initialValues = {
+  first_name: "",
+  last_name: "",
+  password: "",
+  email: "",
+  country: {
+    calling_code: "880",
+    country_name: "Bangladesh",
+    id: 19,
+    iso2: "BD",
+    iso3: "BGD",
+  },
+  company_name: "",
+  privacy_aggrement: false,
+};
 
 const SignUpForm = () => {
-  const [allCountry] = useLocalStorage("countries", countries);
-
+  const [allCountry] = useLocalStorage("countries", getCountries);
+  const [user, setUser] = useState();
+  const queryClient = useQueryClient();
   const router = useRouter();
+  const { mutate } = useMutation(registration);
 
-  const { values, errors, handleChange, setFieldValue, handleSubmit, touched } =
-    useFormik({
-      initialValues: {
-        firstName: "",
-        lastName: "",
-        password: "",
-        email: "",
-        countryName: { code: "BD", label: "Bangladesh", phone: "880" },
-        companyName: "",
-        privacy_aggrement: false,
-      },
-      validationSchema: signUpValidationSchema,
-      onSubmit: async (values) => {
-        const variables = {
-          first_name: values.firstName,
-          last_name: values.lastName,
-          email: values.email,
-          password: values.password,
-          password_confirmation: values.password,
-          privacy_aggrement: values.privacy_aggrement ? 1 : 0,
-        };
+  const {
+    values,
+    errors,
+    handleChange,
+    setFieldValue,
+    handleSubmit,
+    touched,
+    setFieldError,
+  } = useFormik({
+    initialValues,
+    validationSchema: signUpValidationSchema,
+    onSubmit: async (values) => {
+      if (!values.privacy_aggrement) {
+        return setFieldError(
+          "privacy_aggrement",
+          "The selected privacy aggrement is invalid."
+        );
+      }
 
-        if (values.companyName) {
-          variables.company_name = values.companyName;
-        }
+      const variables = {
+        first_name: values.first_name,
+        last_name: values.last_name,
+        email: values.email,
+        country: values.country.id,
+        password: values.password,
+        password_confirmation: values.password,
+        privacy_aggrement: values.privacy_aggrement ? 1 : 0,
+      };
 
-        localStorage.setItem("register", JSON.stringify(variables));
-        router.push("/confirm-email");
-        formik.resetForm();
-      },
-    });
+      if (values.company_name) {
+        variables.company_name = values.company_name;
+      }
+
+      console.log(variables);
+      mutate(variables, {
+        onSuccess: (data) => {
+          if (data.data.data.user) {
+            localStorage.setItem("BDERP_authToken", data.data.data.token);
+            localStorage.setItem(
+              "BDERP_register",
+              JSON.stringify(data.data.data.user)
+            );
+            router.push("/confirm-email");
+          }
+        },
+        onError: (err) => {
+          const errorData = err.response.data;
+
+          Object.keys(errorData.message).map((key) => {
+            setFieldError(key, errorData.message[key][0]);
+          });
+        },
+      });
+
+      formik.resetForm();
+    },
+  });
 
   return (
     <form className="mt-5" onSubmit={handleSubmit}>
       <Grid container spacing={2}>
         <Grid item xs={12} sm={6}>
           <CustomTextField
-            name="firstName"
+            name="first_name"
             label="First Name"
             onChange={handleChange}
-            error={touched.firstName && Boolean(errors.firstName)}
-            helperText={touched.firstName && errors.firstName}
+            error={touched.first_name && Boolean(errors.first_name)}
+            helperText={touched.first_name && errors.first_name}
             autoFocus
           />
         </Grid>
         <Grid item xs={12} sm={6}>
           <CustomTextField
-            name="lastName"
+            name="last_name"
             label="Last Name"
-            value={values.lastName}
+            value={values.last_name}
             onChange={handleChange}
-            error={touched.lastName && Boolean(errors.lastName)}
-            helperText={touched.lastName && errors.lastName}
+            error={touched.last_name && Boolean(errors.last_name)}
+            helperText={touched.last_name && errors.last_name}
           />
         </Grid>
         <Grid item xs={12}>
@@ -99,15 +151,15 @@ const SignUpForm = () => {
             options={allCountry}
             autoHighlight
             required
-            value={values.countryName}
-            name="countryName"
+            size="small"
+            value={values.country}
+            name="country"
             onChange={(event, newValue) => {
-              setFieldValue("countryName", newValue);
+              console.log(newValue);
+              setFieldValue("country", newValue);
             }}
-            isOptionEqualToValue={(option, value) => {
-              option.code === values.countryName?.code;
-            }}
-            getOptionLabel={(option) => option.label}
+            isOptionEqualToValue={(option, value) => option.code === value.code}
+            getOptionLabel={(option) => option.country_name}
             renderOption={(props, option) => (
               <Box
                 component="li"
@@ -117,27 +169,23 @@ const SignUpForm = () => {
                 <img
                   loading="lazy"
                   width="20"
-                  src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
-                  srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                  src={`https://flagcdn.com/w20/${option.iso2.toLowerCase()}.png`}
+                  srcSet={`https://flagcdn.com/w40/${option.iso2.toLowerCase()}.png 2x`}
                   alt=""
                 />
-                {option.label} ({option.code})
+                {option.country_name} ({option.iso2})
               </Box>
             )}
             renderInput={(params) => (
               <TextField
                 {...params}
                 label="Choose a country"
-                name="countryName"
-                error={touched.countryName && Boolean(errors.countryName)}
-                helperText={
-                  touched.countryName &&
-                  errors.countryName &&
-                  "Must Have to select a country."
-                }
+                name="country"
+                error={touched.country && Boolean(errors.country)}
+                helperText={touched.country && errors.country}
                 inputProps={{
                   ...params.inputProps,
-                  autoComplete: "new-password",
+                  autoComplete: "new-country",
                 }}
               />
             )}
@@ -156,28 +204,34 @@ const SignUpForm = () => {
         </Grid>
         <Grid item xs={12}>
           <CustomTextField
-            name="companyName"
-            value={values.companyName}
+            name="company_name"
+            value={values.company_name}
             onChange={handleChange}
-            error={touched.companyName && Boolean(errors.companyName)}
-            helperText={touched.companyName && errors.companyName}
+            error={touched.company_name && Boolean(errors.company_name)}
+            helperText={touched.company_name && errors.company_name}
             label="Company Name  (Optional)"
           />
         </Grid>
         <Grid item xs={12}>
-          <FormGroup>
+          <FormControl
+            errors={
+              touched.privacy_aggrement && Boolean(errors.privacy_aggrement)
+            }
+          >
             <FormControlLabel
               control={
                 <Checkbox
                   name="privacy_aggrement"
                   checked={values.privacy_aggrement}
                   onChange={handleChange}
-                  defaultChecked
                 />
               }
               label="I agree to tranzact Privacy Policy & Terms of Service"
             />
-          </FormGroup>
+            {touched.privacy_aggrement && (
+              <p className="text-sm text-red-600">{errors.privacy_aggrement}</p>
+            )}
+          </FormControl>
         </Grid>
         <Grid item xs={12}>
           <Button fullWidth variant="contained">

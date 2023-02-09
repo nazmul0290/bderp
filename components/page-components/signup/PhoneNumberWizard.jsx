@@ -1,25 +1,13 @@
 import Image from "next/image";
 import React, { useState } from "react";
 
-import { MuiTelInput } from "mui-tel-input";
-import { Checkbox, FormControlLabel, FormGroup, Grid } from "@mui/material";
-import PhoneInput from "react-phone-number-input";
-
-import { useFormik } from "formik";
 import SingupStageWizard from "@/components/ui/SingupStageWizard";
 import Headline from "@/components/ui/Headline";
 import Paragraph from "@/components/ui/Paragraph";
-import Button from "@/components/ui/Button";
+
+import PhoneNumberForm from "./component/PhoneNumberForm";
 
 const PhoneNumberWizard = () => {
-  const [value, setValue] = useState();
-
-  const handleChange = (newPhone) => {
-    setPhone(newPhone);
-  };
-
-  console.log(value);
-
   return (
     <section className="py-10">
       <div className="container ">
@@ -87,29 +75,7 @@ const PhoneNumberWizard = () => {
           </Headline>
 
           <div className="mt-5 ">
-            <div className="max-w-[500px] mx-auto flex flex-col gap-6">
-              <Grid item xs={12}>
-                {/* <MuiTelInput fullWidth value={phone} onChange={handleChange} /> */}
-                <PhoneInput
-                  className="pl-3 overflow-hidden text-red-600 border border-red-600 rounded-md"
-                  international
-                  placeholder="Enter phone number"
-                  countryCallingCodeEditable={false}
-                  defaultCountry="BD"
-                  value={value}
-                  onChange={setValue}
-                />
-              </Grid>
-
-              <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  className="w-full py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec]"
-                >
-                  Send Code
-                </Button>
-              </Grid>
-            </div>
+            <PhoneNumberForm />
           </div>
         </div>
       </div>

@@ -2,17 +2,35 @@ import CustomButton from "@/components/ui/Button";
 import Layout from "@/components/ui/Layout";
 import Head from "next/head";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { secureEmail } from "@/utils/email";
+import { useQuery } from "react-query";
+import { emailVerify } from "@/utils/resolvers/query";
+import Paragraph from "@/components/ui/Paragraph";
+import { useToken } from "@/lib/hooks/useHooks";
 
 const EmailVerifyPage = () => {
   const router = useRouter();
-  const { token } = router.query;
+  const { token, userId, expires, signature } = router.query;
+  const [bearerToken, setBearerToken] = useToken("BDERP_authToken");
+
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ["email_verification", token],
+    queryFn: () =>
+      emailVerify({
+        token,
+        userId,
+        expire_at: expires,
+        signature,
+        bearerToken,
+      }),
+    enabled: !!token,
+  });
 
   //TODO:Here I will send a get requiest with the token. and wait for Response
 
-  if (!token) {
+  if (isLoading) {
     return (
       <Layout>
         <section className="py-10">
@@ -28,8 +46,9 @@ const EmailVerifyPage = () => {
     <Layout>
       <section className="py-10">
         <div className="container text-center">
-          <h1>Your Email Has been Verified Successfully</h1>
-          <h1>{token}</h1>
+          {isError && <h1>{error?.response.data.message}</h1>}
+          {!isError && <Paragraph>{data?.data.message}</Paragraph>}
+
           <CustomButton
             className="mt-5"
             onClick={() => {

@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 const validationSchemaList = {
-  firstName: yup
+  first_name: yup
     .string("Enter your First Name")
     .matches(/^[a-zA-Z\s]+$/, "Only letters and spaces are allowed")
     .required("First Name is required"),
@@ -13,7 +13,7 @@ const validationSchemaList = {
       "Password must contain at least 8 characters, one uppercase, one number and one special case character"
     )
     .required("Password is required"),
-  lastName: yup
+  last_name: yup
     .string("Enter Your last name")
     .matches(/^[a-zA-Z\s]+$/, "Only letters and spaces are allowed")
     .required("Last name is required!"),
@@ -23,7 +23,7 @@ const validationSchemaList = {
     .email("Must be a valid email")
     .max(255)
     .required("Email is required"),
-  countryName: yup.object().required("Must select a country"),
+  country: yup.object().required("Must select a country"),
   companyName: (required) => {
     const validate = yup
       .string()
@@ -35,18 +35,30 @@ const validationSchemaList = {
     if (required) return validate.required("Company Name is required!");
     return validate;
   },
+  privacy_aggrement: yup
+    .boolean()
+    .oneOf([true], "You must accept the privacy policy to continue")
+    .required("Please accept the privacy policy to continue"),
 };
 
-const { companyName, countryName, email, firstName, lastName, password } =
-  validationSchemaList;
+const {
+  companyName,
+  country,
+  email,
+  first_name,
+  last_name,
+  password,
+  privacy_aggrement,
+} = validationSchemaList;
 
 export const signUpValidationSchema = yup.object({
-  firstName,
+  first_name,
   password,
-  lastName,
+  last_name,
   email,
-  countryName,
-  companyName: companyName(),
+  country,
+  company_name: companyName(),
+  privacy_aggrement,
 });
 
 export const businessTypeValidationSchema = yup.object({

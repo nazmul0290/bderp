@@ -1,11 +1,5 @@
-import {
-  containsNumber,
-  containsSpecialChars,
-  containsUpperAndLowercase,
-} from "@/lib/passwordTester";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-import { CloseIcon, CheckIcon } from "@mui/icons-material";
 import {
   FormControl,
   IconButton,
@@ -23,7 +17,7 @@ const PasswordInput = ({
   values,
   handleChange,
 }) => {
-  const [showPassword, setShowPassword] = useState("false");
+  const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
@@ -33,6 +27,7 @@ const PasswordInput = ({
       <InputLabel
         htmlFor="outlined-adornment-password"
         error={touched && Boolean(errors)}
+        size="small"
       >
         {label}
       </InputLabel>
@@ -40,6 +35,7 @@ const PasswordInput = ({
         name={name}
         type={showPassword ? "text" : "password"}
         value={values}
+        size="small"
         onChange={handleChange}
         error={touched && Boolean(errors)}
         endAdornment={
@@ -55,6 +51,7 @@ const PasswordInput = ({
         }
         label={label}
       />
+      {touched && <p className="pl-3 text-sm text-red-600">{errors}</p>}
     </FormControl>
   );
 };

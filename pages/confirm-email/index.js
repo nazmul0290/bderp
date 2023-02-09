@@ -6,13 +6,15 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 
 const ConfirmEmailPage = () => {
   const [email, setEmail] = useState("");
   const router = useRouter();
   // eslint-disable-next-line react-hooks/exhaustive-deps
+
   useEffect(() => {
-    const registerData = JSON.parse(localStorage.getItem("register"));
+    const registerData = JSON.parse(localStorage.getItem("BDERP_register"));
     if (registerData) {
       console.log(registerData);
       setEmail(registerData.email);

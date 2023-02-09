@@ -5,7 +5,7 @@ import { Grid } from "@mui/material";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import CustomTextField from "../input/CustomTextField";
+import CustomTextField from "../../global-components/inputs/CustomTextField";
 
 const ForgotSection = () => {
   return (

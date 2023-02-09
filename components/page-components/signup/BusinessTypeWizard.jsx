@@ -1,18 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import React, { useEffect, useState } from "react";
 
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 
-import { Grid, TextField } from "@mui/material";
+import { Grid } from "@mui/material";
 import CustomSelectOption from "./component/CustomSelectOption";
 import { useSelector } from "react-redux";
 import { businessTypeValidationSchema } from "@/utils/yupValidation";
-import CustomTextField from "../input/CustomTextField";
+import CustomTextField from "../../global-components/inputs/CustomTextField";
 import { businessType } from "@/lib/data";
 import isEmpty from "@/utils/is-empty";
 import { useRouter } from "next/router";
 import SingupStageWizard from "@/components/ui/SingupStageWizard";
 import Button from "@/components/ui/Button";
+import { useMutation } from "react-query";
+import { createBusinessAccount } from "@/utils/resolvers/mutation";
 
 const BusinessTypeWizard = () => {
   const checkedCategory = useSelector((state) => state.checkbox.checkboxArr);
@@ -21,8 +23,11 @@ const BusinessTypeWizard = () => {
   const [businessTypeError, setBusinessTypeError] = useState(false);
   const router = useRouter();
 
+  const { mutate } = useMutation(createBusinessAccount);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("register"));
+    const userData = JSON.parse(localStorage.getItem("BDERP_register"));
     if (userData.company_name) {
       setCompanyName(userData.company_name);
     }
@@ -42,11 +47,11 @@ const BusinessTypeWizard = () => {
     initialValues: {
       company_name: "",
     },
-    validationSchema: businessTypeValidationSchema,
+    /* validationSchema: businessTypeValidationSchema, */
   });
 
   const createAccount = async () => {
-    if (isEmpty(values.company_name) || isEmpty(checkedCategory)) {
+    /* if (isEmpty(values.company_name) || isEmpty(checkedCategory)) {
       if (isEmpty(values.company_name)) {
         setFieldTouched("company_name", true);
         setFieldError("company_name", "Company name is required!");
@@ -56,15 +61,29 @@ const BusinessTypeWizard = () => {
       }
 
       return;
-    }
+    } */
 
     const variables = {
       company_name: values.company_name,
       business_type_id: [...checkedCategory],
     };
+    const token =
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiYmE0OTI2NGE5OTY4ZjY1NTZkN2M4ZDUyYzEzZDJkYWNlMDA3MzFlY2QxM2E3OTZhYTQ2OGNhYTc3MzcwNjJjZjVjN2ZjZGQ4NzJhYjg0ZWEiLCJpYXQiOjE2NzU5Mjc0NDYuODMxMDEsIm5iZiI6MTY3NTkyNzQ0Ni44MzEwMTMsImV4cCI6MTY5MTU2NTg0Ni41NTAyMzksInN1YiI6IjIxIiwic2NvcGVzIjpbXX0.hKzwR2o31qpHgCH2ZjJ7i4rJxVBRhuiiyGCkyJsKHq3FIzPdMcajMWEf_ceD_ksI_cY73Z0pO5HpIWNqDdhCXYo60A2IBueP1d52bP779o5GjoAaXcHB-3L8SpzumK2Jz589CnBeD918FrfCR47ednChoSag93XtMxLqICU64sQEu0VSjiUxhJXm9TVf3-BZ5xoA-PPZHm02Ay96YTRSLC-0eOa2xt-55U9IhTgn5JrIa58XzFAXWbrOZluEv0ZpDuRXpSmpE-jaqGPnfg5SndYy6c9tfV2YUy6uPAavUfdbUn4Vc3qX_cW3jzn7RcyqjIPRHbSwAj95P_ldbnFC0qjDZdd1iHDSTLJuI9EauaOw_cmInkuMYqdbl2EX2lKJGM3tk15jU76yums8mGovbYTCO9U7RKn90OGBFjIwE3nRhgrQJ2bGb7m4ORavuPi-eCzI0hhLHM8PVvORFA3NAvKj3xE0yatVVHoiiPAIxIxY5rp5gr6DHCvmrHYuLwjZSd-EibcF5aC0am9d-dNXpjLCDIjVFh76G7jru817WfmYVcswfgcdIuNQPlH44PvZfPxFWPZs_wwYkBy-tzL-PKbILLpNDYntoXkuxwOjkqXeQ3bnETsx97AfJY_fachQh_OY3KCjseark22AahsAkGZsJhvZhqgGXkgp_Dw0h38";
 
-    localStorage.setItem("business-type", JSON.stringify(variables));
-    router.push("/verify-number");
+    mutate(
+      { variables, token },
+      {
+        onSuccess: (data) => {
+          console.log(data);
+        },
+        onError: (err) => {
+          console.log(err);
+        },
+      }
+    );
+
+    /* localStorage.setItem("business-type", JSON.stringify(variables));
+    router.push("/verify-number"); */
   };
 
   return (

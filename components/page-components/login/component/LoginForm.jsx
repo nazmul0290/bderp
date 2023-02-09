@@ -4,7 +4,7 @@ import { loginYupValidation } from "@/utils/yupValidation";
 import { Grid } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
-import CustomTextField from "../../input/CustomTextField";
+import CustomTextField from "../../../global-components/inputs/CustomTextField";
 
 const LoginForm = () => {
   const { values, handleSubmit, handleChange, handleBlur, errors, touched } =
