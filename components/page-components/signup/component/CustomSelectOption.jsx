@@ -31,7 +31,11 @@ const CustomSelectOption = ({
       >
         <div>
           <Image
-            src="/img/signup/manufacturing.png"
+            src={
+              business.imgUrl
+                ? business.imgUrl
+                : "/img/signup/manufacturing.png"
+            }
             alt={business.type_name}
             width={100}
             height={100}

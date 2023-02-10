@@ -53,6 +53,7 @@ const BusinessTypeWizard = () => {
   } = useQuery({
     queryKey: "businessTypes",
     queryFn: businessTypes,
+    refetchOnWindowFocus: false,
   });
 
   const {
@@ -130,7 +131,7 @@ const BusinessTypeWizard = () => {
         },
         onError: (err) => {
           toast.error(err.response.data.message);
-          Object.keys(err.response.data.message).map((key) => {
+          Object.keys(err?.response.data.message).map((key) => {
             setFieldError(key, err.response.data.message[key][0]);
           });
         },
@@ -174,7 +175,6 @@ const BusinessTypeWizard = () => {
                 <Grid item xs={12}>
                   <CustomTextField
                     name="company_name"
-                    required
                     type="text"
                     label="Company Name"
                     onBlur={handleBlur}

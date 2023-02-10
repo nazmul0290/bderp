@@ -35,3 +35,11 @@ export const businessTypes = () => {
     },
   });
 };
+
+export const getTableFeaturePlan = () => {
+  return axios.get(`${backendUrl}/v1/features/plan`, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+};

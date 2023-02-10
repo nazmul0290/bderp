@@ -98,9 +98,9 @@ const SignUpForm = () => {
           }
         },
         onError: (err) => {
-          const errorData = err.response.data;
+          const errorData = err?.response.data;
 
-          Object.keys(errorData.message).map((key) => {
+          Object.keys(errorData?.message).map((key) => {
             setFieldError(key, errorData.message[key][0]);
           });
         },
@@ -109,6 +109,8 @@ const SignUpForm = () => {
       formik.resetForm();
     },
   });
+
+  console.log(errors.privacy_aggrement);
 
   return (
     <form className="mt-5" onSubmit={handleSubmit}>
@@ -179,7 +181,7 @@ const SignUpForm = () => {
                 {...params}
                 label="Choose a country"
                 name="country"
-                error={touched.country && Boolean(errors.country)}
+                errors={touched.country && Boolean(errors.country)}
                 helperText={touched.country && errors.country}
                 inputProps={{
                   ...params.inputProps,
@@ -211,17 +213,14 @@ const SignUpForm = () => {
           />
         </Grid>
         <Grid item xs={12}>
-          <FormControl
-            errors={
-              touched.privacy_aggrement && Boolean(errors.privacy_aggrement)
-            }
-          >
+          <FormControl error={errors.privacy_aggrement}>
             <FormControlLabel
               control={
                 <Checkbox
                   name="privacy_aggrement"
                   checked={values.privacy_aggrement}
                   onChange={handleChange}
+                  sx={{ borderColor: "red" }}
                 />
               }
               label="I agree to tranzact Privacy Policy & Terms of Service"

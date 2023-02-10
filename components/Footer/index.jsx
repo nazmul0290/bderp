@@ -7,6 +7,7 @@ import Link from "next/link";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import LanguageIcon from "@mui/icons-material/Language";
+import FooterMenu from "./component/FooterMenu";
 
 const index = () => {
   return (
@@ -46,11 +47,11 @@ const index = () => {
                 <div className="relative inline-block overflow-hidden border rounded-md">
                   <input
                     type="text"
-                    className="z-0 w-full pl-2 pr-5 text-xs rounded-lg md:pl-5 md:pr-20 md:text-lg h-9 xl:pl-10 md:h-14 focus:shadow focus:outline-none placeholder:text-primary "
+                    className="z-0 w-full h-8 pl-2 pr-5 text-xs rounded-lg md:pl-5 md:pr-20 md:h-12 focus:shadow focus:outline-none placeholder:text-primary "
                     placeholder="Email address"
                   />
                   <div className="absolute top-0 right-0">
-                    <button className="xl:w-24 sm:w-16 w-12 text-sm md:text-base text-white bg-[#417ee7] rounded-lg md:h-14 h-9 hover:bg-[#5289e9]">
+                    <button className="xl:w-20 sm:w-12 w-10 text-sm md:text-base text-white bg-[#417ee7] rounded-lg md:h-12 h-8 hover:bg-[#5289e9]">
                       Join
                     </button>
                   </div>
@@ -58,52 +59,10 @@ const index = () => {
               </div>
             </div>
             <div className=" text-primary">
-              <div>
-                <h1 className="text-xl font-bold md:font-extrabold md:text-2xl">
-                  Services
-                </h1>
-              </div>
-              <ul className="flex flex-col mt-4 space-y-2 text-sm md:font-medium md:text-xl lg:text-lg md:text-md">
-                <li>
-                  <Link href="/">Web Design</Link>
-                </li>
-                <li>
-                  <Link href="/">Development</Link>
-                </li>
-                <li>
-                  <Link href="/">Wordpress</Link>
-                </li>
-                <li>
-                  <Link href="/">Online Marketing</Link>
-                </li>
-                <li>
-                  <Link href="/">Content</Link>
-                </li>
-              </ul>
+              <FooterMenu />
             </div>
             <div className=" text-primary">
-              <div>
-                <h1 className="text-xl font-bold md:font-extrabold md:text-2xl">
-                  About Us
-                </h1>
-              </div>
-              <ul className="flex flex-col mt-4 space-y-2 text-sm md:font-medium md:text-xl lg:text-lg md:text-md">
-                <li>
-                  <Link href="/">About Us</Link>
-                </li>
-                <li>
-                  <Link href="/">Work Portfolio</Link>
-                </li>
-                <li>
-                  <Link href="/">Team</Link>
-                </li>
-                <li>
-                  <Link href="/">Plan & Pricing</Link>
-                </li>
-                <li>
-                  <Link href="/">News</Link>
-                </li>
-              </ul>
+              <FooterMenu />
             </div>
             <div className=" text-primary">
               <div>

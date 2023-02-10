@@ -7,6 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Button from "../ui/Button";
+import { useRouter } from "next/router";
 
 const menus = [
   {
@@ -39,6 +40,7 @@ const menus = [
 const index = ({ transparent, stickyNav }) => {
   const [sticky, setSticky] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -107,7 +109,11 @@ const index = ({ transparent, stickyNav }) => {
             })}
 
             <li className="block py-2 md:p-2 lg:p-4">
-              <Button href="/login">
+              <Button
+                onClick={() => {
+                  router.push("/login");
+                }}
+              >
                 Login <ArrowForwardIcon className="ml-2" fontSize="small" />
               </Button>
             </li>
@@ -149,7 +155,12 @@ const index = ({ transparent, stickyNav }) => {
               );
             })}
             <li className="block ">
-              <Button fullWidth>
+              <Button
+                fullWidth
+                onClick={() => {
+                  router.push("login");
+                }}
+              >
                 Login <ArrowForwardIcon className="ml-2" fontSize="small" />
               </Button>
             </li>

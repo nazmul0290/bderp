@@ -35,7 +35,7 @@ const LoginForm = () => {
     });
 
   return (
-    <form className="mt-5" onSubmit={handleSubmit}>
+    <form className="mt-5" onSubmit={handleSubmit} autoComplete="new-password">
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <CustomTextField
@@ -43,6 +43,8 @@ const LoginForm = () => {
             onChange={handleChange}
             error={touched.email && Boolean(errors.email)}
             helperText={touched.email && errors.email}
+            autoComplete="new-password"
+            autoFocus
             type="email"
             name="email"
             label="Email"
@@ -55,6 +57,7 @@ const LoginForm = () => {
             handleChange={handleChange}
             values={values.password}
             touched={touched.password}
+            autoComplete="new-password"
             label="Password"
             name="password"
           />

@@ -4,12 +4,12 @@ import Headline from "../ui/Headline";
 import Paragraph from "../ui/Paragraph";
 import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
-import { packages } from "@/lib/data";
 import { useLocalStorage } from "@/lib/hooks/useHooks";
 import isEmpty from "@/utils/is-empty";
+import { getTableFeaturePlan } from "@/utils/resolvers/query";
 
 const PriceTable = () => {
-  const [packageItems] = useLocalStorage("bdERP_price", packages);
+  const [packageItems] = useLocalStorage("bdERP_price", getTableFeaturePlan);
 
   return (
     <div>

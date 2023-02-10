@@ -3,7 +3,7 @@ import * as yup from "yup";
 const validationSchemaList = {
   first_name: yup
     .string("Enter your First Name")
-    .matches(/^[a-zA-Z\s]+$/, "Only letters and spaces are allowed")
+    .matches(/^[a-zA-Z ]{3,}$/, "Must have at least 3 letters")
     .required("First Name is required"),
   password: yup
     .string("Enter your password")
@@ -15,7 +15,7 @@ const validationSchemaList = {
     .required("Password is required"),
   last_name: yup
     .string("Enter Your last name")
-    .matches(/^[a-zA-Z\s]+$/, "Only letters and spaces are allowed")
+    .matches(/^[a-zA-Z ]{3,}$/, "Must have at least 3 letters")
     .required("Last name is required!"),
 
   email: yup
