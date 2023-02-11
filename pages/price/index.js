@@ -1,11 +1,11 @@
 import TableSection from "@/components/page-components/price/TableSection";
 import Layout from "@/components/Layout/Layout";
-import { AuthUser } from "@/lib/hooks/useAuth";
+import useUser from "@/lib/hooks/useUser";
 import Head from "next/head";
 import React from "react";
 
 const PricePage = () => {
-  const user = AuthUser();
+  const user = useUser();
   console.log(user);
   return (
     <>

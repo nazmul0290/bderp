@@ -8,7 +8,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Button from "../ui/Button";
 import { useRouter } from "next/router";
-import { AuthUser } from "@/lib/hooks/useAuth";
+import useUser from "@/lib/hooks/useUser";
 import isEmpty from "@/utils/is-empty";
 import useAuth from "@/lib/hooks/auth";
 import { useMutation } from "react-query";
@@ -46,7 +46,7 @@ const index = ({ transparent, stickyNav }) => {
   const [sticky, setSticky] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const router = useRouter();
-  const user = AuthUser();
+  const user = useUser();
   const { logout } = useAuth({ redirectIfAuthenticated: "/login" });
   console.log(user);
 

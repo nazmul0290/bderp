@@ -1,12 +1,9 @@
-import ContactCard from "@/components/page-components/contact-us/ContactCard";
-import Hero from "@/components/page-components/contact-us/Hero";
 import Layout from "@/components/Layout/Layout";
-import useUser from "@/lib/hooks/useUser";
+import Hero from "@/components/page-components/free-invoice-builder/Hero";
 import Head from "next/head";
+import React from "react";
 
-const ContactUsPage = () => {
-  const user = useUser();
-  console.log(user);
+const index = () => {
   return (
     <>
       <Head>
@@ -17,10 +14,9 @@ const ContactUsPage = () => {
       </Head>
       <Layout>
         <Hero />
-        <ContactCard />
       </Layout>
     </>
   );
 };
 
-export default ContactUsPage;
+export default index;

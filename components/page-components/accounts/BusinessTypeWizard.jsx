@@ -4,10 +4,10 @@ import React, { useEffect, useState } from "react";
 import SingupStageWizard from "@/components/ui/SingupStageWizard";
 
 import AccountForm from "./component/AccountForm";
-import { AuthUser } from "@/lib/hooks/useAuth";
+import useUser from "@/lib/hooks/useUser";
 
 const BusinessTypeWizard = () => {
-  const user = AuthUser();
+  const user = useUser();
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
 

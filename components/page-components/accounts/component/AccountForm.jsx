@@ -1,7 +1,7 @@
 import CheckBox from "@/components/global-components/inputs/CheckBox";
 import CustomTextField from "@/components/global-components/inputs/CustomTextField";
 import Button from "@/components/ui/Button";
-import { AuthUser } from "@/lib/hooks/useAuth";
+import useUser from "@/lib/hooks/useUser";
 import { useToken } from "@/lib/hooks/useHooks";
 import isEmpty from "@/utils/is-empty";
 import {
@@ -18,7 +18,7 @@ import { useMutation, useQuery } from "react-query";
 
 const AccountForm = () => {
   const [bearerToken, setBearerToken] = useToken("BDERP_authToken");
-  const user = AuthUser();
+  const user = useUser();
 
   const [checked, setChecked] = useState([]);
   const [businessTypeError, setBusinessTypeError] = useState(false);
