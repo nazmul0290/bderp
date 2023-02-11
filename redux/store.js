@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import checkSlice from "./resolvers/checkSlice";
+import userSlice from "./resolvers/userSlice";
 
 const store = configureStore({
   reducer: {
-    checkbox: checkSlice,
+    user: userSlice,
   },
 });
 

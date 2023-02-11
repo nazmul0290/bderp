@@ -6,7 +6,7 @@ const BDerpFormSection = ({ children }) => {
   return (
     <>
       <div className="text-center">
-        <div className="flex justify-center">
+        <div className="justify-center hidden  md:flex">
           <Image
             src="/img/header/ERP-Logo.png"
             alt="BD_ERP_logo"

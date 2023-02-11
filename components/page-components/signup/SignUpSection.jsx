@@ -11,7 +11,7 @@ const SignUpSection = () => {
   return (
     <section className="py-5 md:py-20 ">
       <div className="container flex flex-col items-center justify-between md:space-x-10 md:flex-row">
-        <div className="order-2 w-full mt-16 md:mt-0 md:w-1/2 md:order-1">
+        <div className="order-2 hidden w-full mt-16 md:mt-0 md:w-1/2 md:order-1 md:block">
           <div className="flex items-center justify-center mt-10">
             <Carousel
               autoPlay={true}

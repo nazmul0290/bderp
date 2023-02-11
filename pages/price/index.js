@@ -1,9 +1,12 @@
 import TableSection from "@/components/page-components/price/TableSection";
 import Layout from "@/components/ui/Layout";
+import { AuthUser } from "@/lib/hooks/useAuth";
 import Head from "next/head";
 import React from "react";
 
 const PricePage = () => {
+  const user = AuthUser();
+  console.log(user);
   return (
     <>
       <Head>

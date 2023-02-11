@@ -1,9 +1,12 @@
 import ContactCard from "@/components/page-components/contact-us/ContactCard";
 import Hero from "@/components/page-components/contact-us/Hero";
 import Layout from "@/components/ui/Layout";
+import { AuthUser } from "@/lib/hooks/useAuth";
 import Head from "next/head";
 
 const ContactUsPage = () => {
+  const user = AuthUser();
+  console.log(user);
   return (
     <>
       <Head>

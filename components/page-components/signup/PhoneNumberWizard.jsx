@@ -53,22 +53,7 @@ const PhoneNumberWizard = () => {
             </div>
           </div>
         </div>
-        <div className="mt-5">
-          <Paragraph>
-            TranZact enabled us to maintain the lowest possible material and
-            product levels in store to preserve working capital and use it more
-            efficiently.TranZact brought our entire business to the forefront by
-            eliminating silos profitability.{" "}
-          </Paragraph>
-          <div className="flex items-center justify-center mt-5">
-            <Image
-              src="/img/signup/cirtificate.png"
-              alt="cirtificate"
-              width={700}
-              height={100}
-            />
-          </div>
-        </div>
+        <div className="mt-5"></div>
         <div className="p-4 mt-10 text-center bg-gray-100">
           <Headline>
             Enter Your WhatsApp number to recieive the NDA in 24 Hours{" "}
