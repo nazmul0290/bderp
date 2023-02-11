@@ -1,5 +1,5 @@
 import CustomButton from "@/components/ui/Button";
-import Layout from "@/components/ui/Layout";
+import Layout from "@/components/Layout/Layout";
 import Head from "next/head";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import React, { useEffect, useState } from "react";

@@ -1,6 +1,6 @@
 import ContactCard from "@/components/page-components/contact-us/ContactCard";
 import Hero from "@/components/page-components/contact-us/Hero";
-import Layout from "@/components/ui/Layout";
+import Layout from "@/components/Layout/Layout";
 import { AuthUser } from "@/lib/hooks/useAuth";
 import Head from "next/head";
 

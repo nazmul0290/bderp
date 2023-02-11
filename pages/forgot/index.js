@@ -1,5 +1,5 @@
 import ForgotSection from "@/components/page-components/forgot/ForgotSection";
-import Layout from "@/components/ui/Layout";
+import Layout from "@/components/Layout/Layout";
 import Head from "next/head";
 import React from "react";
 

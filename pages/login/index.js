@@ -1,5 +1,5 @@
 import LoginSection from "@/components/page-components/login/LoginSection";
-import Layout from "@/components/ui/Layout";
+import Layout from "@/components/Layout/Layout";
 import Head from "next/head";
 import React from "react";
 

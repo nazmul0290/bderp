@@ -1,14 +1,39 @@
 /* eslint-disable react/no-unescaped-entities */
 import Button from "@/components/ui/Button";
 import Headline from "@/components/ui/Headline";
+import LoadingButton from "@/components/ui/LoadingButton";
 import Paragraph from "@/components/ui/Paragraph";
+import useAuth from "@/lib/hooks/auth";
+import isEmpty from "@/utils/is-empty";
+import { forgotMutation } from "@/utils/resolvers/mutation";
+import { forgotYupValidation } from "@/utils/yupValidation";
 import { Grid } from "@mui/material";
+import { useFormik } from "formik";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import CustomTextField from "../../global-components/inputs/CustomTextField";
 
 const ForgotSection = () => {
+  const { forgotPassword } = useAuth();
+  const initialValues = {
+    email: "",
+  };
+
+  const { mutate, isLoading } = useMutation(forgotMutation);
+
+  const { values, handleChange, touched, handleSubmit, errors } = useFormik({
+    initialValues,
+    validationSchema: forgotYupValidation,
+    onSubmit: (values) => {
+      if (isEmpty(values.email)) {
+        toast.error("Email can not be empty");
+      }
+      forgotPassword({ body: values, mutate });
+    },
+  });
   return (
     <section className="container py-10">
       <div className="flex items-center justify-between md:space-x-4">
@@ -29,13 +54,13 @@ const ForgotSection = () => {
                 password
               </Paragraph>
             </div>
-            <form className="mt-5">
+            <form className="mt-5" onSubmit={handleSubmit}>
               <Grid item xs={12}>
                 <CustomTextField
-                  /* value={values.email}
-                onChange={handleChange}
-                error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email} */
+                  value={values.email}
+                  onChange={handleChange}
+                  error={touched.email && Boolean(errors.email)}
+                  helperText={touched.email && errors.email}
                   type="email"
                   name="email"
                   label="Email"
@@ -43,10 +68,14 @@ const ForgotSection = () => {
               </Grid>
 
               <Grid item xs={12} className="mt-5">
-                <Button fullWidth variant="contained">
-                  {" "}
-                  Send Resent Link{" "}
-                </Button>
+                {isLoading ? (
+                  <LoadingButton />
+                ) : (
+                  <Button fullWidth variant="contained">
+                    {" "}
+                    Send Reset Link{" "}
+                  </Button>
+                )}
               </Grid>
             </form>
             <div className="mt-5 text-center">

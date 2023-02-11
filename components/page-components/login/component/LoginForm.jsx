@@ -1,38 +1,58 @@
 import PasswordInput from "@/components/global-components/inputs/PasswordInput";
 import Button from "@/components/ui/Button";
+import LoadingButton from "@/components/ui/LoadingButton";
+import useAuth from "@/lib/hooks/auth";
+
+import isEmpty from "@/utils/is-empty";
 import { loginMutation } from "@/utils/resolvers/mutation";
 import { loginYupValidation } from "@/utils/yupValidation";
 import { Grid } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import CustomTextField from "../../../global-components/inputs/CustomTextField";
 
 const LoginForm = () => {
-  const { mutate } = useMutation(loginMutation);
-  const { values, handleSubmit, handleChange, handleBlur, errors, touched } =
-    useFormik({
-      initialValues: {
-        email: "",
-        password: "",
-      },
-      validationSchema: loginYupValidation,
-      onSubmit: (values) => {
-        console.log(values);
-        const variables = {
+  const { loginController } = useAuth({
+    middleware: "auth",
+    redirectIfAuthenticated: "/",
+  });
+
+  const { mutate, isLoading } = useMutation(loginMutation);
+  console.log(isLoading);
+
+  const {
+    values,
+    handleSubmit,
+    handleChange,
+    setFieldError,
+    handleBlur,
+    errors,
+    touched,
+  } = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+    validationSchema: loginYupValidation,
+    onSubmit: (values) => {
+      if (isEmpty(values.email) || isEmpty(values.password)) {
+        return toast.error("You can't send empty field", {
+          position: "top-center",
+        });
+      }
+
+      loginController({
+        variables: {
           email: values.email,
           password: values.password,
-        };
-        mutate(variables, {
-          onSuccess: (data) => {
-            console.log(data);
-          },
-          onError: (err) => {
-            console.log(err);
-          },
-        });
-      },
-    });
+        },
+        setFieldError,
+        mutate,
+      });
+    },
+  });
 
   return (
     <form className="mt-5" onSubmit={handleSubmit} autoComplete="new-password">
@@ -60,13 +80,23 @@ const LoginForm = () => {
             autoComplete="new-password"
             label="Password"
             name="password"
+            showError={false}
           />
         </Grid>
 
         <Grid item xs={12}>
-          <Button variant="contained" fullWidth>
-            Login
-          </Button>
+          {isLoading ? (
+            <LoadingButton />
+          ) : (
+            <Button
+              variant="contained"
+              className="relative h-10 "
+              disabled={isLoading}
+              fullWidth
+            >
+              Login
+            </Button>
+          )}
         </Grid>
       </Grid>
     </form>

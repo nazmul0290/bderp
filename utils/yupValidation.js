@@ -67,5 +67,13 @@ export const businessTypeValidationSchema = yup.object({
 
 export const loginYupValidation = yup.object({
   email,
+});
+
+export const forgotYupValidation = yup.object({
+  email,
+});
+
+export const resetPasswordValidation = yup.object({
   password,
+  password_confirmation: password,
 });

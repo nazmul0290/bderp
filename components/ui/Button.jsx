@@ -6,7 +6,7 @@ const Button = ({ type = "submit", className, href, ...props }) => {
       variant="contained"
       type={type}
       href={href}
-      className={`${className} py-2  rounded-md bg-gradient-to-r from-[#37a1f6] to-[#3985fb]`}
+      className={`${className} py-2 h-10  rounded-md bg-gradient-to-r from-[#37a1f6] to-[#3985fb]`}
       {...props}
     />
   );

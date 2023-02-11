@@ -1,6 +1,7 @@
 const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
+  token: "",
   user: {},
 };
 
@@ -9,9 +10,11 @@ const userSlice = createSlice({
   name: "user",
   reducers: {
     setUser: (state, action) => {
-      state.user = action.payload;
+      state.token = action.payload.token;
+      state.user = action.payload.user;
     },
     removeUser: (state, action) => {
+      state.token = "";
       state.user = {};
     },
   },

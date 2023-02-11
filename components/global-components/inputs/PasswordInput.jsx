@@ -16,6 +16,7 @@ const PasswordInput = ({
   name,
   values,
   handleChange,
+  showError = true,
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => {
@@ -51,7 +52,9 @@ const PasswordInput = ({
         }
         label={label}
       />
-      {touched && <p className="pl-3 text-sm text-red-600">{errors}</p>}
+      {showError && touched && (
+        <p className="pl-3 text-xs text-red-600">{errors}</p>
+      )}
     </FormControl>
   );
 };

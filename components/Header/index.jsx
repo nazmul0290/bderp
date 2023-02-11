@@ -8,6 +8,11 @@ import CloseIcon from "@mui/icons-material/Close";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Button from "../ui/Button";
 import { useRouter } from "next/router";
+import { AuthUser } from "@/lib/hooks/useAuth";
+import isEmpty from "@/utils/is-empty";
+import useAuth from "@/lib/hooks/auth";
+import { useMutation } from "react-query";
+import { logoutMutation } from "@/utils/resolvers/mutation";
 
 const menus = [
   {
@@ -41,6 +46,9 @@ const index = ({ transparent, stickyNav }) => {
   const [sticky, setSticky] = useState(false);
   const [navOpen, setNavOpen] = useState(false);
   const router = useRouter();
+  const user = AuthUser();
+  const { logout } = useAuth({ redirectIfAuthenticated: "/login" });
+  console.log(user);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,6 +60,12 @@ const index = ({ transparent, stickyNav }) => {
 
   const handleClose = () => {
     setNavOpen((prev) => !prev);
+  };
+
+  const { isLoading, mutate } = useMutation(logoutMutation);
+
+  const logoutHandler = () => {
+    logout({ mutate, token: user.token });
   };
 
   return (
@@ -109,13 +123,19 @@ const index = ({ transparent, stickyNav }) => {
             })}
 
             <li className="block py-2 md:p-2 lg:p-4">
-              <Button
-                onClick={() => {
-                  router.push("/login");
-                }}
-              >
-                Login <ArrowForwardIcon className="ml-2" fontSize="small" />
-              </Button>
+              {isEmpty(user.token) ? (
+                <Button
+                  onClick={() => {
+                    router.push("/login");
+                  }}
+                >
+                  Login <ArrowForwardIcon className="ml-2" fontSize="small" />
+                </Button>
+              ) : (
+                <Button onClick={logoutHandler}>
+                  Logout <ArrowForwardIcon className="ml-2" fontSize="small" />
+                </Button>
+              )}
             </li>
           </ul>
         </div>
@@ -155,14 +175,20 @@ const index = ({ transparent, stickyNav }) => {
               );
             })}
             <li className="block ">
-              <Button
-                fullWidth
-                onClick={() => {
-                  router.push("login");
-                }}
-              >
-                Login <ArrowForwardIcon className="ml-2" fontSize="small" />
-              </Button>
+              {isEmpty(user.token) ? (
+                <Button
+                  fullWidth
+                  onClick={() => {
+                    router.push("login");
+                  }}
+                >
+                  Login <ArrowForwardIcon className="ml-2" fontSize="small" />
+                </Button>
+              ) : (
+                <Button fullWidth onClick={logoutHandler}>
+                  Logout <ArrowForwardIcon className="ml-2" fontSize="small" />
+                </Button>
+              )}
             </li>
           </ul>
         </div>

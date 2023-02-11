@@ -5,7 +5,7 @@ import Features from "@/components/page-components/home/Features";
 import HeroSection from "@/components/page-components/home/HeroSection";
 import KeyFeature from "@/components/page-components/home/KeyFeature";
 import SolutionProcess from "@/components/page-components/home/SolutionProcess";
-import Layout from "@/components/ui/Layout";
+import Layout from "@/components/Layout/Layout";
 
 import Head from "next/head";
 

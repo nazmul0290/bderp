@@ -3,7 +3,7 @@ import FeatureComparison from "@/components/page-components/feature/FeatureCompa
 import FeatureSection from "@/components/page-components/feature/FeatureSection";
 import Hero from "@/components/page-components/feature/Hero";
 import TableSection from "@/components/page-components/feature/TableSection";
-import Layout from "@/components/ui/Layout";
+import Layout from "@/components/Layout/Layout";
 import Head from "next/head";
 import React from "react";
 

@@ -65,3 +65,33 @@ export const updateUser = ({ userData, userUuid, token }) => {
     },
   });
 };
+
+export const logoutMutation = ({ token }) => {
+  console.log(token);
+  return axios.post(
+    `${backendUrl}/logout`,
+    {},
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+export const forgotMutation = ({ body }) => {
+  return axios.post(`${backendUrl}/v1/forgot-password`, body, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+};
+
+export const resetMutation = ({ body }) => {
+  return axios.post(`${backendUrl}/v1/reset-password`, body, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+};
