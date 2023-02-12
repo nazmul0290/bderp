@@ -1,9 +1,15 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import ForgotSection from "@/components/page-components/forgot/ForgotSection";
 import Layout from "@/components/Layout/Layout";
 import Head from "next/head";
 import React from "react";
+import { useRouter } from "next/router";
+import useUser from "@/lib/hooks/useUser";
+import isEmpty from "@/utils/is-empty";
 
 const forgot = () => {
+  const user = useUser({ middleware: "guest", redirectIfAuthenticated: "/" });
+
   return (
     <>
       <Head>

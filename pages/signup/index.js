@@ -1,10 +1,13 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import SignUpSection from "@/components/page-components/signup/SignUpSection";
 
 import Layout from "@/components/Layout/Layout";
 import Head from "next/head";
 import React from "react";
+import useUser from "@/lib/hooks/useUser";
 
 const signup = () => {
+  const user = useUser({ middleware: "guest", redirectIfAuthenticated: "/" });
   return (
     <>
       <Head>

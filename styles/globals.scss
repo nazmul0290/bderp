@@ -174,7 +174,7 @@ body {
 // Pricing Table 
 
 .pricing_header_top {
-  @apply inline-block px-3 py-1 bg-white border border-blue-600 rounded-md   text-sm text-[#417ee7] font-light
+  @apply inline-block px-3 py-1 bg-white border border-blue-600 rounded-md   text-sm text-primaryBlue font-light
 }
 .pricing_header_top_div {
   @apply absolute left-0 w-full text-center -top-5

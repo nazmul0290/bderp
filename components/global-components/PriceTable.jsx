@@ -17,7 +17,7 @@ const PriceTable = () => {
         <Headline>
           Different Businesses have different needs. Find a plan that suits
           yours. <br />
-          <span className="text-[#417ee7]"> Pricing & Features</span>
+          <span className="text-primaryBlue"> Pricing & Features</span>
         </Headline>
       </div>
       <div className="w-full mt-14">
@@ -80,7 +80,7 @@ const PriceTable = () => {
             </tr>
             <tr className="border">
               <th scope="row" className="pl-10 text-left border">
-                <h3 className="py-5 text-[#417ee7]">Yearly (save 20%)</h3>
+                <h3 className="py-5 text-primaryBlue">Yearly (save 20%)</h3>
               </th>
               <td className="border ">
                 <span className="block text-sm">0</span>
@@ -102,7 +102,7 @@ const PriceTable = () => {
                   <th scope="row" className="pl-10 text-left border">
                     <h3
                       className={`${
-                        isEmpty(packItem.plans) ? "text-[#417ee7]" : ""
+                        isEmpty(packItem.plans) ? "text-primaryBlue" : ""
                       } py-5 `}
                     >
                       {packItem.name}

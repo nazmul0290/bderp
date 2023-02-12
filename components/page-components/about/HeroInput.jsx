@@ -22,7 +22,7 @@ const HeroInput = () => {
             className="sm:max-w-[300px] "
           />
         </div>
-        <div className="bg-[#417ee7]  inline-block px-4 md:px-10 md:pt-10 pt-4 pb-16 rounded-md  w-full max-w-[800px]  ">
+        <div className="bg-primaryBlue  inline-block px-4 md:px-10 md:pt-10 pt-4 pb-16 rounded-md  w-full max-w-[800px]  ">
           <div className="mt-5 text-center text-white">
             <p className="text-lg font-medium md:text-2xl">
               Submit Your Business Type

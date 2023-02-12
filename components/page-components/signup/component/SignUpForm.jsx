@@ -29,6 +29,9 @@ import { registration } from "@/utils/resolvers/mutation";
 import { getCountries } from "@/utils/resolvers/query";
 import Layout from "@/components/Layout/Layout";
 import Head from "next/head";
+import LoadingButton from "@/components/ui/LoadingButton";
+import useAuth from "@/lib/hooks/auth";
+import useUser from "@/lib/hooks/useUser";
 
 const initialValues = {
   first_name: "",
@@ -48,10 +51,11 @@ const initialValues = {
 
 const SignUpForm = () => {
   const [allCountry] = useLocalStorage("countries", getCountries);
-  const [user, setUser] = useState();
-  const queryClient = useQueryClient();
-  const router = useRouter();
-  const { mutate } = useMutation(registration);
+  const { mutate, isLoading } = useMutation(registration);
+  const user = useUser({ middleware: "guest", redirectIfAuthenticated: "/" });
+  const { registerController } = useAuth({
+    redirectIfAuthenticated: "/confirm-email",
+  });
 
   const {
     values,
@@ -86,31 +90,9 @@ const SignUpForm = () => {
         variables.company_name = values.company_name;
       }
 
-      mutate(variables, {
-        onSuccess: (data) => {
-          if (data.data.data.user) {
-            localStorage.setItem("BDERP_authToken", data.data.data.token);
-            localStorage.setItem(
-              "BDERP_register",
-              JSON.stringify(data.data.data.user)
-            );
-            router.push("/confirm-email");
-          }
-        },
-        onError: (err) => {
-          const errorData = err?.response.data;
-
-          Object.keys(errorData?.message).map((key) => {
-            setFieldError(key, errorData.message[key][0]);
-          });
-        },
-      });
-
-      formik.resetForm();
+      registerController({ body: variables, setFieldError, mutate });
     },
   });
-
-  console.log(errors.privacy_aggrement);
 
   return (
     <form className="mt-5" onSubmit={handleSubmit}>
@@ -220,7 +202,6 @@ const SignUpForm = () => {
                   name="privacy_aggrement"
                   checked={values.privacy_aggrement}
                   onChange={handleChange}
-                  sx={{ borderColor: "red" }}
                 />
               }
               label="I agree to tranzact Privacy Policy & Terms of Service"
@@ -231,9 +212,7 @@ const SignUpForm = () => {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          <Button fullWidth variant="contained">
-            Sign Up
-          </Button>
+          {isLoading ? <LoadingButton /> : <Button fullWidth>Sign Up</Button>}
         </Grid>
       </Grid>
     </form>

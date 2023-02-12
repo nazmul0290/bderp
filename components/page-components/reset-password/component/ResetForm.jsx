@@ -42,7 +42,7 @@ const ResetForm = () => {
         ...values,
         email,
         token,
-        old_password_token: 0,
+        old_password_token: null,
       };
 
       resetPassword({ body: variables, mutate });

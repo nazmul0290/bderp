@@ -2,8 +2,13 @@ import ResetPasswordSection from "@/components/page-components/reset-password/Re
 import Layout from "@/components/Layout/Layout";
 import Head from "next/head";
 import React from "react";
+import { useRouter } from "next/router";
+import useUser from "@/lib/hooks/useUser";
+import isEmpty from "@/utils/is-empty";
 
 const ResetPasswordPage = () => {
+  const router = useRouter();
+  const user = useUser({ middleware: "guest", redirectIfAuthenticated: "/" });
   return (
     <>
       <Head>

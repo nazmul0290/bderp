@@ -7,7 +7,7 @@ const ExcelAlert = () => {
     <section className="py-10 md:py-20">
       <div className="container">
         <div className="text-center">
-          <h1 className="text-[#417ee7] font-bold text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+          <h1 className="text-xl font-bold text-primaryBlue md:text-2xl lg:text-3xl xl:text-4xl">
             Hey! Are You
           </h1>
           <p className="mt-2 md:tracking-wide text-md md:text-md lg:text-xl xl:text-2xl ">

@@ -2,25 +2,15 @@ import CustomButton from "@/components/ui/Button";
 import Layout from "@/components/Layout/Layout";
 import { secureEmail } from "@/utils/email";
 import Head from "next/head";
-import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import useUser from "@/lib/hooks/useUser";
+import Button from "@/components/ui/Button";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 
 const ConfirmEmailPage = () => {
-  const [email, setEmail] = useState("");
+  const user = useUser({ middleware: "auth", redirectIfAuthenticated: "/" });
   const router = useRouter();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    const registerData = JSON.parse(localStorage.getItem("BDERP_register"));
-    if (registerData) {
-      console.log(registerData);
-      setEmail(registerData.email);
-    }
-  });
-  console.log(email);
 
   return (
     <>
@@ -37,9 +27,11 @@ const ConfirmEmailPage = () => {
             <h1>
               {" "}
               Confirmation Email Has been sent to{" "}
-              <span className="font-bold">{secureEmail(email)}</span>{" "}
+              <span className="font-bold">
+                {secureEmail(user?.user.email)}
+              </span>{" "}
             </h1>
-            <CustomButton
+            <Button
               className="mt-5"
               onClick={() => {
                 router.push("/");
@@ -47,7 +39,7 @@ const ConfirmEmailPage = () => {
             >
               Go To Home Page{" "}
               <ArrowForwardIcon className="ml-2" fontSize="small" />
-            </CustomButton>
+            </Button>
           </div>
         </section>
       </Layout>

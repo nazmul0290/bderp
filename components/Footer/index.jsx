@@ -51,7 +51,7 @@ const index = () => {
                     placeholder="Email address"
                   />
                   <div className="absolute top-0 right-0">
-                    <button className="xl:w-20 sm:w-12 w-10 text-sm md:text-base text-white bg-[#417ee7] rounded-lg md:h-12 h-8 hover:bg-[#5289e9]">
+                    <button className="xl:w-20 sm:w-12 w-10 text-sm md:text-base text-white bg-primaryBlue rounded-lg md:h-12 h-8 hover:bg-[#5289e9]">
                       Join
                     </button>
                   </div>
@@ -83,7 +83,7 @@ const index = () => {
                 </div>
               </div>
               <ul className="flex mt-5 space-x-2 md:space-x-5 lg:space-x-10 ">
-                <li className="text-[#417ee7] md:p-3 p-1 bg-white flex items-center justify-center rounded-full">
+                <li className="flex items-center justify-center p-1 bg-white rounded-full text-primaryBlue md:p-3">
                   <Link href="/">
                     <FacebookOutlinedIcon className="text-lg md:text-2xl" />
                   </Link>
