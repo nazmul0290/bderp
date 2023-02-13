@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
-import { Button } from "@mui/material";
 import Link from "next/link";
+import Button from "@/components/ui/Button";
 
 const HeroSection = () => {
   return (
@@ -47,12 +47,7 @@ const HeroSection = () => {
                 Simply Save Time & Money With BD ERP
               </p>
               <Link href="/signup">
-                <Button
-                  variant="text"
-                  className="px-8 mt-4 xl:mt-5 py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec] "
-                >
-                  Get Started
-                </Button>
+                <Button className="mt-5 ">Get Started</Button>
               </Link>
             </div>
           </div>

@@ -9,18 +9,35 @@ import { loginYupValidation } from "@/utils/yupValidation";
 import { Grid } from "@mui/material";
 import { useFormik } from "formik";
 import React, { useState } from "react";
+import { useEffect } from "react";
 import { useMutation } from "react-query";
 import { toast } from "react-toastify";
 import CustomTextField from "../../../global-components/inputs/CustomTextField";
 
 const LoginForm = () => {
+  const [cameFrom, setCameFrom] = useState("/");
+
+  useEffect(() => {
+    const routeMemory = JSON.parse(
+      sessionStorage.getItem(
+        `${process.env.NEXT_PUBLIC_LOCAL_STORAGE_KEY}memory`
+      )
+    );
+
+    if (routeMemory) {
+      setCameFrom(routeMemory);
+      sessionStorage.removeItem(
+        `${process.env.NEXT_PUBLIC_LOCAL_STORAGE_KEY}memory`
+      );
+    }
+  }, []);
+
   const { loginController } = useAuth({
     middleware: "auth",
-    redirectIfAuthenticated: "/",
+    redirectIfAuthenticated: cameFrom,
   });
 
   const { mutate, isLoading } = useMutation(loginMutation);
-  console.log(isLoading);
 
   const {
     values,
@@ -88,12 +105,7 @@ const LoginForm = () => {
           {isLoading ? (
             <LoadingButton />
           ) : (
-            <Button
-              variant="contained"
-              className="relative h-10 "
-              disabled={isLoading}
-              fullWidth
-            >
+            <Button disabled={isLoading} fullWidth>
               Login
             </Button>
           )}

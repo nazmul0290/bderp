@@ -14,7 +14,7 @@ const ImageCompare = ({ title, subtitle, imgUrlBefore, imgUrlAfter }) => {
         </h1>
         <p>{subtitle}</p>
       </div>
-      <div className="p-3 mt-10 rounded-md">
+      <div className="mt-10 overflow-hidden rounded-md shadow-xl ">
         <ReactCompareSlider
           boundsPadding={30}
           handle={

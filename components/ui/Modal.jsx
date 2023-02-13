@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Title } from "@mui/icons-material";
+
 import React, { Fragment } from "react";
 import Button from "./Button";
 
@@ -9,13 +9,9 @@ const Modal = ({ isOpen, closeModal, children, title }) => {
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog
           as="div"
-          className="fixed inset-0 z-10 overflow-y-auto"
+          className="fixed inset-0 z-20 overflow-y-auto"
           onClose={closeModal}
         >
-          {/* <div
-            className="w-full h-screen transition-all duration-75 blur-sm"
-            onClick={closeModal}
-          ></div> */}
           <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
           <div className="z-50 min-h-screen px-4 text-center">
             <Transition.Child
@@ -46,27 +42,31 @@ const Modal = ({ isOpen, closeModal, children, title }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-lg p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                <Dialog.Title
-                  as="h3"
-                  className="text-lg font-medium leading-6 text-gray-900"
-                >
-                  {title}
-                </Dialog.Title>
+              <div className="inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                {title && (
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6 text-gray-900"
+                  >
+                    {title}
+                  </Dialog.Title>
+                )}
                 <div className="mt-2">
-                  <p className="pt-2 text-sm text-gray-500 border-t">
-                    {children}
-                  </p>
+                  <p className="pt-2 text-sm ">{children}</p>
                 </div>
 
-                <div className="flex justify-end gap-5 mt-4">
-                  <Button type="button" onClick={closeModal}>
+                {/* <div className="flex justify-between gap-5 mt-4">
+                  <Button
+                    type="button"
+                    onClick={closeModal}
+                    className="bg-red-600"
+                  >
                     Close
                   </Button>
                   <Button type="button" onClick={closeModal}>
                     Confirm
                   </Button>
-                </div>
+                </div> */}
               </div>
             </Transition.Child>
           </div>

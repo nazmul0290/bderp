@@ -1,10 +1,10 @@
-import { TextField } from "@mui/material";
+import { TextField as MuiTextField } from "@mui/material";
 import React from "react";
 
-const CustomTextField = ({ label, ...props }) => {
+const TextField = ({ label, ...props }) => {
   return (
     <>
-      <TextField
+      <MuiTextField
         label={label}
         fullWidth
         color="info"
@@ -16,4 +16,4 @@ const CustomTextField = ({ label, ...props }) => {
   );
 };
 
-export default CustomTextField;
+export default TextField;
