@@ -102,11 +102,9 @@ const LoginForm = () => {
         </Grid>
 
         <Grid item xs={12}>
-          {isLoading ? (
-            <LoadingButton />
-          ) : (
-            <Button className="w-full">Login</Button>
-          )}
+          <Button disabled={isLoading} className="w-full">
+            Login
+          </Button>
         </Grid>
       </Grid>
     </form>
