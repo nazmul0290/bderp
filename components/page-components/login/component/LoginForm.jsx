@@ -105,9 +105,7 @@ const LoginForm = () => {
           {isLoading ? (
             <LoadingButton />
           ) : (
-            <Button disabled={isLoading} fullWidth>
-              Login
-            </Button>
+            <Button className="w-full">Login</Button>
           )}
         </Grid>
       </Grid>
