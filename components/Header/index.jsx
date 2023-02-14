@@ -6,13 +6,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Button from "../ui/Button";
+
 import { useRouter } from "next/router";
 import useUser from "@/lib/hooks/useUser";
 import isEmpty from "@/utils/is-empty";
 import useAuth from "@/lib/hooks/auth";
 import { useMutation } from "react-query";
 import { logoutMutation } from "@/utils/resolvers/mutation";
+import Button from "../ui/Button";
 
 const menus = [
   {
@@ -124,11 +125,7 @@ const index = ({ transparent, stickyNav }) => {
 
             <li className="block py-2 md:p-2 lg:p-4">
               {isEmpty(user.token) ? (
-                <Button
-                  onClick={() => {
-                    router.push("/login");
-                  }}
-                >
+                <Button href="/login">
                   Login <ArrowForwardIcon className="ml-2" fontSize="small" />
                 </Button>
               ) : (
@@ -176,17 +173,12 @@ const index = ({ transparent, stickyNav }) => {
             })}
             <li className="block ">
               {isEmpty(user.token) ? (
-                <Button
-                  fullWidth
-                  onClick={() => {
-                    router.push("login");
-                  }}
-                >
-                  Login <ArrowForwardIcon className="ml-2" fontSize="small" />
+                <Button href="/login">
+                  Login <ArrowForwardIcon className="ml-2" />
                 </Button>
               ) : (
-                <Button fullWidth onClick={logoutHandler}>
-                  Logout <ArrowForwardIcon className="ml-2" fontSize="small" />
+                <Button onClick={logoutHandler}>
+                  Logout <ArrowForwardIcon className="ml-2" />
                 </Button>
               )}
             </li>

@@ -210,3 +210,19 @@ body {
       --tw-translate-x: 0;
   }
 }
+
+
+
+// invoice list item hover effect
+
+.invoice__items {
+  .invoice__items--action {
+    visibility: hidden;
+
+  }
+  &:hover{
+    .invoice__items--action {
+      visibility: visible;
+    }
+  }
+}

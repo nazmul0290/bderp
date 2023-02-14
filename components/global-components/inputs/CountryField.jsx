@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Autocomplete, Box, TextField } from "@mui/material";
 import Image from "next/image";
 import React from "react";
@@ -8,6 +9,7 @@ const CountryField = ({
   setFieldValue,
   touched,
   errors,
+  name,
 }) => {
   return (
     <Autocomplete
@@ -19,7 +21,7 @@ const CountryField = ({
       value={values}
       name="country"
       onChange={(event, newValue) => {
-        setFieldValue(values, newValue);
+        setFieldValue(name, newValue);
       }}
       isOptionEqualToValue={(option, value) => option.code === value.code}
       getOptionLabel={(option) => option.country_name}

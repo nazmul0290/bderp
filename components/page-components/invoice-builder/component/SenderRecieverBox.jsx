@@ -7,27 +7,36 @@ import React, { useState } from "react";
 import { useLocalStorage } from "@/lib/hooks/useHooks";
 import { useFormik } from "formik";
 import Button from "@/components/ui/Button";
+import PhoneNumberInput from "@/components/global-components/inputs/PhoneNumberInput";
+import { useDispatch } from "react-redux";
+import isEmpty from "@/utils/is-empty";
+import Paragraph from "@/components/ui/Paragraph";
 
 const SenderRecieverBox = ({
   Icon,
   infoFor,
   nameFor,
   contactFor,
-  inputName,
+  action,
   headerInfoModal,
   headerAddressModal,
+  senderDetails,
 }) => {
   const [allCountry] = useLocalStorage("countries", getCountries);
   const [isOpen, setIsOpen] = useState(false);
   const closeModal = () => {
     setIsOpen(false);
   };
+  console.log(senderDetails);
+  const dispatch = useDispatch();
 
   const { values, errors, handleSubmit, setFieldValue, handleChange } =
     useFormik({
       initialValues: {},
       onSubmit: (values) => {
         console.log(values);
+        dispatch(action(values));
+        closeModal();
       },
     });
 
@@ -87,6 +96,12 @@ const SenderRecieverBox = ({
                 label="Web Site"
               />
             </div>
+            <div>
+              <PhoneNumberInput
+                name="phone_number"
+                setFieldValue={setFieldValue}
+              />
+            </div>
           </div>
           <div className="border-b">
             <Headline>{headerAddressModal}</Headline>
@@ -96,7 +111,7 @@ const SenderRecieverBox = ({
               <CountryField
                 onChange={handleChange}
                 label="Last Name"
-                name="country_name"
+                name="country"
                 setFieldValue={setFieldValue}
                 allCountry={allCountry}
               />
@@ -104,26 +119,45 @@ const SenderRecieverBox = ({
             <div>
               <TextField
                 onChange={handleChange}
-                label="Tex Registration Number"
+                label="Devision/Province/State"
+                name="state"
               />
-            </div>
-            <div>
-              <TextField onChange={handleChange} label="First Name" required />
-            </div>
-            <div>
-              <TextField onChange={handleChange} label="Last Name" required />
             </div>
             <div>
               <TextField
                 onChange={handleChange}
-                label="Email"
-                type="email"
-                required
+                label="City/Sub District/Thana"
+                name="city"
+              />
+            </div>
+            <div>
+              <TextField
+                onChange={handleChange}
+                label="Union/Area/Town"
+                name="union"
+              />
+            </div>
+            <div>
+              <TextField
+                onChange={handleChange}
+                label="Zip Code"
+                name="zipcode"
+              />
+            </div>
+            <div>
+              <TextField
+                onChange={handleChange}
+                label="Street Address 1/Village"
+                name="addres_line_1"
               />
             </div>
 
             <div>
-              <TextField onChange={handleChange} label="Web Site" />
+              <TextField
+                onChange={handleChange}
+                label="Street Address 2 (House/suite/apartment no)"
+                name="address_line_2"
+              />
             </div>
           </div>
           <div className="flex justify-end">
@@ -137,18 +171,38 @@ const SenderRecieverBox = ({
           setIsOpen(true);
         }}
       >
-        <div>
-          <h1 className="mb-1 font-bold">{infoFor}</h1>
-        </div>
-        <div className="flex gap-5">
+        {isEmpty(senderDetails.company_name) ? (
+          <>
+            <div>
+              <h1 className="mb-1 font-bold">{infoFor}</h1>
+            </div>
+            <div className="flex gap-5">
+              <div>
+                <Icon fontSize="large" />
+              </div>
+              <div>
+                <h1>{nameFor}</h1>
+                <p>{contactFor}</p>
+              </div>
+            </div>
+          </>
+        ) : (
           <div>
-            <Icon fontSize="large" />
+            <h1 className="font-bold">{senderDetails?.company_name}</h1>
+            <div className="text-sm">
+              <p>
+                {senderDetails?.first_name} {senderDetails?.last_name}
+              </p>
+              <p>{senderDetails?.email}</p>
+              <p>{senderDetails?.country?.country_name}</p>
+              <p>
+                {senderDetails?.state}, {senderDetails?.union},{" "}
+                {senderDetails?.addres_line_1}
+              </p>
+              <p>{senderDetails?.phone_number.mobile}</p>
+            </div>
           </div>
-          <div>
-            <h1>{nameFor}</h1>
-            <p>{contactFor}</p>
-          </div>
-        </div>
+        )}
       </div>
     </>
   );

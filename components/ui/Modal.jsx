@@ -2,8 +2,9 @@ import { Dialog, Transition } from "@headlessui/react";
 
 import React, { Fragment } from "react";
 import Button from "./Button";
+import CloseIcon from "@mui/icons-material/Close";
 
-const Modal = ({ isOpen, closeModal, children, title }) => {
+const Modal = ({ isOpen, closeModal, children, title, size }) => {
   return (
     <>
       <Transition appear show={isOpen} as={Fragment}>
@@ -42,7 +43,11 @@ const Modal = ({ isOpen, closeModal, children, title }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <div
+                className={`${
+                  size === "small" ? "max-w-sm" : "max-w-xl"
+                } relative inline-block w-full  p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white rounded-md shadow-xl`}
+              >
                 {title && (
                   <Dialog.Title
                     as="h3"
@@ -51,22 +56,12 @@ const Modal = ({ isOpen, closeModal, children, title }) => {
                     {title}
                   </Dialog.Title>
                 )}
+                <div className="absolute text-red-500 top-3 right-4">
+                  <CloseIcon onClick={closeModal} className="cursor-pointer" />
+                </div>
                 <div className="mt-2">
                   <p className="pt-2 text-sm ">{children}</p>
                 </div>
-
-                {/* <div className="flex justify-between gap-5 mt-4">
-                  <Button
-                    type="button"
-                    onClick={closeModal}
-                    className="bg-red-600"
-                  >
-                    Close
-                  </Button>
-                  <Button type="button" onClick={closeModal}>
-                    Confirm
-                  </Button>
-                </div> */}
               </div>
             </Transition.Child>
           </div>

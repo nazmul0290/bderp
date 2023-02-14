@@ -46,17 +46,23 @@ const Hero = () => {
   };
   return (
     <>
-      <Modal isOpen={isOpen} closeModal={closeModal}>
-        <div className="flex flex-col space-y-6">
-          <Button
-            className={() => {
-              router.push("/signup");
-            }}
-          >
-            Sign Up
-          </Button>
-          <Button onClick={signRouteHandler}>Sign In</Button>
-          <Button onClick={guestButtonHandler}>Continue As a Guest</Button>
+      <Modal isOpen={isOpen} size="small" closeModal={closeModal}>
+        <div className="mx-auto max-w-[200px] ">
+          <div>
+            <Button href="/signup" className="w-full">
+              Sign Up
+            </Button>
+          </div>
+          <div className="mt-5 ">
+            <Button onClick={signRouteHandler} className="w-full">
+              Sign In
+            </Button>
+          </div>
+          <div className="mt-5 ">
+            <Button onClick={guestButtonHandler} className="w-full">
+              Continue As a Guest
+            </Button>
+          </div>
         </div>
       </Modal>
       <section

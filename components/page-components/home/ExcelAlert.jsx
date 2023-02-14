@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import Button from "@/components/ui/Button";
 import Image from "next/image";
 import React from "react";
 
@@ -27,7 +27,7 @@ const ExcelAlert = () => {
           />
         </div>
         <div className="mt-10 text-center">
-          <Button className="px-4 md:px-10 py-3  rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec] text-white font-bold capitalize text-md lg:text-lg xl:text-xl ">
+          <Button href="/signup">
             Just FREE Sign Up & Get Lifetime Access!
           </Button>
         </div>

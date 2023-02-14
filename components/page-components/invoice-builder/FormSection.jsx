@@ -4,21 +4,15 @@ import InvoiceController from "./component/InvoiceController";
 import InvoiceForm from "./component/InvoiceForm";
 
 const FormSection = () => {
-  const { values, setFieldValue, handleChange } = useFormik({
-    initialValues: {
-      template: { id: 1, name: "Durward Reynolds" },
-    },
-  });
-
   return (
     <section>
       <div></div>
-      <div className="flex gap-5 mt-5">
-        <div className="w-3/4 p-3 border rounded-md shadow-xl">
-          <InvoiceForm />
-        </div>
-        <div className="w-1/4">
+      <div className="flex flex-col gap-5 mt-5 md:flex-row">
+        <div className="max-w-sm mx-auto md:w-1/4">
           <InvoiceController />
+        </div>
+        <div className="p-3 border rounded-md shadow-xl md:w-3/4">
+          <InvoiceForm />
         </div>
       </div>
     </section>

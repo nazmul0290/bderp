@@ -1,14 +1,14 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import Image from "next/image";
-import { Button } from "@mui/material";
 import CheckList from "@/components/global-components/CheckList";
 import { businessGrowthChecklist } from "@/lib/data";
+import Button from "@/components/ui/Button";
 
 const BusinessGrowth = () => {
   return (
     <section className="container flex flex-col items-center px-2 py-10 m-auto mt-10 space-x-0 lg:mt-1 md:mt-28 lg:flex-row lg:space-x-5 ">
-      <div className="flex items-center justify-center order-2 hidden w-full md:block mt-14 lg:mt-0 lg:w-1/2 lg:order-1">
+      <div className="items-center justify-center order-2 hidden w-full md:flex mt-14 lg:mt-0 lg:w-1/2 lg:order-1">
         <Image
           src="/img/home/screen-monitor.png"
           alt="screen"
@@ -24,7 +24,7 @@ const BusinessGrowth = () => {
           </p>
           <p className="mt-2 text-lg sm:text-xl md:text-2xl xl:text-4xl text-primary">
             You Need The Simplest Way To <br />
-            <span className="font-bold">Manager Inventory With BDERP</span>
+            <span className="font-bold">Manage Inventory With BDERP</span>
           </p>
           <p className="mt-2 text-sm font-medium text-gray-600 lg:text-lg md:text-md">
             If you are worried about mishandling current business purchase and
@@ -38,9 +38,7 @@ const BusinessGrowth = () => {
           title="Let's see how BDERP will help you..."
           lists={businessGrowthChecklist}
         />
-        <Button className=" px-10 mt-4 py-2 text-white rounded-md bg-gradient-to-r from-[#4680ff] to-[#5b89ec] ">
-          Sign Up Free
-        </Button>
+        <Button href="/signup">Sign Up Free</Button>
       </div>
     </section>
   );

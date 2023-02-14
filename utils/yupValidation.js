@@ -39,6 +39,10 @@ const validationSchemaList = {
     .boolean()
     .oneOf([true], "You must accept the privacy policy to continue")
     .required("Please accept the privacy policy to continue"),
+
+  invoice_item_name: yup.string().required("Must have name"),
+  invoice_item_quantity: yup.number().min(1).required("Must have quantity"),
+  invoice_item_unit_price: yup.number().min(1).required("Must have Unit Price"),
 };
 
 const {
@@ -49,7 +53,21 @@ const {
   last_name,
   password,
   privacy_aggrement,
+  invoice_item_name,
+  invoice_item_quantity,
+  invoice_item_unit_price,
 } = validationSchemaList;
+
+export const invoiceItemsValidationSchema = yup.object({
+  name: invoice_item_name,
+  quantity: invoice_item_quantity,
+  unit_price: invoice_item_unit_price,
+});
+
+export const itemTaxValidationSchema = yup.object({
+  name: first_name,
+  tax: invoice_item_quantity,
+});
 
 export const signUpValidationSchema = yup.object({
   first_name,

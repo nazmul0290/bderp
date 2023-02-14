@@ -83,17 +83,17 @@ const index = () => {
                 </div>
               </div>
               <ul className="flex mt-5 space-x-2 md:space-x-5 lg:space-x-10 ">
-                <li className="flex items-center justify-center p-1 bg-white rounded-full text-primaryBlue md:p-3">
+                <li className="flex items-center justify-center text-primary ">
                   <Link href="/">
                     <FacebookOutlinedIcon className="text-lg md:text-2xl" />
                   </Link>
                 </li>
-                <li className="flex items-center justify-center p-1 bg-white rounded-full md:p-3 ">
+                <li className="flex items-center justify-center ">
                   <Link href="/">
                     <TwitterIcon className="text-lg md:text-2xl" />
                   </Link>
                 </li>
-                <li className="flex items-center justify-center p-1 bg-white rounded-full md:p-3 ">
+                <li className="flex items-center justify-center">
                   <Link href="/">
                     <LanguageIcon className="text-lg md:text-2xl" />
                   </Link>

@@ -212,7 +212,9 @@ const SignUpForm = () => {
           </FormControl>
         </Grid>
         <Grid item xs={12}>
-          {isLoading ? <LoadingButton /> : <Button fullWidth>Sign Up</Button>}
+          <Button disabled={isLoading} className="w-full">
+            Sign Up
+          </Button>
         </Grid>
       </Grid>
     </form>
