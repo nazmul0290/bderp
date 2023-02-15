@@ -23,6 +23,7 @@
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.5",
     "formik": "^2.2.9",
+    "moment": "^2.29.4",
     "mui-tel-input": "^3.0.2",
     "next": "13.1.5",
     "next-auth": "^4.19.2",

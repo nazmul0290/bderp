@@ -39,7 +39,6 @@ const PhoneNumberForm = () => {
       { userData: variables, userUuid: user.uuid, token },
       {
         onSuccess: (data) => {
-          console.log(data);
           toast.success(data.data.message);
         },
         onError: (err) => {
@@ -66,7 +65,6 @@ const PhoneNumberForm = () => {
           dropdownStyle={{ textAlign: "left" }}
           inputStyle={{ width: "100%" }}
           onChange={(value, data) => {
-            console.log(value, data);
             setPhone({
               mobile_country_code: data?.dialCode,
               mobile: value.slice(data.dialCode.length),

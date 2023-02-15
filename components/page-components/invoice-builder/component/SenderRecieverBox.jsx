@@ -27,18 +27,51 @@ const SenderRecieverBox = ({
   const closeModal = () => {
     setIsOpen(false);
   };
-  console.log(senderDetails);
+
   const dispatch = useDispatch();
 
   const { values, errors, handleSubmit, setFieldValue, handleChange } =
     useFormik({
-      initialValues: {},
+      initialValues: {
+        display_name: "",
+        attention: "",
+        company_name: "",
+        company_info: "",
+        first_name: "",
+        last_name: "",
+        mobile: "",
+        mobile_country_code: "",
+        email: "",
+        country_id: "",
+        country_name: "",
+        state_name: "",
+        district_name: "",
+        thana_name: "",
+        union_name: "",
+        zipcode: "",
+        street_address_line_1: "",
+        street_address_line_2: "",
+        house: "",
+        website: "",
+        tax_number: "",
+        ...senderDetails,
+      },
       onSubmit: (values) => {
-        console.log(values);
         dispatch(action(values));
         closeModal();
       },
     });
+
+  const mobileHandlerChange = (value, data) => {
+    console.log(data);
+    setFieldValue("mobile_country_code", `+${data?.dialCode}`);
+    setFieldValue("mobile", value);
+  };
+
+  const countryHandlerChange = (event, newValue) => {
+    setFieldValue("country_id", newValue.id);
+    setFieldValue("country_name", newValue.country_name);
+  };
 
   return (
     <>
@@ -50,6 +83,7 @@ const SenderRecieverBox = ({
           <div className="grid grid-cols-2 gap-5 py-5">
             <div>
               <TextField
+                value={values.company_name}
                 onChange={handleChange}
                 label="Company/Sender name"
                 name="company_name"
@@ -58,6 +92,7 @@ const SenderRecieverBox = ({
             </div>
             <div>
               <TextField
+                value={values.tax_number}
                 onChange={handleChange}
                 label="Tax Registration Number"
                 name="tax_number"
@@ -65,6 +100,7 @@ const SenderRecieverBox = ({
             </div>
             <div>
               <TextField
+                value={values.first_name}
                 onChange={handleChange}
                 name="first_name"
                 label="First Name"
@@ -73,6 +109,7 @@ const SenderRecieverBox = ({
             </div>
             <div>
               <TextField
+                value={values.last_name}
                 onChange={handleChange}
                 name="last_name"
                 label="Last Name"
@@ -81,6 +118,7 @@ const SenderRecieverBox = ({
             </div>
             <div>
               <TextField
+                value={values.email}
                 onChange={handleChange}
                 label="Email"
                 type="email"
@@ -91,6 +129,7 @@ const SenderRecieverBox = ({
 
             <div>
               <TextField
+                value={values.website}
                 onChange={handleChange}
                 name="website"
                 label="Web Site"
@@ -99,7 +138,7 @@ const SenderRecieverBox = ({
             <div>
               <PhoneNumberInput
                 name="phone_number"
-                setFieldValue={setFieldValue}
+                handleChange={mobileHandlerChange}
               />
             </div>
           </div>
@@ -112,33 +151,37 @@ const SenderRecieverBox = ({
                 onChange={handleChange}
                 label="Last Name"
                 name="country"
-                setFieldValue={setFieldValue}
+                handleChange={countryHandlerChange}
                 allCountry={allCountry}
               />
             </div>
             <div>
               <TextField
+                value={values.state_name}
                 onChange={handleChange}
                 label="Devision/Province/State"
-                name="state"
+                name="state_name"
               />
             </div>
             <div>
               <TextField
+                value={values.district_name}
                 onChange={handleChange}
                 label="City/Sub District/Thana"
-                name="city"
+                name="district_name"
               />
             </div>
             <div>
               <TextField
+                value={values.union_name}
                 onChange={handleChange}
                 label="Union/Area/Town"
-                name="union"
+                name="union_name"
               />
             </div>
             <div>
               <TextField
+                value={values.zipcode}
                 onChange={handleChange}
                 label="Zip Code"
                 name="zipcode"
@@ -146,17 +189,19 @@ const SenderRecieverBox = ({
             </div>
             <div>
               <TextField
+                value={values.street_address_line_1}
                 onChange={handleChange}
                 label="Street Address 1/Village"
-                name="addres_line_1"
+                name="street_address_line_1"
               />
             </div>
 
             <div>
               <TextField
+                value={values.street_address_line_2}
                 onChange={handleChange}
                 label="Street Address 2 (House/suite/apartment no)"
-                name="address_line_2"
+                name="street_address_line_2"
               />
             </div>
           </div>
@@ -199,7 +244,7 @@ const SenderRecieverBox = ({
                 {senderDetails?.state}, {senderDetails?.union},{" "}
                 {senderDetails?.addres_line_1}
               </p>
-              <p>{senderDetails?.phone_number.mobile}</p>
+              <p>{senderDetails?.mobile}</p>
             </div>
           </div>
         )}

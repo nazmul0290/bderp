@@ -21,8 +21,6 @@ const ResetForm = () => {
   const { resetPassword } = useAuth();
   const { email, token } = router.query;
 
-  console.log(email, token);
-
   const { mutate, isLoading } = useMutation(resetMutation);
 
   const { values, errors, touched, handleSubmit, handleChange } = useFormik({

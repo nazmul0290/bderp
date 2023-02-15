@@ -1,22 +1,17 @@
 import React, { useCallback, useState } from "react";
 import InvoiceHeader from "./InvoiceHeader";
-import ApartmentIcon from "@mui/icons-material/Apartment";
-import ContactsIcon from "@mui/icons-material/Contacts";
-import SenderRecieverBox from "./SenderRecieverBox";
+
 import InvoiceItemsTable from "./InvoiceItemsTable";
 import uuid from "react-uuid";
-import {
-  addInvoiceItem,
-  addRecieverDetailes,
-  addSenderDetails,
-} from "@/redux/resolvers/invoiceSlice";
+import { addInvoiceItem } from "@/redux/resolvers/invoiceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import isEmpty from "@/utils/is-empty";
 import SummarySection from "./SummarySection";
+import InformationSection from "./InformationSection";
 
-const InvoiceForm = () => {
+const InvoiceForm = ({ invoiceFormik }) => {
   const invoice = useSelector((state) => state.invoice);
-  console.log(invoice);
+
   const dispatch = useDispatch();
 
   const addNewItemHandler = () => {
@@ -24,16 +19,17 @@ const InvoiceForm = () => {
     const items = invoice.items;
     const variables = {
       id: uuid(),
-      name: "",
-      quantity: 0,
+      product_name: "",
+      product_qty: 0,
       unit_price: 0,
-      description: "",
-      tax: {
-        name: "",
-        tax: "",
-      },
-      subtotal: 0,
       isEditing: true,
+      product_desctiption: "",
+      product_discount: "",
+      is_taxable: false,
+      tax_name: "",
+      tax_rate: 0,
+      tax_amount: 0,
+      subtotal: 0,
     };
     if (isEmpty(items)) {
       dispatch(addInvoiceItem(variables));
@@ -51,30 +47,9 @@ const InvoiceForm = () => {
   return (
     <div>
       <div className="">
-        <InvoiceHeader />
+        <InvoiceHeader invoiceFormik={invoiceFormik} />
         <div>
-          <div className="flex gap-5 mt-10 cursor-pointer">
-            <SenderRecieverBox
-              Icon={ApartmentIcon}
-              contactFor="Sender contact details"
-              nameFor="Sender name"
-              infoFor="From"
-              headerAddressModal="Sender Address"
-              headerInfoModal="Sender Info"
-              action={addSenderDetails}
-              senderDetails={invoice.information.sender_details}
-            />
-            <SenderRecieverBox
-              Icon={ContactsIcon}
-              contactFor="Reciever contact details"
-              nameFor="Reciever name"
-              infoFor="To"
-              action={addRecieverDetailes}
-              headerAddressModal="Reciever Address"
-              senderDetails={invoice.information.reciever_details}
-              headerInfoModal="Reciever Info"
-            />
-          </div>
+          <InformationSection />
         </div>
         <div>
           <InvoiceItemsTable />

@@ -1,7 +1,9 @@
 import Button from "@/components/ui/Button";
+import isEmpty from "@/utils/is-empty";
 import React from "react";
+import { useSelector } from "react-redux";
 
-const InvoiceController = () => {
+const InvoiceController = ({ downloadPDFHandler }) => {
   return (
     <div>
       <div className="flex flex-col gap-5">
@@ -11,7 +13,7 @@ const InvoiceController = () => {
         <Button secondary>Add payment</Button>
         <hr />
         <Button> Delete invoice </Button>
-        <Button> Download PDF </Button>
+        <Button onClick={downloadPDFHandler}> Download PDF </Button>
         <Button> Save</Button>
       </div>
     </div>

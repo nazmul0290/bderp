@@ -67,7 +67,6 @@ export const updateUser = ({ userData, userUuid, token }) => {
 };
 
 export const logoutMutation = ({ token }) => {
-  console.log(token);
   return axios.post(
     `${backendUrl}/logout`,
     {},
@@ -90,6 +89,14 @@ export const forgotMutation = ({ body }) => {
 
 export const resetMutation = ({ body }) => {
   return axios.post(`${backendUrl}/v1/reset-password`, body, {
+    headers: {
+      Accept: "application/json",
+    },
+  });
+};
+
+export const invoiceCreateMutation = ({ body }) => {
+  return axios.post(`${backendUrl}/v1/invoice`, body, {
     headers: {
       Accept: "application/json",
     },

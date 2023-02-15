@@ -49,7 +49,6 @@ const index = ({ transparent, stickyNav }) => {
   const router = useRouter();
   const user = useUser();
   const { logout } = useAuth({ redirectIfAuthenticated: "/login" });
-  console.log(user);
 
   useEffect(() => {
     const handleScroll = () => {

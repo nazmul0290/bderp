@@ -6,7 +6,7 @@ import React from "react";
 
 const PricePage = () => {
   const user = useUser();
-  console.log(user);
+
   return (
     <>
       <Head>

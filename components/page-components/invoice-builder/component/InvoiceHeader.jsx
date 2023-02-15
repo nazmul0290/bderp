@@ -7,13 +7,14 @@ import Image from "next/image";
 import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 
-const InvoiceHeader = () => {
-  const [imgUrl, setImgUrl] = useState();
-  const [value, setValue] = useState(dayjs());
+const InvoiceHeader = ({ invoiceFormik }) => {
+  const { values, handleChange, errors, touched, handleSubmit, setFieldValue } =
+    invoiceFormik;
+
   const onDrop = useCallback((acceptedFiles) => {
     // Do something with the files
-    console.log(acceptedFiles);
-    setImgUrl(acceptedFiles);
+
+    setFieldValue("company_logo", acceptedFiles);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
@@ -24,9 +25,9 @@ const InvoiceHeader = () => {
         <div className="inline-block p-4 transition-all duration-100 border-2 border-dashed rounded-md hover:border-solid hover:border-purple-400">
           <div {...getRootProps()}>
             <input {...getInputProps()} />
-            {imgUrl ? (
+            {values.company_logo ? (
               <Image
-                src={URL.createObjectURL(imgUrl[0])}
+                src={URL.createObjectURL(values.company_logo[0])}
                 alt="dkf"
                 width={100}
                 height={150}
@@ -52,18 +53,29 @@ const InvoiceHeader = () => {
               labelId="demo-simple-select-label"
               id="demo-simple-select"
               label="Invoice"
+              name="invoice_type"
+              value={invoiceFormik.values.invoice_type}
+              onChange={invoiceFormik.handleChange}
               size="small"
             >
-              <MenuItem value={10}>Invoice</MenuItem>
-              <MenuItem value={20}>Invoice Tax</MenuItem>
-              <MenuItem value={30}>Commercial Invoice</MenuItem>
-              <MenuItem value={30}>Proforma Invoice</MenuItem>
-              <MenuItem value={30}>Bill</MenuItem>
-              <MenuItem value={30}>Purchase Order</MenuItem>
+              <MenuItem value="General Invoice" defaultChecked>
+                Invoice
+              </MenuItem>
+              <MenuItem value="Invoice Tax">Invoice Tax</MenuItem>
+              <MenuItem value="Commercial Invoice">Commercial Invoice</MenuItem>
+              <MenuItem value="Proforma Invoice">Proforma Invoice</MenuItem>
+              <MenuItem value="Bill">Bill</MenuItem>
+              <MenuItem value="Purchase Order">Purchase Order</MenuItem>
             </Select>
           </FormControl>
           <div>
-            <CustomTextField type="text" label="Invoice" />
+            <CustomTextField
+              type="text"
+              label="Invoice"
+              name="invoice_number"
+              value={values.invoice_number}
+              onChange={handleChange}
+            />
           </div>
         </div>
         <div className="flex gap-5">
@@ -71,10 +83,11 @@ const InvoiceHeader = () => {
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 label="Issue Date"
+                name="issue_date"
                 inputFormat="MM/DD/YYYY"
-                value={value}
+                value={values.issue_date}
                 onChange={(value) => {
-                  setValue(value);
+                  invoiceFormik.setFieldValue("issue_date", value);
                 }}
                 renderInput={(params) => <CustomTextField {...params} />}
               />
@@ -85,9 +98,10 @@ const InvoiceHeader = () => {
               <DesktopDatePicker
                 label="Due Date"
                 inputFormat="MM/DD/YYYY"
-                value={value}
+                value={values.due_date}
+                name="due_date"
                 onChange={(value) => {
-                  setValue(value);
+                  invoiceFormik.setFieldValue("due_date", value);
                 }}
                 renderInput={(params) => <CustomTextField {...params} />}
               />

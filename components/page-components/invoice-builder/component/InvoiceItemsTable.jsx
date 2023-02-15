@@ -1,5 +1,3 @@
-import TextField from "@/components/global-components/inputs/CustomTextField";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ItemForm from "./ItemForm";
@@ -9,7 +7,7 @@ import { makeEditable, removeItem } from "@/redux/resolvers/invoiceSlice";
 
 const InvoiceItemsTable = () => {
   const items = useSelector((state) => state.invoice.items);
-  console.log(items);
+
   const dispatch = useDispatch();
 
   return (
@@ -44,12 +42,21 @@ const InvoiceItemsTable = () => {
             return (
               <div key={item.id} className="invoice__items">
                 <div className="flex w-full justify-evenly">
-                  <div className="w-2/6 px-2 py-4 text-sm ">{item.name}</div>
-                  <div className="w-1/6 px-2 py-4 text-sm">{item.quantity}</div>
+                  <div className="w-1/6 px-2 py-4 text-sm ">
+                    {item.service_date}
+                  </div>
+                  <div className="w-1/6 px-2 py-4 text-sm ">
+                    {item.product_name}
+                  </div>
+                  <div className="w-1/6 px-2 py-4 text-sm">
+                    {item.product_qty}
+                  </div>
                   <div className="w-1/6 px-2 py-4 text-sm">
                     {item.unit_price}
                   </div>
-                  <div className="w-1/6 px-2 py-4 text-sm">{item.tax}</div>
+                  <div className="w-1/6 px-2 py-4 text-sm">
+                    {item.is_taxable && `${item.tax_name}-${item.tax_rate}%`}
+                  </div>
                   <div className="w-1/6 px-2 py-4 text-sm">{item.subtotal}</div>
                 </div>
                 <div className="flex justify-center w-full border-b ">

@@ -65,7 +65,6 @@ const AccountForm = () => {
     const variables = {
       business_type_id: [...checked],
     };
-    console.log(variables);
 
     updateBusinessAccount(
       {
@@ -75,7 +74,6 @@ const AccountForm = () => {
       },
       {
         onSuccess: (data) => {
-          console.log(data);
           router.push("/verify-number");
         },
         onError: (err) => {
@@ -112,7 +110,6 @@ const AccountForm = () => {
       { account: variables, token: bearerToken },
       {
         onSuccess: (data) => {
-          console.log(data);
           router.push("/verify-number");
         },
         onError: (err) => {

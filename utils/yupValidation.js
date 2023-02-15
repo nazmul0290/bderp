@@ -59,8 +59,8 @@ const {
 } = validationSchemaList;
 
 export const invoiceItemsValidationSchema = yup.object({
-  name: invoice_item_name,
-  quantity: invoice_item_quantity,
+  product_name: invoice_item_name,
+  product_qty: invoice_item_quantity,
   unit_price: invoice_item_unit_price,
 });
 

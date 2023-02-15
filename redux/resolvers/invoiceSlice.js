@@ -2,46 +2,70 @@ const { createSlice } = require("@reduxjs/toolkit");
 
 const initialState = {
   invoice_name: "",
-  invoice_id: "",
+  invoice_number: "",
   issue_date: "",
   due_date: "",
   information: {
     sender_details: {
+      display_name: "",
+      attention: "",
       company_name: "",
+      company_info: "",
       first_name: "",
       last_name: "",
+      mobile: "",
+      mobile_country_code: "",
       email: "",
-      phone_number: "",
-      tax_number: "",
-      website: "",
       country_id: "",
-      phone_number: {},
-      state: "",
-      city: "",
-      union: "",
+      country_name: "",
+      state_name: "",
+      district_name: "",
+      thana_name: "",
+      union_name: "",
       zipcode: "",
-      address_line_1: "",
-      address_line_2: "",
+      street_address_line_1: "",
+      street_address_line_2: "",
+      house: "",
+      website: "",
+      tax_number: "",
     },
     reciever_details: {
+      display_name: "",
+      attention: "",
       company_name: "",
+      company_info: "",
       first_name: "",
       last_name: "",
+      mobile: "",
+      mobile_country_code: "",
       email: "",
-      phone_number: "",
-      tax_number: "",
-      website: "",
-      country: {},
-      phone_number: {},
-      state: "",
-      city: "",
-      union: "",
+      country_id: "",
+      country_name: "",
+      state_name: "",
+      district_name: "",
+      thana_name: "",
+      union_name: "",
       zipcode: "",
-      address_line_1: "",
-      address_line_2: "",
+      street_address_line_1: "",
+      street_address_line_2: "",
+      house: "",
+      website: "",
+      tax_number: "",
     },
   },
   items: [],
+  customer_name: "",
+  order_discount: 0,
+  shipping_charge: 0,
+  order_adjustment: 0,
+  total_amount: 0,
+  grand_total_amount: 0,
+  adjustment_text: "",
+  invoice_terms: "",
+  total_tax: 0,
+  invoice_type: "",
+  invoice_currency: "",
+  status: 1,
 };
 
 const invoiceSlice = createSlice({
@@ -62,6 +86,16 @@ const invoiceSlice = createSlice({
     },
     addInvoiceItem: (state, action) => {
       state.items.push(action.payload);
+      state.total_amount = state.items
+        .map((item) => {
+          if (item.is_taxable) {
+            return (
+              item.product_qty * item.unit_price * (1 + item.tax_rate / 100)
+            );
+          }
+          return item.product_qty * item.unit_price;
+        })
+        .reduce((total, subtotal) => total + subtotal, 0);
     },
     updateItem: (state, action) => {
       state.items = state.items.map((item) => {
@@ -70,10 +104,33 @@ const invoiceSlice = createSlice({
         }
         return item;
       });
+
+      state.total_amount = state.items
+        .map((item) => {
+          console.log(item);
+          if (item.is_taxable) {
+            return (
+              item.product_qty * item.unit_price * (1 + item.tax_rate / 100)
+            );
+          }
+          return item.product_qty * item.unit_price;
+        })
+        .reduce((total, subtotal) => total + subtotal, 0);
     },
     removeItem: (state, action) => {
       state.items = state.items.filter((item) => item.id !== action.payload);
+      state.total_amount = state.items
+        .map((item) => {
+          if (item.is_taxable) {
+            return (
+              item.product_qty * item.unit_price * (1 + item.tax_rate / 100)
+            );
+          }
+          return item.product_qty * item.unit_price;
+        })
+        .reduce((total, subtotal) => total + subtotal, 0);
     },
+
     makeEditable: (state, action) => {
       state.items = state.items.map((item) => {
         if (item.id === action.payload) {
@@ -81,6 +138,21 @@ const invoiceSlice = createSlice({
         }
         return item;
       });
+    },
+    addInvoiceInformation: (state, action) => {
+      console.log(action.payload);
+      const {
+        issue_date,
+        due_date,
+        invoice_number,
+        invoice_terms,
+        invoice_type,
+      } = action.payload;
+      state.issue_date = issue_date;
+      state.due_date = due_date;
+      state.invoice_number = invoice_number;
+      state.invoice_type = invoice_type;
+      state.invoice_terms = invoice_terms;
     },
   },
 });
@@ -92,6 +164,7 @@ export const {
   updateItem,
   removeItem,
   makeEditable,
+  addInvoiceInformation,
 } = invoiceSlice.actions;
 
 export default invoiceSlice.reducer;

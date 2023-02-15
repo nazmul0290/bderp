@@ -6,7 +6,7 @@ import React from "react";
 const CountryField = ({
   allCountry,
   values,
-  setFieldValue,
+  handleChange,
   touched,
   errors,
   name,
@@ -20,9 +20,7 @@ const CountryField = ({
       size="small"
       value={values}
       name="country"
-      onChange={(event, newValue) => {
-        setFieldValue(name, newValue);
-      }}
+      onChange={handleChange}
       isOptionEqualToValue={(option, value) => option.code === value.code}
       getOptionLabel={(option) => option.country_name}
       renderOption={(props, option) => (

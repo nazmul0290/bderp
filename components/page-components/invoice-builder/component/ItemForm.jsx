@@ -15,6 +15,7 @@ import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import uuid from "react-uuid";
 
 const ItemForm = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,30 +23,40 @@ const ItemForm = ({ item }) => {
     {
       value: 0,
       display: "Non Taxable",
+      is_taxable: false,
     },
   ]);
 
   const dispatch = useDispatch();
   const initialValues = {
-    name: item.name,
-    quantity: item.quantity,
+    product_name: item.product_name,
+    product_qty: item.product_qty,
     unit_price: item.unit_price,
-    description: item.description,
+    product_desctiption: item.product_desctiption,
+    product_discount: item.product_discount,
+    is_taxable: false,
+    tax_name: "",
+    tax_rate: 0,
+    tax_amount: 0,
   };
-  const { values, errors, touched, handleChange, handleSubmit } = useFormik({
-    initialValues,
-    validationSchema: invoiceItemsValidationSchema,
-    onSubmit: (values) => {
-      const variables = {
-        id: item.id,
-        isEditing: false,
-        ...values,
-        subtotal: values.quantity * values.unit_price, //I will change it
-      };
-      console.log(variables);
-      dispatch(updateItem(variables));
-    },
-  });
+  const { values, errors, touched, handleChange, handleSubmit, setFieldValue } =
+    useFormik({
+      initialValues,
+      validationSchema: invoiceItemsValidationSchema,
+      onSubmit: (values) => {
+        console.log(values);
+        const variables = {
+          id: item.id,
+          isEditing: false,
+          ...values,
+          subtotal: values.product_qty * values.unit_price, //I will change it
+        };
+
+        console.log(variables);
+
+        dispatch(updateItem(variables));
+      },
+    });
 
   const formik = useFormik({
     initialValues: {
@@ -54,7 +65,19 @@ const ItemForm = ({ item }) => {
     },
     validationSchema: itemTaxValidationSchema,
     onSubmit: (values) => {
-      console.log(values);
+      const newTax = [
+        ...tax,
+        {
+          value: uuid(),
+          is_taxable: true,
+          display: `${values.name}-${values.tax}%`,
+          tax_name: values.name,
+          tax_rate: values.tax,
+        },
+      ];
+
+      setTax(newTax);
+      setIsOpen(false);
     },
   });
 
@@ -66,7 +89,6 @@ const ItemForm = ({ item }) => {
     setIsOpen(false);
   };
 
-  console.log(item);
   return (
     <>
       <Modal
@@ -80,6 +102,7 @@ const ItemForm = ({ item }) => {
             <TextField
               label="Name"
               value={formik.values.name}
+              name="name"
               onChange={formik.handleChange}
               error={formik.touched.name && Boolean(formik.errors.name)}
               helperText={formik.touched.name && formik.errors.name}
@@ -89,6 +112,7 @@ const ItemForm = ({ item }) => {
             <TextField
               label="Tax"
               type="number"
+              name="tax"
               value={formik.values.tax}
               onChange={formik.handleChange}
               error={formik.touched.tax && Boolean(formik.errors.tax)}
@@ -111,7 +135,6 @@ const ItemForm = ({ item }) => {
                   console.log(new Date(value).toISOString());
                 }}
                 renderInput={({ inputRef, inputProps, InputProps }) => {
-                  console.log(InputProps);
                   return (
                     <Box sx={{ display: "flex", alignItems: "center" }}>
                       <div {...inputProps} ref={inputRef}>
@@ -126,22 +149,22 @@ const ItemForm = ({ item }) => {
           <div className="px-2 py-4 text-sm font-medium md:w-1/6">
             <TextField
               label="Name"
-              name="name"
-              value={values.name}
+              name="product_name"
+              value={values.product_name}
               onChange={handleChange}
-              error={touched.name && Boolean(errors.name)}
-              helperText={touched.name && errors.name}
+              error={touched.product_name && Boolean(errors.product_name)}
+              helperText={touched.product_name && errors.product_name}
             />
           </div>
           <div className="px-2 py-4 text-sm font-medium md:w-1/6">
             <TextField
               type="number"
-              name="quantity"
+              name="product_qty"
               label="Quantity"
-              value={values.quantity}
+              value={values.product_qty}
               onChange={handleChange}
-              error={touched.quantity && Boolean(errors.quantity)}
-              helperText={touched.quantity && errors.quantity}
+              error={touched.product_qty && Boolean(errors.product_qty)}
+              helperText={touched.product_qty && errors.product_qty}
             />
           </div>
           <div className="px-2 py-4 text-sm font-medium md:w-1/6">
@@ -166,13 +189,17 @@ const ItemForm = ({ item }) => {
                 size="small"
                 onChange={(e) => {
                   const value = e.target.value;
-
-                  console.log(e.target.value);
+                  console.log(value);
+                  setFieldValue("is_taxable", value.is_taxable);
+                  if (value.is_taxable) {
+                    setFieldValue("tax_name", value.tax_name);
+                    setFieldValue("tax_rate", value.tax_rate);
+                  }
                 }}
               >
                 {tax.map((item) => {
                   return (
-                    <MenuItem key={item.value} value={item.value}>
+                    <MenuItem key={item.value} value={item}>
                       {item.display}
                     </MenuItem>
                   );
@@ -189,23 +216,23 @@ const ItemForm = ({ item }) => {
             </FormControl>
           </div>
           <div className="flex items-center w-1/6 px-2 py-4 text-sm font-medium">
-            {values.quantity * values.unit_price === 0
+            {values.product_qty * values.unit_price === 0
               ? ""
-              : values.quantity * values.unit_price}{" "}
+              : values.product_qty * values.unit_price}{" "}
           </div>
         </div>
         <div className="flex justify-between w-full border-b">
           <div className="px-2 py-4 text-sm font-medium md:w-5/6">
             <TextField
               label="Description"
-              name="description"
-              value={values.description}
+              name="product_desctiption"
+              value={values.product_desctiption}
               onChange={handleChange}
             />
           </div>
           <div className="flex gap-2 px-2 py-4 text-sm font-medium">
-            <button>
-              <CheckIcon type="submit" />
+            <button type="submit">
+              <CheckIcon />
             </button>
             <button onClick={deleteItem}>
               <DeleteIcon />

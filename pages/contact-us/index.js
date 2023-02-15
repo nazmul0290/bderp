@@ -6,7 +6,7 @@ import Head from "next/head";
 
 const ContactUsPage = () => {
   const user = useUser();
-  console.log(user);
+
   return (
     <>
       <Head>
