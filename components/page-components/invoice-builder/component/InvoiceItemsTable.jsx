@@ -17,7 +17,10 @@ const InvoiceItemsTable = () => {
       <div className="overflow-hidden border rounded-md">
         <section className="w-fulloverflow-auto ">
           <div className="flex justify-between w-full text-white bg-gray-800 border-b">
-            <div className="w-2/6 px-2 py-4 text-sm font-medium">Name</div>
+            <div className="w-1/6 px-2 py-4 text-sm font-medium">
+              Service Date
+            </div>
+            <div className="w-1/6 px-2 py-4 text-sm font-medium">Name</div>
             <div className="w-1/6 px-2 py-4 text-sm font-medium">Quantity</div>
             <div className="w-1/6 px-2 py-4 text-sm font-medium">
               Unit Price

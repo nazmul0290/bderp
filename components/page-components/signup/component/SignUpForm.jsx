@@ -194,9 +194,10 @@ const SignUpForm = () => {
             label="Company Name  (Optional)"
           />
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={12} style={{ display: "flex", alignItems: "center" }}>
           <FormControl error={errors.privacy_aggrement}>
             <FormControlLabel
+              style={{ display: "flex", alignItems: "center" }}
               control={
                 <Checkbox
                   name="privacy_aggrement"

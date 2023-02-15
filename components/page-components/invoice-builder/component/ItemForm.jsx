@@ -1,5 +1,5 @@
 import TextField from "@/components/global-components/inputs/CustomTextField";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -13,6 +13,8 @@ import {
 import { useEffect } from "react";
 import Modal from "@/components/ui/Modal";
 import Button from "@/components/ui/Button";
+import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const ItemForm = ({ item }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -100,7 +102,28 @@ const ItemForm = ({ item }) => {
       </Modal>
       <form onSubmit={handleSubmit}>
         <div className="flex flex-col justify-between w-full md:flex-row">
-          <div className="px-2 py-4 text-sm font-medium md:w-2/6">
+          <div className="relative flex px-2 py-4 text-sm font-medium md:w-1/6">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DesktopDatePicker
+                label="Issue Date"
+                inputFormat="MM/DD/YYYY"
+                onChange={(value) => {
+                  console.log(new Date(value).toISOString());
+                }}
+                renderInput={({ inputRef, inputProps, InputProps }) => {
+                  console.log(InputProps);
+                  return (
+                    <Box sx={{ display: "flex", alignItems: "center" }}>
+                      <div {...inputProps} ref={inputRef}>
+                        {InputProps?.endAdornment}
+                      </div>
+                    </Box>
+                  );
+                }}
+              />
+            </LocalizationProvider>
+          </div>
+          <div className="px-2 py-4 text-sm font-medium md:w-1/6">
             <TextField
               label="Name"
               name="name"

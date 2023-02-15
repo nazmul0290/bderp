@@ -21,6 +21,8 @@ const ResetForm = () => {
   const { resetPassword } = useAuth();
   const { email, token } = router.query;
 
+  console.log(email, token);
+
   const { mutate, isLoading } = useMutation(resetMutation);
 
   const { values, errors, touched, handleSubmit, handleChange } = useFormik({
@@ -79,11 +81,10 @@ const ResetForm = () => {
             </Grid>
 
             <Grid item xs={12}>
-              {isLoading ? (
-                <LoadingButton />
-              ) : (
-                <Button fullWidth> Set new Password </Button>
-              )}
+              <Button disabled={isLoading} className="w-full">
+                {" "}
+                Set new Password{" "}
+              </Button>
             </Grid>
           </Grid>
         </form>

@@ -68,14 +68,10 @@ const ForgotSection = () => {
               </Grid>
 
               <Grid item xs={12} className="mt-5">
-                {isLoading ? (
-                  <LoadingButton />
-                ) : (
-                  <Button fullWidth variant="contained">
-                    {" "}
-                    Send Reset Link{" "}
-                  </Button>
-                )}
+                <Button className="w-full" disabled={isLoading}>
+                  {" "}
+                  Send Reset Link{" "}
+                </Button>
               </Grid>
             </form>
             <div className="mt-5 text-center">
