@@ -1,21 +1,20 @@
 import { addInvoiceInformation } from "@/redux/resolvers/invoiceSlice";
 import isEmpty from "@/utils/is-empty";
 import { invoiceCreateMutation } from "@/utils/resolvers/mutation";
+import { dateParsing, downloadFile } from "@/utils/tools";
+import { invoiceDetailsValidation } from "@/utils/yupValidation";
 import dayjs from "dayjs";
 import { useFormik } from "formik";
 import React from "react";
 import { useMutation } from "react-query";
 import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import InvoiceController from "./component/InvoiceController";
 import InvoiceForm from "./component/InvoiceForm";
 
-const dateParsing = (date) => {
-  return new Date(date).toLocaleDateString("en-CA");
-};
-
 const FormSection = () => {
   const invoice = useSelector((state) => state.invoice);
-  console.log(invoice);
+
   const dispatch = useDispatch();
 
   const invoiceFormik = useFormik({
@@ -27,25 +26,28 @@ const FormSection = () => {
       invoice_terms: "",
       company_logo: "",
     },
+    validationSchema: invoiceDetailsValidation,
   });
 
   const { mutate, isLoading } = useMutation(invoiceCreateMutation);
 
   const downloadPDFHandler = async () => {
-    await dispatch(
-      addInvoiceInformation({
-        ...invoiceFormik.values,
-        issue_date: dateParsing(invoiceFormik.values.issue_date),
-        due_date: dateParsing(invoiceFormik.values.due_date),
-      })
-    );
+    if (!invoiceFormik.values.invoice_number) {
+      invoiceFormik.setFieldTouched("invoice_number", true);
+      invoiceFormik.setFieldError("invoice_number");
+      console.log(invoiceFormik.errors);
+      return;
+    }
+
     console.log(invoiceFormik.values);
     const variables = {};
-    if (!isEmpty(invoice.issue_date))
-      variables.invoice_date = invoice.issue_date;
-    if (!isEmpty(invoice.due_date)) variables.due_date = invoice.due_date;
-    if (!isEmpty(invoice.invoice_type))
-      variables.invoice_type = invoice.invoice_type;
+
+    if (!isEmpty(invoiceFormik.values.issue_date))
+      variables.invoice_date = dateParsing(invoiceFormik.values.issue_date);
+    if (!isEmpty(invoiceFormik.values.issue_date))
+      variables.due_date = dateParsing(invoiceFormik.values.due_date);
+    if (!isEmpty(invoiceFormik.values.invoice_type))
+      variables.invoice_type = invoiceFormik.values.invoice_type;
 
     variables.order_discount = invoice.order_discount;
 
@@ -55,6 +57,8 @@ const FormSection = () => {
     variables.total_amount = invoice.total_amount;
     variables.total_tax = invoice.total_tax;
 
+    variables.invoice_number = invoiceFormik.values.invoice_number;
+
     variables.grand_total_amount =
       invoice.total_amount +
       invoice.shipping_charge +
@@ -62,8 +66,8 @@ const FormSection = () => {
       invoice.order_discount;
     if (!isEmpty(invoice.adjustment_text))
       variables.adjustment_text = invoice.adjustment_text;
-    if (!isEmpty(invoice.invoice_terms))
-      variables.invoice_terms = invoice.invoice_terms;
+    if (!isEmpty(invoiceFormik.values.invoice_terms))
+      variables.invoice_terms = invoiceFormik.values.invoice_terms;
     if (!isEmpty(invoice.invoice_currency))
       variables.invoice_currency = invoice.invoice_currency;
 
@@ -72,22 +76,28 @@ const FormSection = () => {
       variables.invoiceItems = invoice.items.map((item) => {
         return { ...item, is_taxable: item.is_taxable ? 1 : 0 };
       });
-    if (!isEmpty(invoice.information.sender_details.first_name))
+
+    if (!isEmpty(invoice.information.sender_details.company_name)) {
       variables.sender = invoice.information.sender_details;
-    if (!isEmpty(invoice.information.reciever_details.first_name))
+    } else {
+      return toast.error("Sender information is mission.");
+    }
+
+    if (!isEmpty(invoice.information.reciever_details.company_name)) {
       variables.receiver = invoice.information.reciever_details;
-
-    if (!isEmpty(invoice.issue_date))
-      variables.invoice_date = invoice.issue_date;
-
-    variables.invoice_number = invoice.invoice_number;
+    } else {
+      return toast.error("Receiver Information is mission . ");
+    }
 
     console.log(variables);
+
+    // this is for download the generated pdf
 
     mutate(
       { body: variables },
       {
         onSuccess: async (data) => {
+          downloadFile("/pdf/sample.pdf", "Sample pdf");
           console.log(data);
         },
         onError: async (err) => {

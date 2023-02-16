@@ -43,6 +43,7 @@ const validationSchemaList = {
   invoice_item_name: yup.string().required("Must have name"),
   invoice_item_quantity: yup.number().min(1).required("Must have quantity"),
   invoice_item_unit_price: yup.number().min(1).required("Must have Unit Price"),
+  required: yup.string().required("Must be need "),
 };
 
 const {
@@ -56,6 +57,7 @@ const {
   invoice_item_name,
   invoice_item_quantity,
   invoice_item_unit_price,
+  required,
 } = validationSchemaList;
 
 export const invoiceItemsValidationSchema = yup.object({
@@ -94,4 +96,8 @@ export const forgotYupValidation = yup.object({
 export const resetPasswordValidation = yup.object({
   password,
   password_confirmation: password,
+});
+
+export const invoiceDetailsValidation = yup.object({
+  invoice_number: required,
 });

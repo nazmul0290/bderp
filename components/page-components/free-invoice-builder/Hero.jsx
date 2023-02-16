@@ -5,6 +5,7 @@ import Modal from "@/components/ui/Modal";
 import Paragraph from "@/components/ui/Paragraph";
 import useUser from "@/lib/hooks/useUser";
 import isEmpty from "@/utils/is-empty";
+import { Divider } from "@mui/material";
 
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -47,18 +48,19 @@ const Hero = () => {
   return (
     <>
       <Modal isOpen={isOpen} size="small" closeModal={closeModal}>
-        <div className="mx-auto max-w-[200px] ">
-          <div>
+        <div className="">
+          <div className="mx-auto max-w-[200px]">
             <Button href="/signup" className="w-full">
               Sign Up
             </Button>
           </div>
-          <div className="mt-5 ">
+          <div className="mt-5 mx-auto max-w-[200px] ">
             <Button onClick={signRouteHandler} className="w-full">
               Sign In
             </Button>
           </div>
-          <div className="mt-5 ">
+          <Divider className="mt-5">Or</Divider>
+          <div className="mt-5  mx-auto max-w-[200px]">
             <Button onClick={guestButtonHandler} className="w-full">
               Continue As a Guest
             </Button>

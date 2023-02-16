@@ -73,6 +73,7 @@ const InvoiceHeader = ({ invoiceFormik }) => {
               type="text"
               label="Invoice"
               name="invoice_number"
+              error={touched.invoice_number && Boolean(errors.invoice_number)}
               value={values.invoice_number}
               onChange={handleChange}
             />

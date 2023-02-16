@@ -10,7 +10,7 @@ import Button from "@/components/ui/Button";
 import PhoneNumberInput from "@/components/global-components/inputs/PhoneNumberInput";
 import { useDispatch } from "react-redux";
 import isEmpty from "@/utils/is-empty";
-import Paragraph from "@/components/ui/Paragraph";
+import { makeAddressString } from "@/utils/tools";
 
 const SenderRecieverBox = ({
   Icon,
@@ -241,8 +241,16 @@ const SenderRecieverBox = ({
               <p>{senderDetails?.email}</p>
               <p>{senderDetails?.country?.country_name}</p>
               <p>
-                {senderDetails?.state}, {senderDetails?.union},{" "}
-                {senderDetails?.addres_line_1}
+                {makeAddressString(
+                  senderDetails?.state_name ? senderDetails?.state_name : "",
+                  senderDetails?.district_name
+                    ? senderDetails?.district_name
+                    : "",
+                  senderDetails?.union_name ? senderDetails?.union_name : "",
+                  senderDetails?.street_address_line_1
+                    ? senderDetails?.street_address_line_1
+                    : ""
+                )}
               </p>
               <p>{senderDetails?.mobile}</p>
             </div>

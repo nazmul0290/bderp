@@ -100,7 +100,11 @@ const invoiceSlice = createSlice({
     updateItem: (state, action) => {
       state.items = state.items.map((item) => {
         if (item.id === action.payload.id) {
-          return action.payload;
+          return {
+            ...action.payload,
+            product_qty: Number(action.payload.product_qty),
+            unit_price: Number(action.payload.unit_price),
+          };
         }
         return item;
       });
