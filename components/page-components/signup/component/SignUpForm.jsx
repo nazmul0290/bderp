@@ -52,7 +52,7 @@ const initialValues = {
 const SignUpForm = () => {
   const [allCountry] = useLocalStorage("countries", getCountries);
   const { mutate, isLoading } = useMutation(registration);
-  const user = useUser({ middleware: "guest", redirectIfAuthenticated: "/" });
+  const user = useUser({ middleware: "guest", redirectIfAuthenticated: "" });
   const { registerController } = useAuth({
     redirectIfAuthenticated: "/confirm-email",
   });

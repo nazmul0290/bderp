@@ -7,10 +7,13 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import useUser from "@/lib/hooks/useUser";
 import Button from "@/components/ui/Button";
 import { useRouter } from "next/router";
+import isEmpty from "@/utils/is-empty";
 
 const ConfirmEmailPage = () => {
   const user = useUser({ middleware: "auth", redirectIfAuthenticated: "/" });
   const router = useRouter();
+
+  console.log(user);
 
   return (
     <>
@@ -28,7 +31,7 @@ const ConfirmEmailPage = () => {
               {" "}
               Confirmation Email Has been sent to{" "}
               <span className="font-bold">
-                {secureEmail(user?.user.email)}
+                {!isEmpty(user?.user.token) && secureEmail(user?.user?.email)}
               </span>{" "}
             </h1>
             <Button
