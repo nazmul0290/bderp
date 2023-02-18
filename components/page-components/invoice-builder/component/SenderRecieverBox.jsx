@@ -215,6 +215,7 @@ const SenderRecieverBox = ({
         {isEmpty(senderDetails.company_name) ? (
           <>
             <div
+            className="mb-3"
               onClick={() => {
                 setIsOpen(true);
               }}
@@ -247,7 +248,6 @@ const SenderRecieverBox = ({
                 onBlur={(e) => {
                   dispatch(showClientInfoField());
                 }}
-                className="my-2"
               />
             )}
           </>

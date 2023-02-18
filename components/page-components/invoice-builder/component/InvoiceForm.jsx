@@ -57,6 +57,7 @@ const InvoiceForm = ({ invoiceFormik }) => {
         </div>
         {invoice.description_edit && (
           <div
+          className="my-3"
             onBlur={() => {
               dispatch(showDescriptionField());
             }}
@@ -64,7 +65,7 @@ const InvoiceForm = ({ invoiceFormik }) => {
             <TextField
               autoFocus
               fullWidth
-              className="my-3"
+              className=""
               placeholder="invoice description"
             />
           </div>
