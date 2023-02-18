@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 const InformationSection = () => {
   const invoice = useSelector((state) => state.invoice);
   return (
-    <div className="flex gap-5 mt-10 cursor-pointer">
+    <div className="flex gap-5 mt-10 cursor-pointer items-start">
       <SenderRecieverBox
         Icon={ApartmentIcon}
         contactFor="Sender contact details"

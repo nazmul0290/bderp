@@ -9,6 +9,11 @@ const SummarySection = () => {
     .reduce((total, subtotal) => (total += subtotal), 0)
     .toFixed(2);
 
+  const tax = [...items]
+    ?.map((item) => parseInt(item.tax_amount))
+    .reduce((total, totalTax) => (total += totalTax), 0)
+    .toFixed(2);
+
   return (
     <div className="flex justify-end w-full mt-5 ">
       <div className="w-2/3"></div>
@@ -23,7 +28,7 @@ const SummarySection = () => {
           </div>
           <div className="flex justify-between">
             <p>Tax</p>
-            <p>$ 0.00</p>
+            <p>$ {tax}</p>
           </div>
           <div className="flex justify-between">
             <p>Total</p>

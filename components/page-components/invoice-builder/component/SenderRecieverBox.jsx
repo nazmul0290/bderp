@@ -11,6 +11,7 @@ import PhoneNumberInput from "@/components/global-components/inputs/PhoneNumberI
 import { useDispatch } from "react-redux";
 import isEmpty from "@/utils/is-empty";
 import { makeAddressString } from "@/utils/tools";
+import { showClientInfoField, showCompanyInfoField } from "@/redux/resolvers/invoiceSlice";
 
 const SenderRecieverBox = ({
   Icon,
@@ -210,26 +211,45 @@ const SenderRecieverBox = ({
           </div>
         </form>
       </Modal>
-      <div
-        className="w-1/2 p-4 transition-all duration-100 border-2 border-dashed rounded-md hover:border-solid hover:border-purple-400"
-        onClick={() => {
-          setIsOpen(true);
-        }}
-      >
+      <div className="w-1/2 p-4 transition-all duration-100 border-2 border-dashed rounded-md hover:border-solid hover:border-purple-400">
         {isEmpty(senderDetails.company_name) ? (
           <>
-            <div>
-              <h1 className="mb-1 font-bold">{infoFor}</h1>
-            </div>
-            <div className="flex gap-5">
+            <div
+              onClick={() => {
+                setIsOpen(true);
+              }}
+            >
               <div>
-                <Icon fontSize="large" />
+                <h1 className="mb-1 font-bold">{infoFor}</h1>
               </div>
-              <div>
-                <h1>{nameFor}</h1>
-                <p>{contactFor}</p>
+              <div className="flex gap-5">
+                <div>
+                  <Icon fontSize="large" />
+                </div>
+                <div>
+                  <h1>{nameFor}</h1>
+                  <p>{contactFor}</p>
+                </div>
               </div>
             </div>
+            {senderDetails?.company_info_edit && (
+              <TextField
+                autoFocus
+                onBlur={(e) => {
+                  dispatch(showCompanyInfoField());
+                }}
+                className="my-2"
+              />
+            )}
+            {senderDetails?.client_info_edit && (
+              <TextField
+                autoFocus
+                onBlur={(e) => {
+                  dispatch(showClientInfoField());
+                }}
+                className="my-2"
+              />
+            )}
           </>
         ) : (
           <div>

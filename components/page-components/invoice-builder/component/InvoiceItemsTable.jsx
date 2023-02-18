@@ -1,25 +1,28 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ItemForm from "./ItemForm";
-import CheckIcon from "@mui/icons-material/Check";
+import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from "@mui/icons-material/Delete";
 import { makeEditable, removeItem } from "@/redux/resolvers/invoiceSlice";
 import { makePriceString } from "@/utils/tools";
 
 const InvoiceItemsTable = () => {
   const items = useSelector((state) => state.invoice.items);
+  const dynamicFormRef = useRef(null);
   const [tax, setTax] = useState([
     {
       value: 0,
       display: "Non Taxable",
       is_taxable: false,
+      tax_name: "",
+      tax_rate: 0
     },
   ]);
 
   const dispatch = useDispatch();
 
   return (
-    <section className="mt-10">
+    <section className="mt-10 dynamic_form_section" ref={dynamicFormRef}>
       <div className="overflow-hidden border rounded-md">
         <section className="w-fulloverflow-auto ">
           <div className="flex justify-between w-full text-white bg-gray-800 border-b">
@@ -50,7 +53,7 @@ const InvoiceItemsTable = () => {
 
             if (item.isEditing) {
               return (
-                <ItemForm key={item.id} item={item} tax={tax} setTax={setTax} />
+                <ItemForm dynamicFormRef={dynamicFormRef} key={item.id} item={item} tax={tax} setTax={setTax} />
               );
             }
 
@@ -77,8 +80,11 @@ const InvoiceItemsTable = () => {
                   </div>
 
                   <div className="w-1/12 px-2 py-4 text-sm invoice__items--action">
-                    <button onClick={makeEditableHandler}>
-                      <CheckIcon />
+                    <button onClick={(event) => {
+                      event.stopPropagation();
+                      makeEditableHandler();
+                      }}>
+                      <EditIcon />
                     </button>
                     <button onClick={deleteItem}>
                       <DeleteIcon />
@@ -86,8 +92,8 @@ const InvoiceItemsTable = () => {
                   </div>
                 </div>
                 {item.product_desctiption && (
-                  <div className="flex justify-center w-full border-b ">
-                    <div className="w-5/6 px-2 py-4 text-sm">
+                  <div className="flex justify-end w-full border-b ">
+                    <div className="w-5/6 px-2 pb-4 text-sm">
                       {item.product_desctiption}
                     </div>
                   </div>

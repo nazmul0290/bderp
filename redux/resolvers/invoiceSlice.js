@@ -5,11 +5,14 @@ const initialState = {
   invoice_number: "",
   issue_date: "",
   due_date: "",
+  description_edit: false,
+  description: "",
   information: {
     sender_details: {
       display_name: "",
       attention: "",
       company_name: "",
+      company_info_edit: false,
       company_info: "",
       first_name: "",
       last_name: "",
@@ -33,6 +36,7 @@ const initialState = {
       display_name: "",
       attention: "",
       company_name: "",
+      client_info_edit: false,
       company_info: "",
       first_name: "",
       last_name: "",
@@ -143,6 +147,22 @@ const invoiceSlice = createSlice({
         return item;
       });
     },
+    showCompanyInfoField: (state, action) => {
+      state.information.sender_details = {
+        ...state.information.sender_details,
+        company_info_edit: !state.information.sender_details.company_info_edit,
+      };
+    },
+    showClientInfoField: (state, action) => {
+      state.information.reciever_details = {
+        ...state.information.reciever_details,
+        client_info_edit: !state.information.reciever_details.client_info_edit,
+      };
+    },
+    showDescriptionField: (state, action) => {
+      state.description_edit = !state.description_edit;
+      console.log(state);
+    },
     addInvoiceInformation: (state, action) => {
       console.log(action.payload);
       const {
@@ -169,6 +189,9 @@ export const {
   removeItem,
   makeEditable,
   addInvoiceInformation,
+  showCompanyInfoField,
+  showClientInfoField,
+  showDescriptionField,
 } = invoiceSlice.actions;
 
 export default invoiceSlice.reducer;

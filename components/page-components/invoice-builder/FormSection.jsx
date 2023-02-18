@@ -15,6 +15,8 @@ import InvoiceForm from "./component/InvoiceForm";
 const FormSection = () => {
   const invoice = useSelector((state) => state.invoice);
 
+  console.log(invoice);
+
   const dispatch = useDispatch();
 
   const invoiceFormik = useFormik({

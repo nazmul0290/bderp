@@ -7,7 +7,7 @@ import {
   Select,
   TextareaAutosize,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useFormik } from "formik";
@@ -26,9 +26,8 @@ import uuid from "react-uuid";
 import { dateParsing } from "@/utils/tools";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
-const ItemForm = ({ item, tax, setTax }) => {
+const ItemForm = ({ item, tax, setTax, dynamicFormRef }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const dispatch = useDispatch();
   const initialValues = {
     product_name: item.product_name,
@@ -36,11 +35,11 @@ const ItemForm = ({ item, tax, setTax }) => {
     unit_price: item.unit_price,
     product_desctiption: item.product_desctiption,
     product_discount: item.product_discount,
-    is_taxable: false,
-    tax_name: "",
-    tax_rate: 0,
-    tax_amount: 0,
-    service_date: "",
+    is_taxable: item.is_taxable,
+    tax_name: item.tax_name,
+    tax_rate: item.tax_rate,
+    tax_amount: item.tax_amount,
+    service_date: item.service_date ? item.service_date : "",
   };
   const { values, errors, touched, handleChange, handleSubmit, setFieldValue } =
     useFormik({
@@ -53,6 +52,8 @@ const ItemForm = ({ item, tax, setTax }) => {
           isEditing: false,
           ...values,
           subtotal: values.product_qty * values.unit_price, //I will change it
+          tax_amount:
+            ((values.unit_price * values.tax_rate) / 100) * values.product_qty,
         };
 
         console.log(variables);
@@ -78,7 +79,7 @@ const ItemForm = ({ item, tax, setTax }) => {
           tax_rate: values.tax,
         },
       ];
-
+      console.log("vals", values);
       setTax(newTax);
       setFieldValue("is_taxable", true);
       setFieldValue("tax_name", values.name);
@@ -102,8 +103,25 @@ const ItemForm = ({ item, tax, setTax }) => {
     if (value.is_taxable) {
       setFieldValue("tax_name", value.tax_name);
       setFieldValue("tax_rate", value.tax_rate);
+    }else{
+      setFieldValue("tax_name", "");
+      setFieldValue("tax_rate", 0);
     }
   };
+
+  useEffect(() => {
+    document.addEventListener("click", (e) => {
+      if (dynamicFormRef.current) {
+        if (
+          e?.target?.closest(".dynamic_form_section") !== dynamicFormRef.current
+        ) {
+          if (e?.target?.tagName !== "BODY") {
+            handleSubmit();
+          }
+        }
+      }
+    });
+  }, []);
 
   return (
     <>
@@ -113,7 +131,12 @@ const ItemForm = ({ item, tax, setTax }) => {
         isOpen={isOpen}
         closeModal={closeModal}
       >
-        <form onSubmit={formik.handleSubmit}>
+        <form
+          onSubmit={formik.handleSubmit}
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+        >
           <div>
             <TextField
               label="Name"
@@ -140,13 +163,19 @@ const ItemForm = ({ item, tax, setTax }) => {
           </div>
         </form>
       </Modal>
-      <form onSubmit={handleSubmit}>
+      <form className="dynamicRow" onSubmit={handleSubmit}>
         <div className="flex flex-col w-full md:flex-row">
-          <div className="flex px-2 py-4 text-sm font-medium md:w-2/12">
+          <div
+            className="flex px-2 py-4 text-sm font-medium md:w-2/12"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 label="Issue Date"
                 inputFormat="MM/DD/YYYY"
+                value={values.service_date && values.service_date}
                 onChange={(value) => {
                   setFieldValue("service_date", dateParsing(new Date(value)));
                 }}
@@ -215,13 +244,16 @@ const ItemForm = ({ item, tax, setTax }) => {
                 label="Tax"
                 name="tax"
                 size="small"
+                value={tax.find((e) => e.tax_name === values.tax_name)}
                 onChange={taxOnChangeHandler}
+                onClick={(e) => {
+                  e.stopPropagation();
+                }}
               >
                 {tax.map((item) => {
                   return (
                     <MenuItem
                       key={item.value}
-                      defaultChecked={item.name === values.tax_name}
                       value={item}
                     >
                       {item.display}
@@ -233,7 +265,7 @@ const ItemForm = ({ item, tax, setTax }) => {
                     value: 1,
                     is_taxable: false,
                   }}
-                  onClick={() => {
+                  onClick={(e) => {
                     setIsOpen(true);
                   }}
                 >

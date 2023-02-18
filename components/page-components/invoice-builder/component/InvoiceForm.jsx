@@ -3,11 +3,15 @@ import InvoiceHeader from "./InvoiceHeader";
 
 import InvoiceItemsTable from "./InvoiceItemsTable";
 import uuid from "react-uuid";
-import { addInvoiceItem } from "@/redux/resolvers/invoiceSlice";
+import {
+  addInvoiceItem,
+  showDescriptionField,
+} from "@/redux/resolvers/invoiceSlice";
 import { useDispatch, useSelector } from "react-redux";
 import isEmpty from "@/utils/is-empty";
 import SummarySection from "./SummarySection";
 import InformationSection from "./InformationSection";
+import { TextareaAutosize, TextField } from "@mui/material";
 
 const InvoiceForm = ({ invoiceFormik }) => {
   const invoice = useSelector((state) => state.invoice);
@@ -51,13 +55,30 @@ const InvoiceForm = ({ invoiceFormik }) => {
         <div>
           <InformationSection />
         </div>
+        {invoice.description_edit && (
+          <div
+            onBlur={() => {
+              dispatch(showDescriptionField());
+            }}
+          >
+            <TextField
+              autoFocus
+              fullWidth
+              className="my-3"
+              placeholder="invoice description"
+            />
+          </div>
+        )}
         <div>
           <InvoiceItemsTable />
         </div>
         <div className="mt-3">
           <div
             className="p-3 font-bold text-center transition-all duration-100 border-2 border-dashed rounded-md cursor-pointer hover:border-solid hover:border-purple-400"
-            onClick={addNewItemHandler}
+            onClick={(event) => {
+              event.stopPropagation();
+              addNewItemHandler();
+            }}
           >
             <h1>Add new Invoice Item</h1>
           </div>

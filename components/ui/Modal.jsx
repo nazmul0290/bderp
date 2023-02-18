@@ -7,7 +7,7 @@ import CloseIcon from "@mui/icons-material/Close";
 const Modal = ({ isOpen, closeModal, children, title, size }) => {
   return (
     <>
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isOpen} as={Fragment} onClick={(e) => e.stopPropagation()}>
         <Dialog
           as="div"
           className="fixed inset-0 z-20 overflow-y-auto"
